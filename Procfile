@@ -1,0 +1,1 @@
+web: gunicorn cmsparagon.wsgi --log-file -
