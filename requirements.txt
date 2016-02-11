@@ -9,5 +9,4 @@ requests==2.8.0
 selenium==2.47.3
 splinter==0.7.3
 swampy==2.1.7
-vboxapi==1.0
 wsgiref==0.1.2
