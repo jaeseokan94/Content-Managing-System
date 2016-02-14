@@ -1,6 +1,8 @@
-from django.conf.urls import url, include
+from django.conf.urls import patterns, url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from django.conf import settings
+
 
 from . import views
 
@@ -13,3 +15,7 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+if not settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )
