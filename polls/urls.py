@@ -2,10 +2,14 @@ from django.conf.urls import patterns, url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from django.conf import settings
+from django.contrib import admin
+
 
 
 from . import views
 
+
+admin.autodiscover()
 
 app_name='polls'
 urlpatterns = [
