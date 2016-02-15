@@ -30,6 +30,8 @@ class Choice(models.Model):
 class Language(models.Model):
     name = models.CharField(max_length=200)
     name2 = models.CharField(max_length=200)
+    class Meta:
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
