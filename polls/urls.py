@@ -22,8 +22,9 @@ urlpatterns = [
 
     url(r'^api/language/$', views.json_language_list),
     url(r'^api/language/(?P<pk>[0-9]+)/$', views.json_language_list),
-    url(r'^api/topics/$', views.json_topic_list),
-    url(r'^api/topics/(?P<pk>[0-9]+)/$', views.json_topic_detail),
+    url(r'^api/topic/$', views.json_topic_list),
+    url(r'^api/topic/(?P<pk>[0-9]+)/$', views.json_topic_detail),
+    url(r'^api/topic/(?P<level>[a-z]+)/$', views.json_level_topics),
 
     url(r'^language/$', views.language_list, name='language_list'),
     url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),

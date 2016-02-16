@@ -59,8 +59,8 @@ def json_topic_list(request):
     List all topics
     """
     if request.method == 'GET':
-        topic = Topic.objects.all()
-        serializer = TopicSerializer(topic, many=True)
+        topics = Topic.objects.all()
+        serializer = TopicSerializer(topics, many=True)
         return JSONResponse(serializer.data)
 
 @csrf_exempt
@@ -77,7 +77,15 @@ def json_topic_detail(request, pk):
         serializer = TopicSerializer(topic)
         return JSONResponse(serializer.data)
 
-
+@csrf_exempt
+def json_level_topics(request, level):
+    """
+    Retrieve a topics in a level
+    """
+    if request.method == 'GET':
+        queryset = Topic.objects.filter(level=level)
+        serializer = TopicSerializer(queryset, many=True)
+        return JSONResponse(serializer.data)
 
 class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
