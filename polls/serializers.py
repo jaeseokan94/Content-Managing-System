@@ -2,7 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language
+from polls.models import Language, Topic
 '''
 from polls.serializers import LanguageSerializer
 serializer=LanguageSerializer(language)
@@ -29,3 +29,10 @@ class LanguageSerializer(serializers.Serializer):
         instance.name2 = validated_data.get('code', instance.name2)
         instance.save()
         return instance
+
+
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = ('level', 'topic_name')
+

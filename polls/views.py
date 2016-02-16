@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from polls.models import Language
-from polls.serializers import LanguageSerializer
+from polls.serializers import LanguageSerializer, TopicSerializer
 
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
@@ -70,6 +70,32 @@ def snippet_detail(request, pk):
     elif request.method == 'DELETE':
         language.delete()
         return HttpResponse(status=204)
+
+# TOPIC API
+
+@csrf_exempt
+def topic_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        topic = Topic.objects.all()
+        serializer = TopicSerializer(topic, many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def topic_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        topic = Topic.objects.get(pk=pk)
+    except Topic.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = TopicSerializer(topic)
+        return JSONResponse(serializer.data)
 
 
 
