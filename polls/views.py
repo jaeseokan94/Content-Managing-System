@@ -28,27 +28,19 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
-def snippet_list(request):
+def json_language_list(request):
     """
-    List all code snippets, or create a new snippet.
+    List all languages
     """
     if request.method == 'GET':
         language = Language.objects.all()
         serializer = LanguageSerializer(language, many=True)
         return JSONResponse(serializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
-
 @csrf_exempt
-def snippet_detail(request, pk):
+def json_language_detail(request, pk):
     """
-    Retrieve, update or delete a code snippet.
+    Retrieve a language
     """
     try:
         language = Language.objects.get(pk=pk)
@@ -59,24 +51,12 @@ def snippet_detail(request, pk):
         serializer = LanguageSerializer(language)
         return JSONResponse(serializer.data)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(language, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        language.delete()
-        return HttpResponse(status=204)
-
 # TOPIC API
 
 @csrf_exempt
 def json_topic_list(request):
     """
-    List all code snippets, or create a new snippet.
+    List all topics
     """
     if request.method == 'GET':
         topic = Topic.objects.all()
@@ -86,7 +66,7 @@ def json_topic_list(request):
 @csrf_exempt
 def json_topic_detail(request, pk):
     """
-    Retrieve, update or delete a code snippet.
+    Retrieve a topic
     """
     try:
         topic = Topic.objects.get(pk=pk)
