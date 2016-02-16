@@ -11,10 +11,10 @@ print(repr(serializer))
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ('name', 'name2')
+        fields = ('pk', 'name', 'name2')
 
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Topic
-        fields = ('level', 'topic_name')
+        fields = ('pk', 'level', 'topic_name')
 
