@@ -4,7 +4,12 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Choice, Question
+#from tutorial 3 for language_list()
+from django.http import HttpResponse
+from django.template import loader
+
+from .models import Choice, Question, Language, Topic
+
 
 
 class IndexView(generic.ListView):
@@ -48,3 +53,19 @@ def vote(request, question_id):
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
 		return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def language_list(request):
+	language_list = Language.objects.all()
+	context = {'language_list': language_list,}
+	return render(request, 'polls/languagelist.html', context)
+
+
+def language_detail(request, language_name):
+	language = get_object_or_404(Language, name=language_name)
+	return render(request, 'polls/languagedetail.html', {'language': language})
+
+def topic_list(request):
+	topic_list = Topic.objects.all()
+	return render(request, 'polls/topiclist.html', {'topic_list': topic_list})
+

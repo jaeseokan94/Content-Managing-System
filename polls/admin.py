@@ -6,7 +6,7 @@ admin.site.register(Language)
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-	pass
+	list_filter = ('language',)
 
 admin.site.register(SituationalVideo)
 admin.site.register(LectureVideo)
