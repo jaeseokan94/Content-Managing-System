@@ -21,6 +21,10 @@ urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^snippets/$', views.snippet_list),
     url(r'^snippets/(?P<pk>[0-9]+)/$', views.snippet_detail),
+    # ex: /polls/5/
+    url(r'^language/$', views.language_list, name='language_list'),
+    url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
+    url(r'^topics/$', views.topic_list, name='topic_list')
 ]
 if not settings.DEBUG:
     urlpatterns += patterns(
