@@ -74,7 +74,7 @@ def snippet_detail(request, pk):
 # TOPIC API
 
 @csrf_exempt
-def topic_list(request):
+def json_topic_list(request):
     """
     List all code snippets, or create a new snippet.
     """
@@ -84,7 +84,7 @@ def topic_list(request):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
-def topic_detail(request, pk):
+def json_topic_detail(request, pk):
     """
     Retrieve, update or delete a code snippet.
     """
