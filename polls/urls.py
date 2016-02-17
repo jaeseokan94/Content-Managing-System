@@ -24,10 +24,14 @@ urlpatterns = [
     # ex: /polls/5/
     url(r'^language/$', views.language_list, name='language_list'),
     url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
-    url(r'^topics/$', views.topic_list, name='topic_list')
+    url(r'^topics/$', views.topic_list, name='topic_list'),
+    #url(r'^list/$', 'list', name='list'),
 ]
+
+
 if not settings.DEBUG:
     urlpatterns += patterns(
 '',
- (r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
+    (r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )  
+

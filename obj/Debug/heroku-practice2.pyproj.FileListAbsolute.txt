@@ -1,0 +1,11 @@
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\attach_server.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\visualstudio_py_debugger.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\visualstudio_py_repl.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\visualstudio_py_util.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\__init__.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\obj\Debug\__main__.py
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\bin\AzureSetup.cfg
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Users\Shubham Goel\Source\Repos\heroku-practice2\bin\wfastcgi.py
