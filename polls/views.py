@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from polls.models import Language
-from polls.serializers import LanguageSerializer
+from polls.serializers import LanguageSerializer, TopicSerializer
 
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
@@ -28,27 +28,19 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
-def snippet_list(request):
+def json_language_list(request):
     """
-    List all code snippets, or create a new snippet.
+    List all languages
     """
     if request.method == 'GET':
         language = Language.objects.all()
         serializer = LanguageSerializer(language, many=True)
         return JSONResponse(serializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
-
 @csrf_exempt
-def snippet_detail(request, pk):
+def json_language_detail(request, pk):
     """
-    Retrieve, update or delete a code snippet.
+    Retrieve a language
     """
     try:
         language = Language.objects.get(pk=pk)
@@ -59,19 +51,41 @@ def snippet_detail(request, pk):
         serializer = LanguageSerializer(language)
         return JSONResponse(serializer.data)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(language, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
+# TOPIC API
 
-    elif request.method == 'DELETE':
-        language.delete()
-        return HttpResponse(status=204)
+@csrf_exempt
+def json_topic_list(request):
+    """
+    List all topics
+    """
+    if request.method == 'GET':
+        topics = Topic.objects.all()
+        serializer = TopicSerializer(topics, many=True)
+        return JSONResponse(serializer.data)
 
+@csrf_exempt
+def json_topic_detail(request, pk):
+    """
+    Retrieve a topic
+    """
+    try:
+        topic = Topic.objects.get(pk=pk)
+    except Topic.DoesNotExist:
+        return HttpResponse(status=404)
 
+    if request.method == 'GET':
+        serializer = TopicSerializer(topic)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def json_level_topics(request, level):
+    """
+    Retrieve a topics in a level
+    """
+    if request.method == 'GET':
+        queryset = Topic.objects.filter(level=level)
+        serializer = TopicSerializer(queryset, many=True)
+        return JSONResponse(serializer.data)
 
 class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
