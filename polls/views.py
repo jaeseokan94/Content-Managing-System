@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Choice, Question, Language, Topic
+from .models import Choice, Question, Language, Topic, LanguageTopic
 
 
 class JSONResponse(HttpResponse):
@@ -130,12 +130,14 @@ def language_detail(request, language_name):
 
 
 @csrf_exempt
-def situational_video_list(request):
+def situational_video_list(request, language, level , topic_name):
     """
     List all code snippets, or create a new snippet.
     """
     if request.method == 'GET':
-        video = SituationalVideo.objects.all()
+        topic = Topic.objects.get(topic_name=topic_name)
+        language_topic = LanguageTopic.objects.get(topic=topic.id)
+        video = SituationalVideo.objects.get(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)
 

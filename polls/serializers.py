@@ -35,8 +35,16 @@ class LanguageSerializer(serializers.Serializer):
 
 
 
-class SituationalVideoSerializer(serializers.Serializer):
-    pk = serializers.IntegerField(read_only=True)
+class SituationalVideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SituationalVideo
+        fields = ('language_topic','situation_description','video_with_transcript','video_wihtout_transcript')
+
+
+
+
+'''
+  pk = serializers.IntegerField(read_only=True)
     language_topic = serializers.IntergerField(required=True)
     situational_description = serializers.CharField(required=True)
     video_with_transcript =serializers.FileField(required=True)
@@ -47,7 +55,7 @@ class SituationalVideoSerializer(serializers.Serializer):
         Create and return a new `Snippet` instance, given the validated data.
         """
         return SituationalVideo.objects.create(**validated_data)
-    '''
+
     def update(self, instance, validated_data):
         """
         Update and return an existing `Snippet` instance, given the validated data.
@@ -58,4 +66,4 @@ class SituationalVideoSerializer(serializers.Serializer):
         instance.video_without_transcript = validated_data.get('noTranscript',instance.video_without_transcript)
         instance.save()
         return instance
-    '''
+'''

@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
     url(r'^topics/$', views.topic_list, name='topic_list'),
     #url(r'^list/$', 'list', name='list'),
-    url(r'^situationalVideo/$', views.situational_video_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/situationalVideo/st/$', views.situational_video_list),
     url(r'^situationalVideo/(?P<pk>[0-9]+)/$', views.situational_video_detail),
 ]
 
