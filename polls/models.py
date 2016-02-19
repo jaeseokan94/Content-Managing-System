@@ -63,6 +63,8 @@ class SituationalVideo(models.Model):
     situation_description = models.CharField(max_length=200)
     video_with_transcript = models.FileField(null=True, blank=True)
     video_wihtout_transcript =  models.FileField(null=True, blank=True)
+    class Meta:
+        ordering = ('language_topic',)
     # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):

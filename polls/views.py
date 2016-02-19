@@ -4,6 +4,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from polls.models import Language
 from polls.serializers import LanguageSerializer
+from polls.serializers import SituationalVideoSerializer
+from polls.serializers import SituationalVideo
 
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
@@ -125,6 +127,44 @@ def language_list(request):
 def language_detail(request, language_name):
 	language = get_object_or_404(Language, name=language_name)
 	return render(request, 'polls/languagedetail.html', {'language': language})
+
+
+@csrf_exempt
+def situational_video_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        video = SituationalVideo.objects.all()
+        serializer = SituationalVideoSerializer(video, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = SituationalVideoSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def situational_video_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        situationalVideo = SituationalVideo.objects.get(pk=pk)
+    except SituationalVideo.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = SituationalVideoSerializer(situationalVideo)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'DELETE':
+        situationalVideo.delete()
+        return HttpResponse(status=204)
+
 
 def topic_list(request):
 	topic_list = Topic.objects.all()
