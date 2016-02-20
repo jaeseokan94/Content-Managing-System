@@ -79,3 +79,10 @@ class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
+
+class Resource(models.Model):
+    dialect_id = models.ForeignKey(Dialect, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    name_in_language = models.CharField(max_length=200)
+    instructions = models.CharField(max_length=200)
+    instructions_in_language = models.CharField(max_length=200)
