@@ -92,4 +92,11 @@ class ResourceItem(models.Model):
     word = models.CharField(max_length=200)
     word_in_language = models.CharField(max_length=200)
     pronounciation_guide_or_date = models.CharField(max_length=200)
-    instructions_in_language = models.CharField(max_length=200)
+    audio_url = models.FileField(null=True, blank=True)
+
+class ResourceItemPicture(models.Model):
+    resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    phrase = models.CharField(max_length=200)
+    phrase_in_language = models.CharField(max_length=200)
+    picture_url = models.FileField(null=True, blank=True)
+    audio_url = models.FileField(null=True, blank=True)
