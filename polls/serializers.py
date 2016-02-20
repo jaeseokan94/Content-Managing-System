@@ -3,7 +3,7 @@ __author__ = 'JAESEOKAN'
 
 from rest_framework import serializers
 from polls.models import Language
-from polls.models import SituationalVideo
+from polls.models import SituationalVideo, LanguageSubtopic, ExerciseQuestion
 
 '''
 from polls.serializers import LanguageSerializer
@@ -40,7 +40,15 @@ class SituationalVideoSerializer(serializers.ModelSerializer):
         model = SituationalVideo
         fields = ('language_topic','situation_description','video_with_transcript','video_wihtout_transcript')
 
+class GrammarVideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LanguageSubtopic
+        fields = ('language_topic','subtopic_name','video_url')
 
+class ExerciseQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExerciseQuestion
+        fields = ('exercise','question_text','choice_answers','correct_answer')
 
 
 '''
