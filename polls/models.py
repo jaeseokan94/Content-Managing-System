@@ -3,6 +3,14 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+RESOURCES = (
+    ('Alphabet', 'Alphabet'),
+    ('Numbers', 'Numbers'),
+    ('Days of the Week', 'Days of the Week'),
+    ('Holidays', 'Holidays'),
+    ('Seasons and Months', 'Seasons and Months'),
+    ('Time', 'Time'),
+)
 
 # fs = FileSystemStorage(location='/media/videos')
 
@@ -80,12 +88,18 @@ class Dialect(models.Model):
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 class Resource(models.Model):
     dialect_id = models.ForeignKey(Dialect, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, choices=RESOURCES, default=[0][0])
     name_in_language = models.CharField(max_length=200)
     instructions = models.CharField(max_length=200)
     instructions_in_language = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class ResourceItem(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
@@ -94,9 +108,15 @@ class ResourceItem(models.Model):
     pronounciation_guide_or_date = models.CharField(max_length=200)
     audio_url = models.FileField(null=True, blank=True)
 
+    def __str__(self):
+        return self.word
+
 class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)
     phrase_in_language = models.CharField(max_length=200)
     picture_url = models.FileField(null=True, blank=True)
     audio_url = models.FileField(null=True, blank=True)
+
+    def __str__(self):
+        return self.phrase

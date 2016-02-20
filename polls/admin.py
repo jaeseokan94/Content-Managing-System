@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Language, Topic, SituationalVideo, LectureVideo, Exercise
+from .models import Language, Topic, SituationalVideo, LectureVideo, Exercise, Dialect, Resource, ResourceItem, ResourceItemPicture
 
 admin.site.register(Language)
 
@@ -11,3 +11,7 @@ class TopicAdmin(admin.ModelAdmin):
 admin.site.register(SituationalVideo)
 admin.site.register(LectureVideo)
 admin.site.register(Exercise)
+admin.site.register(Dialect)
+admin.site.register(Resource)
+admin.site.register(ResourceItem)
+admin.site.register(ResourceItemPicture)
