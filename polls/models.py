@@ -86,3 +86,10 @@ class Resource(models.Model):
     name_in_language = models.CharField(max_length=200)
     instructions = models.CharField(max_length=200)
     instructions_in_language = models.CharField(max_length=200)
+
+class ResourceItem(models.Model):
+    resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    word = models.CharField(max_length=200)
+    word_in_language = models.CharField(max_length=200)
+    pronounciation_guide_or_date = models.CharField(max_length=200)
+    instructions_in_language = models.CharField(max_length=200)
