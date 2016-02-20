@@ -75,6 +75,3 @@ class Exercise(models.Model):
     def __str__(self):
         return self.question_text
 
-
-class Learn(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
