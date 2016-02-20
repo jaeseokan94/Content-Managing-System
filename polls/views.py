@@ -1,91 +1,11 @@
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
-from polls.models import Language
-from polls.serializers import LanguageSerializer, TopicSerializer
-
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
 
-#from tutorial 3 for language_list()
-from django.http import HttpResponse
-from django.template import loader
+from .models import Choice, Question
 
-from .models import Choice, Question, Language, Topic
-
-
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
-
-@csrf_exempt
-def json_language_list(request):
-    """
-    List all languages
-    """
-    if request.method == 'GET':
-        language = Language.objects.all()
-        serializer = LanguageSerializer(language, many=True)
-        return JSONResponse(serializer.data)
-
-@csrf_exempt
-def json_language_detail(request, pk):
-    """
-    Retrieve a language
-    """
-    try:
-        language = Language.objects.get(pk=pk)
-    except Language.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = LanguageSerializer(language)
-        return JSONResponse(serializer.data)
-
-# TOPIC API
-
-@csrf_exempt
-def json_topic_list(request):
-    """
-    List all topics
-    """
-    if request.method == 'GET':
-        topics = Topic.objects.all()
-        serializer = TopicSerializer(topics, many=True)
-        return JSONResponse(serializer.data)
-
-@csrf_exempt
-def json_topic_detail(request, pk):
-    """
-    Retrieve a topic
-    """
-    try:
-        topic = Topic.objects.get(pk=pk)
-    except Topic.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = TopicSerializer(topic)
-        return JSONResponse(serializer.data)
-
-@csrf_exempt
-def json_level_topics(request, level):
-    """
-    Retrieve a topics in a level
-    """
-    if request.method == 'GET':
-        queryset = Topic.objects.filter(level=level)
-        serializer = TopicSerializer(queryset, many=True)
-        return JSONResponse(serializer.data)
 
 class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
@@ -128,19 +48,3 @@ def vote(request, question_id):
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
 		return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
-def language_list(request):
-	language_list = Language.objects.all()
-	context = {'language_list': language_list,}
-	return render(request, 'polls/languagelist.html', context)
-
-
-def language_detail(request, language_name):
-	language = get_object_or_404(Language, name=language_name)
-	return render(request, 'polls/languagedetail.html', {'language': language})
-
-def topic_list(request):
-	topic_list = Topic.objects.all()
-	return render(request, 'polls/topiclist.html', {'topic_list': topic_list})
-
