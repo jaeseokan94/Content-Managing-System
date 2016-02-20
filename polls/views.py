@@ -137,17 +137,10 @@ def situational_video_list(request, language, level , topic_name):
     if request.method == 'GET':
         topic = Topic.objects.get(topic_name=topic_name)
         language_topic = LanguageTopic.objects.get(topic=topic.id)
-        video = SituationalVideo.objects.get(language_topic=language_topic.id)
+        video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = SituationalVideoSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
 
 @csrf_exempt
 def situational_video_detail(request, pk):

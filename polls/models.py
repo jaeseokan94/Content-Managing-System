@@ -63,8 +63,7 @@ class SituationalVideo(models.Model):
     situation_description = models.CharField(max_length=200)
     video_with_transcript = models.FileField(null=True, blank=True)
     video_wihtout_transcript =  models.FileField(null=True, blank=True)
-    class Meta:
-        ordering = ('language_topic',)
+
     # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):
@@ -73,7 +72,7 @@ class SituationalVideo(models.Model):
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
-    video_url = models.CharField(max_length=200, null=True)
+    video_url = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.subtopic_name
