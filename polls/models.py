@@ -50,32 +50,17 @@ class Topic(models.Model):
     def __str__(self):
         return self.topic_name
 
-class LanguageTopic(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    topic_name_in_language = models.CharField(max_length=200, default="Saludo")
- 
-    def __str__(self):
-        return self.topic_name_in_language
-
 
 class SituationalVideo(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
-    video_with_transcript = models.FileField(null=True, blank=True)
-    video_wihtout_transcript =  models.FileField(null=True, blank=True)
 
     # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):
         return self.situation_description
 
-
-class LanguageSubtopic(models.Model):
-    language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
-    subtopic_name = models.CharField(max_length=200, null=True)
-    video_url = models.FileField(null=True, blank=True)
 
 class LectureVideo(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
