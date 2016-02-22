@@ -38,50 +38,68 @@ class Choice(models.Model):
 class Language(models.Model):
     name = models.CharField(max_length=200)
     name2 = models.CharField(max_length=200)
+    class Meta:
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
 
 
 class Topic(models.Model):
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, blank=True)
+    LEVEL = (
+        ('b', 'Beginner'),
+        ('i', 'Intermediate')
+    )
+
+    level = models.CharField(max_length=1, choices=LEVEL, default=LEVEL[0][0])
     topic_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.topic_name
 
+class LanguageTopic(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    topic_name_in_language = models.CharField(max_length=200, default="Saludo")
+
+    def __str__(self):
+        return self.topic_name_in_language
+
 
 class SituationalVideo(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
+    language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
-
+    video_with_transcript = models.CharField(max_length=200, null=True)
+    video_wihtout_transcript = models.CharField(max_length=200, null=True)
     # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):
         return self.situation_description
 
-
-class LectureVideo(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
-    lecture_topic = models.CharField(max_length=200)
-    video_url = models.CharField(max_length=200)
+class LanguageSubtopic(models.Model):
+    language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
+    subtopic_name = models.CharField(max_length=200, null=True)
+    video_url = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.lecture_topic
-
+        return self.subtopic_name
 
 class Exercise(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
-    question_type = models.CharField(max_length=200)
+    language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
+    instructions = models.CharField(max_length=500, null=True)
+
+    def __str__(self):
+        return self.language_subtopic.subtopic_name
+
+class ExerciseQuestion(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
     choice_answers = models.CharField(max_length=200)
     correct_answer = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.question_text
+        return self.exercise.language_subtopic.subtopic_name + "," + self.question_text
+
 
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
@@ -120,3 +138,4 @@ class ResourceItemPicture(models.Model):
 
     def __str__(self):
         return self.phrase
+
