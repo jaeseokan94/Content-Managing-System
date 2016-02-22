@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{800ce5c3-5f11-4399-beb2-ade1eb75535b}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="contributors.txt" />
+    <Content Include="mysite\staticfiles\admin\css\base.css" />
+    <Content Include="mysite\staticfiles\admin\css\changelists.css" />
+    <Content Include="mysite\staticfiles\admin\css\dashboard.css" />
+    <Content Include="mysite\staticfiles\admin\css\forms.css" />
+    <Content Include="mysite\staticfiles\admin\css\ie.css" />
+    <Content Include="mysite\staticfiles\admin\css\login.css" />
+    <Content Include="mysite\staticfiles\admin\css\rtl.css" />
+    <Content Include="mysite\staticfiles\admin\css\widgets.css" />
+    <Content Include="mysite\staticfiles\admin\img\changelist-bg.gif" />
+    <Content Include="mysite\staticfiles\admin\img\changelist-bg_rtl.gif" />
+    <Content Include="mysite\staticfiles\admin\img\default-bg-reverse.gif" />
+    <Content Include="mysite\staticfiles\admin\img\default-bg.gif" />
+    <Content Include="mysite\staticfiles\admin\img\deleted-overlay.gif" />
+    <Content Include="mysite\staticfiles\admin\img\gis\move_vertex_off.png" />
+    <Content Include="mysite\staticfiles\admin\img\gis\move_vertex_on.png" />
+    <Content Include="mysite\staticfiles\admin\img\icon-no.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon-unknown.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon-yes.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_addlink.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_alert.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_calendar.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_changelink.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_clock.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_deletelink.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_error.gif" />
+    <Content Include="mysite\staticfiles\admin\img\icon_searchbox.png" />
+    <Content Include="mysite\staticfiles\admin\img\icon_success.gif" />
+    <Content Include="mysite\staticfiles\admin\img\inline-delete-8bit.png" />
+    <Content Include="mysite\staticfiles\admin\img\inline-delete.png" />
+    <Content Include="mysite\staticfiles\admin\img\inline-restore-8bit.png" />
+    <Content Include="mysite\staticfiles\admin\img\inline-restore.png" />
+    <Content Include="mysite\staticfiles\admin\img\inline-splitter-bg.gif" />
+    <Content Include="mysite\staticfiles\admin\img\nav-bg-grabber.gif" />
+    <Content Include="mysite\staticfiles\admin\img\nav-bg-reverse.gif" />
+    <Content Include="mysite\staticfiles\admin\img\nav-bg-selected.gif" />
+    <Content Include="mysite\staticfiles\admin\img\nav-bg.gif" />
+    <Content Include="mysite\staticfiles\admin\img\selector-icons.gif" />
+    <Content Include="mysite\staticfiles\admin\img\selector-search.gif" />
+    <Content Include="mysite\staticfiles\admin\img\sorting-icons.gif" />
+    <Content Include="mysite\staticfiles\admin\img\tooltag-add.png" />
+    <Content Include="mysite\staticfiles\admin\img\tooltag-arrowright.png" />
+    <Content Include="mysite\staticfiles\admin\js\actions.js" />
+    <Content Include="mysite\staticfiles\admin\js\actions.min.js" />
+    <Content Include="mysite\staticfiles\admin\js\admin\DateTimeShortcuts.js" />
+    <Content Include="mysite\staticfiles\admin\js\admin\RelatedObjectLookups.js" />
+    <Content Include="mysite\staticfiles\admin\js\calendar.js" />
+    <Content Include="mysite\staticfiles\admin\js\collapse.js" />
+    <Content Include="mysite\staticfiles\admin\js\collapse.min.js" />
+    <Content Include="mysite\staticfiles\admin\js\core.js" />
+    <Content Include="mysite\staticfiles\admin\js\inlines.js" />
+    <Content Include="mysite\staticfiles\admin\js\inlines.min.js" />
+    <Content Include="mysite\staticfiles\admin\js\jquery.init.js" />
+    <Content Include="mysite\staticfiles\admin\js\jquery.js" />
+    <Content Include="mysite\staticfiles\admin\js\jquery.min.js" />
+    <Content Include="mysite\staticfiles\admin\js\LICENSE-JQUERY.txt" />
+    <Content Include="mysite\staticfiles\admin\js\prepopulate.js" />
+    <Content Include="mysite\staticfiles\admin\js\prepopulate.min.js" />
+    <Content Include="mysite\staticfiles\admin\js\related-widget-wrapper.js" />
+    <Content Include="mysite\staticfiles\admin\js\SelectBox.js" />
+    <Content Include="mysite\staticfiles\admin\js\SelectFilter2.js" />
+    <Content Include="mysite\staticfiles\admin\js\timeparse.js" />
+    <Content Include="mysite\staticfiles\admin\js\urlify.js" />
+    <Content Include="mysite\staticfiles\rest_framework\css\bootstrap-tweaks.css" />
+    <Content Include="mysite\staticfiles\rest_framework\css\bootstrap.min.css" />
+    <Content Include="mysite\staticfiles\rest_framework\css\default.css" />
+    <Content Include="mysite\staticfiles\rest_framework\css\prettify.css" />
+    <Content Include="mysite\staticfiles\rest_framework\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="mysite\staticfiles\rest_framework\img\glyphicons-halflings-white.png" />
+    <Content Include="mysite\staticfiles\rest_framework\img\glyphicons-halflings.png" />
+    <Content Include="mysite\staticfiles\rest_framework\img\grid.png" />
+    <Content Include="mysite\staticfiles\rest_framework\js\bootstrap.min.js" />
+    <Content Include="mysite\staticfiles\rest_framework\js\default.js" />
+    <Content Include="mysite\staticfiles\rest_framework\js\jquery-1.8.1-min.js" />
+    <Content Include="mysite\staticfiles\rest_framework\js\prettify-min.js" />
+    <Content Include="polls\templates\polls\detail.html" />
+    <Content Include="polls\templates\polls\index.html" />
+    <Content Include="polls\templates\polls\languagedetail.html" />
+    <Content Include="polls\templates\polls\languagelist.html" />
+    <Content Include="polls\templates\polls\results.html" />
+    <Content Include="polls\templates\polls\topiclist.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="staticfiles\admin\css\base.css" />
+    <Content Include="staticfiles\admin\css\changelists.css" />
+    <Content Include="staticfiles\admin\css\dashboard.css" />
+    <Content Include="staticfiles\admin\css\forms.css" />
+    <Content Include="staticfiles\admin\css\ie.css" />
+    <Content Include="staticfiles\admin\css\login.css" />
+    <Content Include="staticfiles\admin\css\rtl.css" />
+    <Content Include="staticfiles\admin\css\widgets.css" />
+    <Content Include="staticfiles\admin\img\changelist-bg.gif" />
+    <Content Include="staticfiles\admin\img\changelist-bg_rtl.gif" />
+    <Content Include="staticfiles\admin\img\default-bg-reverse.gif" />
+    <Content Include="staticfiles\admin\img\default-bg.gif" />
+    <Content Include="staticfiles\admin\img\deleted-overlay.gif" />
+    <Content Include="staticfiles\admin\img\gis\move_vertex_off.png" />
+    <Content Include="staticfiles\admin\img\gis\move_vertex_on.png" />
+    <Content Include="staticfiles\admin\img\icon-no.gif" />
+    <Content Include="staticfiles\admin\img\icon-unknown.gif" />
+    <Content Include="staticfiles\admin\img\icon-yes.gif" />
+    <Content Include="staticfiles\admin\img\icon_addlink.gif" />
+    <Content Include="staticfiles\admin\img\icon_alert.gif" />
+    <Content Include="staticfiles\admin\img\icon_calendar.gif" />
+    <Content Include="staticfiles\admin\img\icon_changelink.gif" />
+    <Content Include="staticfiles\admin\img\icon_clock.gif" />
+    <Content Include="staticfiles\admin\img\icon_deletelink.gif" />
+    <Content Include="staticfiles\admin\img\icon_error.gif" />
+    <Content Include="staticfiles\admin\img\icon_searchbox.png" />
+    <Content Include="staticfiles\admin\img\icon_success.gif" />
+    <Content Include="staticfiles\admin\img\inline-delete-8bit.png" />
+    <Content Include="staticfiles\admin\img\inline-delete.png" />
+    <Content Include="staticfiles\admin\img\inline-restore-8bit.png" />
+    <Content Include="staticfiles\admin\img\inline-restore.png" />
+    <Content Include="staticfiles\admin\img\inline-splitter-bg.gif" />
+    <Content Include="staticfiles\admin\img\nav-bg-grabber.gif" />
+    <Content Include="staticfiles\admin\img\nav-bg-reverse.gif" />
+    <Content Include="staticfiles\admin\img\nav-bg-selected.gif" />
+    <Content Include="staticfiles\admin\img\nav-bg.gif" />
+    <Content Include="staticfiles\admin\img\selector-icons.gif" />
+    <Content Include="staticfiles\admin\img\selector-search.gif" />
+    <Content Include="staticfiles\admin\img\sorting-icons.gif" />
+    <Content Include="staticfiles\admin\img\tooltag-add.png" />
+    <Content Include="staticfiles\admin\img\tooltag-arrowright.png" />
+    <Content Include="staticfiles\admin\js\actions.js" />
+    <Content Include="staticfiles\admin\js\actions.min.js" />
+    <Content Include="staticfiles\admin\js\admin\DateTimeShortcuts.js" />
+    <Content Include="staticfiles\admin\js\admin\RelatedObjectLookups.js" />
+    <Content Include="staticfiles\admin\js\calendar.js" />
+    <Content Include="staticfiles\admin\js\collapse.js" />
+    <Content Include="staticfiles\admin\js\collapse.min.js" />
+    <Content Include="staticfiles\admin\js\core.js" />
+    <Content Include="staticfiles\admin\js\inlines.js" />
+    <Content Include="staticfiles\admin\js\inlines.min.js" />
+    <Content Include="staticfiles\admin\js\jquery.init.js" />
+    <Content Include="staticfiles\admin\js\jquery.js" />
+    <Content Include="staticfiles\admin\js\jquery.min.js" />
+    <Content Include="staticfiles\admin\js\LICENSE-JQUERY.txt" />
+    <Content Include="staticfiles\admin\js\prepopulate.js" />
+    <Content Include="staticfiles\admin\js\prepopulate.min.js" />
+    <Content Include="staticfiles\admin\js\related-widget-wrapper.js" />
+    <Content Include="staticfiles\admin\js\SelectBox.js" />
+    <Content Include="staticfiles\admin\js\SelectFilter2.js" />
+    <Content Include="staticfiles\admin\js\timeparse.js" />
+    <Content Include="staticfiles\admin\js\urlify.js" />
+    <Content Include="staticfiles\rest_framework\css\bootstrap-tweaks.css" />
+    <Content Include="staticfiles\rest_framework\css\bootstrap.min.css" />
+    <Content Include="staticfiles\rest_framework\css\default.css" />
+    <Content Include="staticfiles\rest_framework\css\prettify.css" />
+    <Content Include="staticfiles\rest_framework\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="staticfiles\rest_framework\img\glyphicons-halflings-white.png" />
+    <Content Include="staticfiles\rest_framework\img\glyphicons-halflings.png" />
+    <Content Include="staticfiles\rest_framework\img\grid.png" />
+    <Content Include="staticfiles\rest_framework\js\bootstrap.min.js" />
+    <Content Include="staticfiles\rest_framework\js\default.js" />
+    <Content Include="staticfiles\rest_framework\js\jquery-1.8.1-min.js" />
+    <Content Include="staticfiles\rest_framework\js\prettify-min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="manage.py" />
+    <Compile Include="mysite\settings.py" />
+    <Compile Include="mysite\urls.py" />
+    <Compile Include="mysite\wsgi.py" />
+    <Compile Include="mysite\__init__.py" />
+    <Compile Include="polls\admin.py" />
+    <Compile Include="polls\apps.py" />
+    <Compile Include="polls\migrations\0001_initial.py" />
+    <Compile Include="polls\migrations\0002_exercise_learn_lecturevideo_situationalvideo.py" />
+    <Compile Include="polls\migrations\0003_auto_20160207_1727.py" />
+    <Compile Include="polls\migrations\0004_auto_20160208_1511.py" />
+    <Compile Include="polls\migrations\0005_language_name2.py" />
+    <Compile Include="polls\migrations\0006_auto_20160215_2110.py" />
+    <Compile Include="polls\migrations\0006_auto_20160216_1851.py" />
+    <Compile Include="polls\migrations\0007_auto_20160216_1912.py" />
+    <Compile Include="polls\migrations\0008_auto_20160216_1914.py" />
+    <Compile Include="polls\migrations\0009_languagesubtopic.py" />
+    <Compile Include="polls\migrations\0010_grammarvideo.py" />
+    <Compile Include="polls\migrations\0011_auto_20160216_1917.py" />
+    <Compile Include="polls\migrations\0012_auto_20160216_1919.py" />
+    <Compile Include="polls\migrations\0013_exercisequestion.py" />
+    <Compile Include="polls\migrations\0014_auto_20160216_1929.py" />
+    <Compile Include="polls\migrations\0015_auto_20160216_1932.py" />
+    <Compile Include="polls\migrations\0016_remove_languagetopic_topic_name.py" />
+    <Compile Include="polls\migrations\0017_remove_languagetopic_topic_name_in_english.py" />
+    <Compile Include="polls\migrations\0018_exercisequestion_exercise.py" />
+    <Compile Include="polls\migrations\0019_remove_exercise_exercise_name.py" />
+    <Compile Include="polls\migrations\0020_auto_20160216_1948.py" />
+    <Compile Include="polls\migrations\0021_merge.py" />
+    <Compile Include="polls\migrations\0022_auto_20160216_2035.py" />
+    <Compile Include="polls\migrations\0023_auto_20160216_2037.py" />
+    <Compile Include="polls\migrations\__init__.py" />
+    <Compile Include="polls\models.py" />
+    <Compile Include="polls\serializers.py" />
+    <Compile Include="polls\tests.py" />
+    <Compile Include="polls\urls.py" />
+    <Compile Include="polls\views.py" />
+    <Compile Include="polls\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="mysite" />
+    <Folder Include="mysite\staticfiles\" />
+    <Folder Include="mysite\staticfiles\admin\" />
+    <Folder Include="mysite\staticfiles\admin\css" />
+    <Folder Include="mysite\staticfiles\admin\img" />
+    <Folder Include="mysite\staticfiles\admin\img\gis" />
+    <Folder Include="mysite\staticfiles\admin\js" />
+    <Folder Include="mysite\staticfiles\admin\js\admin" />
+    <Folder Include="mysite\staticfiles\rest_framework\" />
+    <Folder Include="mysite\staticfiles\rest_framework\css" />
+    <Folder Include="mysite\staticfiles\rest_framework\fonts" />
+    <Folder Include="mysite\staticfiles\rest_framework\img" />
+    <Folder Include="mysite\staticfiles\rest_framework\js" />
+    <Folder Include="polls" />
+    <Folder Include="polls\migrations" />
+    <Folder Include="polls\templates\" />
+    <Folder Include="polls\templates\polls" />
+    <Folder Include="staticfiles\" />
+    <Folder Include="staticfiles\admin\" />
+    <Folder Include="staticfiles\admin\css" />
+    <Folder Include="staticfiles\admin\img" />
+    <Folder Include="staticfiles\admin\img\gis" />
+    <Folder Include="staticfiles\admin\js" />
+    <Folder Include="staticfiles\admin\js\admin" />
+    <Folder Include="staticfiles\rest_framework\" />
+    <Folder Include="staticfiles\rest_framework\css" />
+    <Folder Include="staticfiles\rest_framework\fonts" />
+    <Folder Include="staticfiles\rest_framework\img" />
+    <Folder Include="staticfiles\rest_framework\js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58980/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
