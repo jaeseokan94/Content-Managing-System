@@ -1,0 +1,10 @@
+<h1>List of all languages</h1>
+{% if language_list %}
+    <ul>
+    {% for language in language_list %}
+        <li><a href="/polls/language/{{ language.name }}/">{{ language.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No languages are available.</p>
+{% endif %}
