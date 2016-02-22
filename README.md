@@ -23,5 +23,12 @@ Going back to certain commit      http://stackoverflow.com/questions/4114095/rev
     git reset --soft HEAD@{1}
     git commit -m "Revert to 56e05fced"
     git reset --hard
+    
+Remove branch : There are local and remote branch you need to remove after merge.
+1. Remove local branch
+    git branch -D (local branch name)
+
+2. Remove remote branch
+    git push origin :{the_remote_branch}
 
 
