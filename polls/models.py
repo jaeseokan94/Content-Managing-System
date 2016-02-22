@@ -3,6 +3,8 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+
+# fs = FileSystemStorage(location='/media/videos')
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
     ('Numbers', 'Numbers'),
@@ -12,7 +14,6 @@ RESOURCES = (
     ('Time', 'Time'),
 )
 
-# fs = FileSystemStorage(location='/media/videos')
 
 # Create your models here.
 class Question(models.Model):
@@ -61,7 +62,7 @@ class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     topic_name_in_language = models.CharField(max_length=200, default="Saludo")
-
+ 
     def __str__(self):
         return self.topic_name_in_language
 
@@ -69,8 +70,9 @@ class LanguageTopic(models.Model):
 class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
-    video_with_transcript = models.CharField(max_length=200, null=True)
-    video_wihtout_transcript = models.CharField(max_length=200, null=True)
+    video_with_transcript = models.FileField(null=True, blank=True)
+    video_wihtout_transcript =  models.FileField(null=True, blank=True)
+
     # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):
@@ -79,7 +81,7 @@ class SituationalVideo(models.Model):
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
-    video_url = models.CharField(max_length=200, null=True)
+    video_url = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.subtopic_name
@@ -101,6 +103,7 @@ class ExerciseQuestion(models.Model):
         return self.exercise.language_subtopic.subtopic_name + "," + self.question_text
 
 
+# Added resources model.
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -138,4 +141,3 @@ class ResourceItemPicture(models.Model):
 
     def __str__(self):
         return self.phrase
-
