@@ -6,6 +6,8 @@ from django.contrib import admin
 
 
 
+
+
 from . import views
 
 
@@ -17,10 +19,26 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
-	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^snippets/$', views.snippet_list),
+    url(r'^snippets/(?P<pk>[0-9]+)/$', views.snippet_detail),
+    # ex: /polls/5/
+    url(r'^language/$', views.language_list, name='language_list'),
+    url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
+    url(r'^topics/$', views.topic_list, name='topic_list'),
+    #url(r'^list/$', 'list', name='list'),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/situationalVideo/st/$', views.situational_video_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/grammarVideo/$', views.grammar_video_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/exerciseQuestion/$', views.exercise_question_list),
+
+
+
 ]
+
+
 if not settings.DEBUG:
     urlpatterns += patterns(
 '',
- (r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
+    (r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )  
+
