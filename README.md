@@ -27,9 +27,11 @@ Going back to certain commit      http://stackoverflow.com/questions/4114095/rev
 Remove branch 
 
 Remove local branch
+
     git branch -D (local branch name)
 
 Remove remote branch
+
     git push origin :{the_remote_branch}
 
 
