@@ -48,7 +48,7 @@ class GrammarVideoSerializer(serializers.ModelSerializer):
 class ExerciseQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseQuestion
-        fields = ('exercise','question_text','choice_answers','correct_answer')
+        fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
 
 
 '''
