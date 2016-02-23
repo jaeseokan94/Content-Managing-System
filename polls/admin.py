@@ -9,14 +9,27 @@ class TopicAdmin(admin.ModelAdmin):
 	list_filter = ('level',)
 
 @admin.register(LanguageTopic)
-class TopicAdmin(admin.ModelAdmin):
+class LanguageTopicAdmin(admin.ModelAdmin):
 	list_filter = ('language',)
 
-admin.site.register(LanguageSubtopic)
-admin.site.register(SituationalVideo)
+@admin.register(ExerciseQuestion)
+class ExerciseQuestionAdmin(admin.ModelAdmin):
+	list_filter = ('exercise',)
+
+@admin.register(Dialect)
+class DialectAdmin(admin.ModelAdmin):
+	list_filter = ('language_id',)
+
+@admin.register(LanguageSubtopic)
+class LanguageSubtopicAdmin(admin.ModelAdmin):
+	list_filter = ('language_topic',)
+
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
+	list_filter = ('dialect_id',)
+
 admin.site.register(Exercise)
-admin.site.register(ExerciseQuestion)
-admin.site.register(Dialect)
-admin.site.register(Resource)
+admin.site.register(SituationalVideo)
+
 admin.site.register(ResourceItem)
 admin.site.register(ResourceItemPicture)
