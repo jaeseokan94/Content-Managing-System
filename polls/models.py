@@ -14,6 +14,11 @@ RESOURCES = (
     ('Time', 'Time'),
 )
 
+LEVEL = (
+    ('b', 'Beginner'),
+    ('i', 'Intermediate'),
+)
+
 
 class Language(models.Model):
     name = models.CharField(max_length=200)
@@ -26,11 +31,6 @@ class Language(models.Model):
 
 
 class Topic(models.Model):
-    LEVEL = (
-        ('b', 'Beginner'),
-        ('i', 'Intermediate')
-    )
-
     level = models.CharField(max_length=1, choices=LEVEL, default=LEVEL[0][0])
     topic_name = models.CharField(max_length=200)
 
@@ -51,8 +51,6 @@ class SituationalVideo(models.Model):
     situation_description = models.CharField(max_length=200)
     video_with_transcript = models.FileField(null=True, blank=True)
     video_wihtout_transcript =  models.FileField(null=True, blank=True)
-
-    # video_file = models.FileField(storage=fs, blank=True)
 
     def __str__(self):
         return self.situation_description
