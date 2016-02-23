@@ -8,7 +8,10 @@ admin.site.register(Language)
 class TopicAdmin(admin.ModelAdmin):
 	list_filter = ('level',)
 
-admin.site.register(LanguageTopic)
+@admin.register(LanguageTopic)
+class TopicAdmin(admin.ModelAdmin):
+	list_filter = ('language',)
+
 admin.site.register(LanguageSubtopic)
 admin.site.register(SituationalVideo)
 admin.site.register(Exercise)
