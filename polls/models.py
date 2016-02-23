@@ -4,7 +4,6 @@ from django.db import models
 from django.utils import timezone
 
 
-# fs = FileSystemStorage(location='/media/videos')
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
     ('Numbers', 'Numbers'),
