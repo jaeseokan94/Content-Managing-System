@@ -75,7 +75,12 @@ class Exercise(models.Model):
 class ExerciseQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
-    choice_answers = models.CharField(max_length=200)
+    choice_1 = models.CharField(max_length=200, blank=True)
+    choice_2 = models.CharField(max_length=200, blank=True)
+    choice_3 = models.CharField(max_length=200, blank=True)
+    choice_4 = models.CharField(max_length=200, blank=True)
+    choice_5 = models.CharField(max_length=200, blank=True)
+    choice_6 = models.CharField(max_length=200, blank=True)
     correct_answer = models.CharField(max_length=200)
 
     def __str__(self):
