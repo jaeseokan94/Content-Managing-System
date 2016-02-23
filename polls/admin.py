@@ -28,8 +28,13 @@ class LanguageSubtopicAdmin(admin.ModelAdmin):
 class ResourceAdmin(admin.ModelAdmin):
 	list_filter = ('dialect_id',)
 
+@admin.register(ResourceItem)
+class ResourceItemAdmin(admin.ModelAdmin):
+	list_filter = ('resource_id',)
+
+@admin.register(ResourceItemPicture)
+class ResourceItemPictureAdmin(admin.ModelAdmin):
+	list_filter = ('resource_id',)
+
 admin.site.register(Exercise)
 admin.site.register(SituationalVideo)
-
-admin.site.register(ResourceItem)
-admin.site.register(ResourceItemPicture)

@@ -107,7 +107,7 @@ class Resource(models.Model):
 class ResourceItem(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     word = models.CharField(max_length=200)
-    word_in_language = models.CharField(max_length=200, null=True)
+    word_in_language = models.CharField(max_length=200, blank=True, default="")
     pronounciation_guide_or_date = models.CharField(max_length=200)
     audio_url = models.FileField(null=True, blank=True)
 
