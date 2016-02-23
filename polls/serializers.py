@@ -43,7 +43,7 @@ class SituationalVideoSerializer(serializers.ModelSerializer):
 class GrammarVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LanguageSubtopic
-        fields = ('language_topic','subtopic_name','video_url')
+        fields = ('language_topic','subtopic_name','grammar_video_file')
 
 class ExerciseQuestionSerializer(serializers.ModelSerializer):
     class Meta:
