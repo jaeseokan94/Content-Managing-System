@@ -70,7 +70,7 @@ class Exercise(models.Model):
     instructions_in_language = models.CharField(max_length=500, null=True)
 
     def __str__(self):
-        return self.language_subtopic.subtopic_name
+        return self.language_subtopic.subtopic_name + "|" + self.instructions
 
 class ExerciseQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
