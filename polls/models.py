@@ -39,7 +39,7 @@ class Topic(models.Model):
 class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    topic_name_in_language = models.CharField(max_length=200, default="Saludo")
+    topic_name_in_language = models.CharField(max_length=200, blank=True)
  
     def __str__(self):
         return self.topic_name_in_language

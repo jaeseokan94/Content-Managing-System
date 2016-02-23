@@ -6,7 +6,7 @@ admin.site.register(Language)
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-	pass
+	list_filter = ('level',)
 
 admin.site.register(LanguageTopic)
 admin.site.register(LanguageSubtopic)
