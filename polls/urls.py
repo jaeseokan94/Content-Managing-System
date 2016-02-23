@@ -23,9 +23,9 @@ urlpatterns = [
     url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
     url(r'^topics/$', views.topic_list, name='topic_list'),
     #url(r'^list/$', 'list', name='list'),
-    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/situationalVideo/st/$', views.situational_video_list),
-    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/grammarVideo/$', views.grammar_video_list),
-    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[a-zA-Z0-9]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/exerciseQuestion/$', views.exercise_question_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w+\s\w+]+)/situationalVideo/$', views.situational_video_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w+\s\w+]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/grammarVideo/$', views.grammar_video_list),
+    url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w+\s\w+]+)/(?P<subtopic_name>[a-zA-Z0-9]+)/exerciseQuestion/$', views.exercise_question_list),
 
 
 
