@@ -17,7 +17,7 @@ RESOURCES = (
 
 class Language(models.Model):
     name = models.CharField(max_length=200)
-    name2 = models.CharField(max_length=200)
+    name_in_language = models.CharField(max_length=200)
     class Meta:
         ordering = ('name',)
 
