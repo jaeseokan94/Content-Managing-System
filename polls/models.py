@@ -48,6 +48,7 @@ class LanguageTopic(models.Model):
 class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
+    situation_description_in_language = models.CharField(max_length=200, blank=True)
     video_with_transcript = models.FileField(null=True, blank=True)
     video_wihtout_transcript =  models.FileField(null=True, blank=True)
 
