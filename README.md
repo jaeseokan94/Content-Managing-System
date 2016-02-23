@@ -1,4 +1,4 @@
-# heroku-practice
+# Content Managing System for Android app
 cms - paragon , Django + Android project
 Git merge (Branch into master) http://stackoverflow.com/questions/5601931/best-and-safest-way-to-merge-a-git-branch-into-master
 
@@ -17,3 +17,4 @@ Going back to certain commit http://stackoverflow.com/questions/4114095/revert-g
     git reset --soft HEAD@{1}
     git commit -m "Revert to 56e05fced"
     git reset --hard
+
