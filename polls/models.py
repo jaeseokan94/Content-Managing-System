@@ -84,7 +84,7 @@ class ExerciseQuestion(models.Model):
     correct_answer = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.exercise.language_subtopic.subtopic_name + "," + self.question_text
+        return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
 
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
