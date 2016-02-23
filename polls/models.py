@@ -58,7 +58,7 @@ class SituationalVideo(models.Model):
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
-    video_url = models.FileField(null=True, blank=True)
+    grammar_video_file = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.subtopic_name
