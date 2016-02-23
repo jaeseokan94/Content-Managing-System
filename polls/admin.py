@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect
+from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect
 
 admin.site.register(Language)
 
@@ -14,6 +14,10 @@ class LanguageTopicAdmin(admin.ModelAdmin):
 
 @admin.register(ExerciseQuestion)
 class ExerciseQuestionAdmin(admin.ModelAdmin):
+	list_filter = ('exercise',)
+
+@admin.register(ExerciseVocabularyQuestion)
+class ExerciseVocabularyQuestionAdmin(admin.ModelAdmin):
 	list_filter = ('exercise',)
 
 @admin.register(Dialect)

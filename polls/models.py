@@ -18,6 +18,14 @@ LEVEL = (
     ('i', 'Intermediate'),
 )
 
+CHOICES = [
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6)
+]
 
 class Language(models.Model):
     name = models.CharField(max_length=200)
@@ -82,6 +90,20 @@ class ExerciseQuestion(models.Model):
     choice_5 = models.CharField(max_length=200, blank=True)
     choice_6 = models.CharField(max_length=200, blank=True)
     correct_answer = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
+
+class ExerciseVocabularyQuestion(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
+    question_text = models.CharField(max_length=200)
+    choice_1 = models.FileField(null=True, blank=True)
+    choice_2 = models.FileField(null=True, blank=True)
+    choice_3 = models.FileField(null=True, blank=True)
+    choice_4 = models.FileField(null=True, blank=True)
+    choice_5 = models.FileField(null=True, blank=True)
+    choice_6 = models.FileField(null=True, blank=True)
+    correct_answer = models.CharField(max_length=1, choices=CHOICES, default=CHOICES[0])
 
     def __str__(self):
         return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
