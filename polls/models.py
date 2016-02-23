@@ -79,8 +79,6 @@ class ExerciseQuestion(models.Model):
     def __str__(self):
         return self.exercise.language_subtopic.subtopic_name + "," + self.question_text
 
-
-# Added resources model.
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
