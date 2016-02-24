@@ -18,3 +18,10 @@ Going back to certain commit http://stackoverflow.com/questions/4114095/revert-g
     git commit -m "Revert to 56e05fced"
     git reset --hard
 
+Git new branch - Local 
+
+    git checkout -b your_branch
+
+and then push it to remote. 
+
+    git push origin <branch-name>
