@@ -21,6 +21,7 @@ Going back to certain commit http://stackoverflow.com/questions/4114095/revert-g
 Git new branch - Local 
 
     git checkout -b your_branch
+    
 
 and then push it to remote. 
 
