@@ -54,12 +54,11 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
 
 
 @csrf_exempt
-def situational_video_list(request, language, topic_name):
+def situational_video_list(request, language, level, topic_name):
 
     if request.method == 'GET':
-        # topic_level = Topic.objects.get(level=level)
         lang = Language.objects.get(name=language)
-        topic = Topic.objects.get(topic_name=topic_name)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
         language_topic = LanguageTopic.objects.filter(language=lang.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
