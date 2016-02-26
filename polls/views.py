@@ -30,49 +30,6 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-@csrf_exempt
-def snippet_list(request):
-    """
-    List all code snippets, or create a new snippet.
-    """
-    if request.method == 'GET':
-        language = Language.objects.all()
-        serializer = LanguageSerializer(language, many=True)
-        return JSONResponse(serializer.data)
-
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
-
-@csrf_exempt
-def snippet_detail(request, pk):
-    """
-    Retrieve, update or delete a code snippet.
-    """
-    try:
-        language = Language.objects.get(pk=pk)
-    except Language.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = LanguageSerializer(language)
-        return JSONResponse(serializer.data)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = LanguageSerializer(language, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        language.delete()
-        return HttpResponse(status=204)
 
 def language_list(request):
     language_list = Language.objects.all()
@@ -97,14 +54,13 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
 
 
 @csrf_exempt
-def situational_video_list(request, language, level , topic_name):
+def situational_video_list(request, language, topic_name):
 
     if request.method == 'GET':
-        language = Language.objects.get(name=language)
-        topic = Topic.objects.filter(topic_name=topic_name)
-        topic_level = topic.get(level=level)
-        language_topic = LanguageTopic.objects.filter(topic=topic_level.id).get(language=language.id)
-
+        # topic_level = Topic.objects.get(level=level)
+        lang = Language.objects.get(name=language)
+        topic = Topic.objects.get(topic_name=topic_name)
+        language_topic = LanguageTopic.objects.filter(language=lang.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)

@@ -36,6 +36,14 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+class Dialect(models.Model):
+    language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    name_in_language = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 
 class Topic(models.Model):
     level = models.CharField(max_length=1, choices=LEVEL, default=LEVEL[0][0])
@@ -108,13 +116,7 @@ class ExerciseVocabularyQuestion(models.Model):
     def __str__(self):
         return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
 
-class Dialect(models.Model):
-    language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    name_in_language = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.name
 
 class Resource(models.Model):
     dialect_id = models.ForeignKey(Dialect, on_delete=models.CASCADE)
