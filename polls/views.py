@@ -57,9 +57,9 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
 def situational_video_list(request, language, level, topic_name):
 
     if request.method == 'GET':
-        lang = Language.objects.get(name=language)
+        language = Language.objects.get(name=language)
         topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
-        language_topic = LanguageTopic.objects.filter(language=lang.id).get(topic=topic.id)
+        language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)
