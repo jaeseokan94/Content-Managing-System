@@ -16,16 +16,21 @@ admin.autodiscover()
 app_name='polls'
 urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-  #  url(r'^snippets/$', views.snippet_list),
-  #  url(r'^snippets/(?P<pk>[0-9]+)/$', views.snippet_detail),
-    # ex: /polls/5/
-    url(r'^language/$', views.language_list, name='language_list'),
-    url(r'^language/(?P<language_name>[a-zA-Z0-9]+)', views.language_detail, name='language_detail'),
+
+    #url(r'^language_list/$', views.language_list, name='language_list'),
+    url(r'^language/add/$', views.language_create, name='language_create'),
+    url(r'^(?P<language_name>[\w]+)/edit/$', views.language_update, name='language_update'),
+    url(r'^(?P<language_name>[\w]+)', views.language_detail, name='language_detail'),
+
+
     url(r'^topics/$', views.topic_list, name='topic_list'),
     #url(r'^list/$', 'list', name='list'),
     url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/situationalVideo/$', views.situational_video_list),
     url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list),
     url(r'^(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exerciseQuestion/$', views.exercise_question_list),
+
+
+
 ]
 
 

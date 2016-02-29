@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -18,8 +18,8 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from polls.models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
-
+from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
+from .forms import LanguageForm
 
 class JSONResponse(HttpResponse):
     """
@@ -102,4 +102,32 @@ def situational_video_detail(request, pk):
 def topic_list(request):
     topic_list = Topic.objects.all()
     return render(request, 'polls/topiclist.html', {'topic_list': topic_list})
+
+def language_create(request):
+    form = LanguageForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect(instance.get_absolute_url())
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/language_form.html', context)
+
+def language_update(request, language_name):
+    instance = get_object_or_404(Language, name=language_name)
+    form = LanguageForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/language_form.html', context)
 

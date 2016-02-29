@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 
 RESOURCES = (
@@ -35,6 +36,9 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("polls:language_detail", kwargs={"language_name": self.name})
 
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
