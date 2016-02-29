@@ -17,9 +17,10 @@ app_name='polls'
 urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    #url(r'^language_list/$', views.language_list, name='language_list'),
+    url(r'^language/list$', views.language_list, name='language_list'),
     url(r'^language/add/$', views.language_create, name='language_create'),
     url(r'^(?P<language_name>[\w]+)/edit/$', views.language_update, name='language_update'),
+    url(r'^(?P<language_name>[\w]+)/delete', views.language_delete, name='language_delete'),
     url(r'^(?P<language_name>[\w]+)', views.language_detail, name='language_detail'),
 
 

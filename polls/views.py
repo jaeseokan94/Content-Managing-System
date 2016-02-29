@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
@@ -8,7 +9,7 @@ from polls.serializers import SituationalVideoSerializer , GrammarVideoSerialize
 from polls.serializers import SituationalVideo
 
 
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
@@ -35,13 +36,6 @@ def language_list(request):
     language_list = Language.objects.all()
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
-
-
-def language_detail(request, language_name):
-    language = get_object_or_404(Language, name=language_name)
-    return render(request, 'polls/languagedetail.html', {'language': language})
-
-
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
@@ -108,7 +102,10 @@ def language_create(request):
     if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
+            messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
     if request.method == "POST":
         print(request.POST)
 
@@ -123,11 +120,26 @@ def language_update(request, language_name):
     if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
+            messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
     context = {
         "instance": instance,
         "form": form,
     }
 
     return render(request, 'polls/language_form.html', context)
+
+def language_delete(request, language_name):
+    instance = get_object_or_404(Language, name=language_name)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return redirect("polls:language_list")
+
+def language_detail(request, language_name):
+    language = get_object_or_404(Language, name=language_name)
+    context = {'language': language}
+    return render(request, 'polls/language_detail.html', context)
+
 
