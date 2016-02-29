@@ -20,7 +20,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
-from .forms import LanguageForm, LanguageTopicForm
+from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm
 
 class JSONResponse(HttpResponse):
     """
@@ -186,7 +186,6 @@ def topic_update(request, language_name, level, topic_name):
 def situational_video_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
-
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     situational_video = SituationalVideo.objects.filter(language_topic=languagetopic.id)
@@ -200,4 +199,24 @@ def situational_video_detail(request, language_name, level, topic_name):
 
     return render(request, 'polls/situational_video_detail.html', context)
 
+def situational_video_update(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
+    instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
+
+    form = SituationalVideoForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/situational_video_form.html', context)

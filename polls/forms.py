@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Language, LanguageTopic
+from .models import Language, LanguageTopic, SituationalVideo
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -18,4 +18,15 @@ class LanguageTopicForm(forms.ModelForm):
             "topic",
             "language",
             "topic_name_in_language",
+        ]
+
+class SituationalVideoForm(forms.ModelForm):
+    class Meta:
+        model = SituationalVideo
+        fields = [
+            "language_topic",
+            "situation_description",
+            "situation_description_in_language",
+            "video_with_transcript",
+            "video_without_transcript",
         ]

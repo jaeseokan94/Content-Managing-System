@@ -72,10 +72,13 @@ class SituationalVideo(models.Model):
     situation_description = models.CharField(max_length=200)
     situation_description_in_language = models.CharField(max_length=200, blank=True)
     video_with_transcript = models.FileField(null=True, blank=True)
-    video_wihtout_transcript =  models.FileField(null=True, blank=True)
+    video_without_transcript =  models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.situation_description
+
+    def get_absolute_url(self):
+        return reverse("polls:topic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name})
 
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
