@@ -237,12 +237,16 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
+    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
 
     context = {
         'language': language,
         'topic': topic,
         'languagetopic': languagetopic,
         'language_subtopic': language_subtopic,
+        'exercise': exercise,
+        'questions': questions,
     }
 
     return render(request, 'polls/language_subtopic_detail.html', context)
@@ -251,6 +255,7 @@ def subtopic_update(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
 
     instance = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
@@ -276,16 +281,14 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name):
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
-    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
-    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
 
     context = {
         'language': language,
         'topic': topic,
         'languagetopic': languagetopic,
         'language_subtopic': language_subtopic,
-        'exercise': exercise,
-        'questions': questions,
+
+
     }
 
     return render(request, 'polls/exercise_detail.html', context)
@@ -295,6 +298,10 @@ def exercise_update(request, language_name, level, topic_name, subtopic_name):
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
+    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+
+
 
     instance = Exercise.objects.get(language_subtopic=language_subtopic.id)
 
@@ -310,6 +317,59 @@ def exercise_update(request, language_name, level, topic_name, subtopic_name):
     context = {
         "instance": instance,
         "form": form,
+        'exercise': exercise,
+        'questions': questions,
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'language_subtopic': language_subtopic,
+
     }
 
     return render(request, 'polls/exercise_form.html', context)
+
+
+def exercise_question_detail(request, language_name, level, topic_name, subtopic_name,exercise):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
+    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'language_subtopic': language_subtopic,
+        'exercise': exercise,
+        'questions': questions,
+    }
+
+    return render(request, 'polls/exercise_question_detail.html', context)
+
+def exercise_question_update(request, language_name, level, topic_name, subtopic_name, exercise):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    exercise = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+    instance = ExerciseQuestion.object.get(exercise=exercise.id)
+
+    form = ExerciseForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/exercise_question_form.html', context)

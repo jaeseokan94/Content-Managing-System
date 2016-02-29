@@ -18,9 +18,13 @@
 
 <h3>Subtopics</h3><button>Add</button>
     <ul>
-        {% for subtopic in languagesubtopics %}
-            <li>{{subtopic.subtopic_name}}</li><button>Edit</button><button>Delete</button>
+        {% for subtopic in language_subtopics %}
+            <li>{{subtopic.subtopic_name}}</li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/edit">Edit</a>
         {% endfor %}
     </ul>
+
+
+
+
 
 {% endblock content %}
