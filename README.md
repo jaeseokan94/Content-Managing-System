@@ -20,9 +20,17 @@ Going back to certain commit http://stackoverflow.com/questions/4114095/revert-g
 
 Git new branch - Local 
 
-    git checkout -b your_branch
+    git checkout -b <branchname>
     
 
 and then push it to remote. 
 
-    git push origin <branch-name>
+    git push origin <branchname>
+    
+Git remove branch -local 
+
+    git branch -D <branchname>
+Git remove branch - remote 
+
+    git push origin :<branchName>
+
