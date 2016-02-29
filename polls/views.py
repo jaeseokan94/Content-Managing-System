@@ -142,4 +142,24 @@ def language_detail(request, language_name):
     context = {'language': language}
     return render(request, 'polls/language_detail.html', context)
 
+def topic_detail(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
+
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    #situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
+    language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        #'situational_video': situational_video,
+        'language_subtopics': language_subtopics,
+    }
+
+    return render(request, 'polls/languagetopic_detail.html', context)
+
+
 
