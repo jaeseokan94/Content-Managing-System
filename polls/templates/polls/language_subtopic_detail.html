@@ -11,17 +11,19 @@
 <p>Subtopic name</p>
 <p>Subtopic name in language</p>
 
-<h3>Grammar Video</h3><button>Edit</button>
+<h3>Grammar Video</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a>
 
 <p>File</p>
 
-<h3>Exercise</h3><button>Edit</button>
+<h3>Exercise</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/exercise/edit">Edit</a>
+
+<p>instructions:  {{ exercise.instructions }}</p>>
 
 <p>Questions</p>
 <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
+    {% for question in questions %}
+    <li>{{question.question_text}}</li>
+    {% endfor %}
 </ul>
 
 {% endblock content %}

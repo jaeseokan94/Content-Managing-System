@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Language, LanguageTopic, SituationalVideo, LanguageSubtopic
+from .models import Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -39,4 +39,12 @@ class LanguageSubtopicForm(forms.ModelForm):
             "subtopic_name",
             "subtopic_name_in_language",
             "grammar_video_file",
+        ]
+
+class ExerciseForm(forms.ModelForm):
+    class Meta:
+        model = Exercise
+        fields = [
+            "instructions",
+            "instructions_in_language",
         ]

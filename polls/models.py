@@ -101,6 +101,10 @@ class Exercise(models.Model):
     def __str__(self):
         return self.language_subtopic.subtopic_name + "|" + self.instructions
 
+    def get_absolute_url(self):
+        return reverse("polls:subtopic_detail", kwargs={"language_name": self.language_subtopic.language_topic.language.name, "level": self.language_subtopic.language_topic.topic.level, "topic_name": self.language_subtopic.language_topic.topic.topic_name, "subtopic_name": self.language_subtopic.subtopic_name})
+
+
 class ExerciseQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
