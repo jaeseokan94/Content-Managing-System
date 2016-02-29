@@ -1,7 +1,13 @@
+{% extends "base.html" %}
 
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
 
 <h1>{{ language.name }}</h1>
 
 <ul>
     <li>{{ language.name_in_language }}</li>
 </ul>
+
+{% endblock content %}

@@ -220,3 +220,19 @@ def situational_video_update(request, language_name, level, topic_name):
     }
 
     return render(request, 'polls/situational_video_form.html', context)
+
+def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'language_subtopic': language_subtopic,
+    }
+
+    return render(request, 'polls/language_subtopic_detail.html', context)
