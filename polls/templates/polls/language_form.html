@@ -1,3 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+
 <h1>Language Form</h1>
 
 <form method="post" action="">
@@ -5,3 +12,5 @@
     {{ form.as_p }}
 <input type="submit" value="Save" />
 </form>
+
+{% endblock content %}

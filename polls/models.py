@@ -89,6 +89,10 @@ class LanguageSubtopic(models.Model):
     def __str__(self):
         return self.language_topic. topic_name_in_language + "|" + self.subtopic_name
 
+    def get_absolute_url(self):
+        return reverse("polls:subtopic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name, "subtopic_name": self.subtopic_name})
+
+
 class Exercise(models.Model):
     language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
     instructions = models.CharField(max_length=500, null=True)

@@ -20,7 +20,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
-from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm
+from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm
 
 class JSONResponse(HttpResponse):
     """
@@ -236,3 +236,26 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     }
 
     return render(request, 'polls/language_subtopic_detail.html', context)
+
+def subtopic_update(request, language_name, level, topic_name, subtopic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    instance = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    form = LanguageSubtopicForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/language_subtopic_form.html', context)
