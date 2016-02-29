@@ -20,7 +20,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
-from .forms import LanguageForm
+from .forms import LanguageForm, LanguageTopicForm
 
 class JSONResponse(HttpResponse):
     """
@@ -161,7 +161,25 @@ def topic_detail(request, language_name, level, topic_name):
 
     return render(request, 'polls/languagetopic_detail.html', context)
 
+def topic_update(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
 
+    instance = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
+    form = LanguageTopicForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/languagetopic_form.html', context)
 
 

@@ -64,6 +64,8 @@ class LanguageTopic(models.Model):
     def __str__(self):
         return self.topic_name_in_language
 
+    def get_absolute_url(self):
+        return reverse("polls:topic_detail", kwargs={"language_name": self.language.name, "level": self.topic.level, "topic_name": self.topic.topic_name})
 
 class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
