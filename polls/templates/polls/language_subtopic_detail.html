@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{language.name}}>{{topic.level}}>{{topic.topic_name}}</h1>
+
+<h3>Subtopics</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a>
+
+<p>Subtopic name</p>
+<p>Subtopic name in language</p>
+
+<h3>Grammar Video</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a>
+
+<p>File</p>
+
+<h3>Exercise</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/exercise/edit">Edit</a>
+
+<p>instructions:  {{ exercise.instructions }}</p>>
+
+<p>Questions</p>
+<ul>
+    {% for question in questions %}
+    <li>{{question.question_text}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
