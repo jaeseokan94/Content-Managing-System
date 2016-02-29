@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{language.name}}>{{topic.level}}>{{topic.topic_name}}</h1>
+
+<h3>Situational Videos </h3><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/situationalvideo/edit">Edit</a>
+    <ul>
+        <li>description: {{situational_video.situation_description}}</li>
+        <li>description in {{language_name}}: {{situational_video.situation_description_in_language}}</li>
+        <li>File : filename.mp3</li>
+    </ul>
+
+{% endblock content %}

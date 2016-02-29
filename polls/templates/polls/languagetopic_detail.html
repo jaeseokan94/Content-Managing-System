@@ -5,11 +5,11 @@
 {% block content %}
 
 <h1>{{language.name}}>{{topic.level}}>{{topic.topic_name}}</h1>
-<h3>Topic Name:{{topic.topic_name}}</h3><button>Edit</button>
+<h3>Topic Name:{{topic.topic_name}}</h3><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/edit">Edit</a>
 <h3>Topic Name in language: {{languagetopic.topic_name_in_language}}</h3>
 
 
-<h3>Situational Videos </h3><button>Edit</button>
+<h3>Situational Videos </h3><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/situationalVideo/edit">Edit</a>
     <ul>
         <li>description: {{situational_video.situation_description}}</li>
         <li>description in {{language_name}}: {{situational_video.situation_description_in_language}}</li>
@@ -24,20 +24,3 @@
     </ul>
 
 {% endblock content %}
-
-
-{% block sidebar %}
-    {% for topic in language_topics  %}
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> {{topic.topic_name_in_language}} <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo1" class="collapse">
-                <li>
-                    <a href="#">Sub Topic 1</a>
-                </li>
-                <li>
-                    <a href="#">Sub Topic 2</a>
-                </li>
-            </ul>
-        </li>
-    {% endfor %}
-{% endblock sidebar %}

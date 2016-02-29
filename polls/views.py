@@ -163,7 +163,7 @@ def topic_detail(request, language_name, level, topic_name):
 
 def topic_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.get(topic_name=topic_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
 
     instance = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
@@ -181,5 +181,23 @@ def topic_update(request, language_name, level, topic_name):
     }
 
     return render(request, 'polls/languagetopic_form.html', context)
+
+
+def situational_video_detail(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    situational_video = SituationalVideo.objects.filter(language_topic=languagetopic.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'situational_video': situational_video,
+    }
+
+    return render(request, 'polls/situational_video_detail.html', context)
 
 
