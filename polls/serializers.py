@@ -33,8 +33,6 @@ class LanguageSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-
-
 class SituationalVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SituationalVideo

@@ -52,6 +52,16 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
         return JSONResponse(serializer.data)
 '''http://127.0.0.1:8000/polls/German/beginner/Bathroom/subtopic-test/grammarVideo/'''
 
+@csrf_exempt
+def subtopic_list(request, language, level, topic_name):
+
+      if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=level)
+        language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
+        topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
+        serializer = GrammarVideoSerializer(topic, many=True)
+        return JSONResponse(serializer.data)
 
 @csrf_exempt
 def situational_video_list(request, language, level, topic_name):
