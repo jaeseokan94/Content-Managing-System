@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise
+from .models import Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -47,4 +47,18 @@ class ExerciseForm(forms.ModelForm):
         fields = [
             "instructions",
             "instructions_in_language",
+        ]
+
+class ExerciseQuestionForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestion
+        fields = [
+            "question_text",
+            "choice_1",
+            "choice_2",
+            "choice_3",
+            "choice_4",
+            "choice_5",
+            "choice_6",
+            "correct_answer",
         ]

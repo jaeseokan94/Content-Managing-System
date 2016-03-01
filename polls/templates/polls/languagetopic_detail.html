@@ -19,7 +19,7 @@
 <h3>Subtopics</h3><button>Add</button>
     <ul>
         {% for subtopic in language_subtopics %}
-            <li>{{subtopic.subtopic_name}}</li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/edit">Edit</a>
+            <li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/">{{subtopic.subtopic_name}}</a></li>
         {% endfor %}
     </ul>
 

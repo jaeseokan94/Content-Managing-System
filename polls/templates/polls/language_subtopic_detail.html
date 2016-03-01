@@ -19,6 +19,12 @@
 
 <p>instructions:  {{ exercise.instructions }}</p>>
 
+<p>Questions</p>
+<ol>
+    {% for question in questions %}
+    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{question.id}}/edit">{{question.question_text}}</a></li>
+    {% endfor %}
+</ol>
 
 
 {% endblock content %}

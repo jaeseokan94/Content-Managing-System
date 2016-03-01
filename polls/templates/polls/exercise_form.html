@@ -13,13 +13,5 @@
 <input type="submit" value="Save" />
 </form>
 
-<p>Questions</p>
-<ul>
-    {% for question in questions %}
-    <li>{{question.question_text}}</li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{questions.exercise_name}}/exerciseQuestion/edit">Edit</a>
-    {% endfor %}
-</ul>
-
-
 
 {% endblock content %}
