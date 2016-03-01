@@ -19,8 +19,14 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion, Dialect
-from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm, ExerciseQuestionForm, ExerciseVocabularyQuestionForm
+from .models import (
+    Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
+    Dialect, Resource, ResourceItem
+)
+from .forms import (
+    LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
+    ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm
+)
 
 class JSONResponse(HttpResponse):
     """
@@ -464,9 +470,55 @@ def language_resources(request, language_name, dialect):
     return render(request, 'polls/language_resources.html', context)
 
 def language_resources_alphabet(request, language_name, dialect):
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
+    letters = ResourceItem.objects.filter(resource_id=resource.id)
 
 
     context = {
+        'language_name': language_name,
+        'dialect': dialect,
+        'letters': letters,
     }
 
-    return render(request, 'polls/alphabet_resource.html', context)
+    return render(request, 'polls/resource_alphabet.html', context)
+
+def letter_resource_update(request, language_name, dialect, resource_id):
+    instance = ResourceItem.objects.get(id=resource_id)
+
+    form = LetterResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/exercise_question_form.html', context)
+
+def letter_resource_create(request, language_name, dialect):
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
+
+    form = LetterResourceForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.resource_id = resource
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/language_form.html', context)

@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/$', views.language_resources, name="language_resources"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/$', views.subtopic_detail, name='subtopic_detail'),

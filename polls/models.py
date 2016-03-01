@@ -163,6 +163,11 @@ class ResourceItem(models.Model):
     def __str__(self):
         return self.word
 
+    def get_absolute_url(self):
+        return reverse("polls:resources_alphabet", kwargs={"language_name": self.resource_id.dialect_id.language_id.name,\
+                                                           "dialect": self.resource_id.dialect_id.name})
+
+
 class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)

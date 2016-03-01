@@ -1,6 +1,8 @@
 from django import forms
 
-from .models import Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion, ExerciseVocabularyQuestion
+from .models import (
+    Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion,
+    ExerciseVocabularyQuestion, ResourceItem)
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -77,4 +79,13 @@ class ExerciseVocabularyQuestionForm(forms.ModelForm):
             "choice_5",
             "choice_6",
             "correct_answer",
+        ]
+
+class LetterResourceForm(forms.ModelForm):
+    class Meta:
+        model = ResourceItem
+        fields = [
+            "word",
+            "pronounciation_guide_or_date",
+            "audio_url",
         ]
