@@ -442,3 +442,18 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
     }
 
     return render(request, 'polls/exercise_vocab_question_form.html', context)
+
+def language_resources(request, language_name):
+
+    context = {
+        'language_name': language_name,
+    }
+
+    return render(request, 'polls/language_resources.html', context)
+
+def language_resources_alphabet(request, language_name):
+
+    context = {
+    }
+
+    return render(request, 'polls/alphabet_resource.html', context)
