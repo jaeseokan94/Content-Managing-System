@@ -22,10 +22,6 @@
             <li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/">{{subtopic.subtopic_name}}</a></li>
         {% endfor %}
     </ul>
-<h3>Vocab Subtopic</h3>
-        {% for subtopic in language_subtopics %}
-            <li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/">{{vocab_subtopic.subtopic_name}}</a></li>
-        {% endfor %}
 
 
 {% endblock content %}

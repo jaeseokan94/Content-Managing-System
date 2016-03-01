@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^language/add/$', views.language_create, name='language_create'),
     url(r'^(?P<language_name>[\w]+)/edit/$', views.language_update, name='language_update'),
     url(r'^(?P<language_name>[\w]+)/delete', views.language_delete, name='language_delete'),
-    #url(r'^(?P<language_name>[\w]+)', views.language_detail, name='language_detail'),
+    url(r'^(?P<language_name>[\w]+)', views.language_detail, name='language_detail'),
 
 
 
