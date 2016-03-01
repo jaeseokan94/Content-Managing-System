@@ -23,6 +23,11 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
+
+
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/$', views.subtopic_detail, name='subtopic_detail'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/edit/$', views.subtopic_update, name='subtopic_update'),

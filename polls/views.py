@@ -25,7 +25,7 @@ from .models import (
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
-    ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm
+    ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm
 )
 
 class JSONResponse(HttpResponse):
@@ -470,15 +470,16 @@ def language_resources(request, language_name, dialect):
     return render(request, 'polls/language_resources.html', context)
 
 def language_resources_alphabet(request, language_name, dialect):
+    resource_name = "Alphabet"
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
-    letters = ResourceItem.objects.filter(resource_id=resource.id)
-
+    items = ResourceItem.objects.filter(resource_id=resource.id)
 
     context = {
         'language_name': language_name,
         'dialect': dialect,
-        'letters': letters,
+        'items': items,
+        'resource_name': resource_name,
     }
 
     return render(request, 'polls/resource_alphabet.html', context)
@@ -500,13 +501,14 @@ def letter_resource_update(request, language_name, dialect, resource_id):
         "form": form,
     }
 
-    return render(request, 'polls/exercise_question_form.html', context)
+    return render(request, 'polls/language_resource_form.html', context)
 
 def letter_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
 
     form = LetterResourceForm(request.POST or None)
+
     if form.is_valid():
             instance = form.save(commit=False)
             instance.resource_id = resource
@@ -521,4 +523,61 @@ def letter_resource_create(request, language_name, dialect):
     context = {
         "form": form,
     }
-    return render(request, 'polls/language_form.html', context)
+    return render(request, 'polls/language_resource_form.html', context)
+
+def language_resources_numbers(request, language_name, dialect):
+    resource_name = "Numbers"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Numbers")
+    items = ResourceItem.objects.filter(resource_id=resource.id)
+
+    context = {
+        'language_name': language_name,
+        'dialect': dialect,
+        'items': items,
+        'resource_name': resource_name,
+    }
+
+    return render(request, 'polls/resource_numbers.html', context)
+
+def number_resource_update(request, language_name, dialect, resource_id):
+    instance = ResourceItem.objects.get(id=resource_id)
+
+    form = NumberResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_numbers_form.html', context)
+
+def number_resource_create(request, language_name, dialect):
+    resource_name = "Numbers"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    form = NumberResourceForm(request.POST or None)
+
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.resource_id = resource
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_numbers_form.html', context)

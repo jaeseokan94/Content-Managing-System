@@ -8,8 +8,8 @@
 <a href="{% url 'polls:letter_resource_create' language_name dialect %}">Add</a>
 
 <ul>
-{% for letter in letters %}
-    <li><a href="{% url 'polls:letter_resource_update' language_name dialect letter.id %}">{{ letter.word }}</a></li>
+{% for item in items %}
+    <li><a href="{% url 'polls:letter_resource_update' language_name dialect item.id %}">{{ item.word }}</a></li>
 {% endfor %}
 </ul>
 

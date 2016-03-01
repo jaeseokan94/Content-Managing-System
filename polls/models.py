@@ -164,9 +164,13 @@ class ResourceItem(models.Model):
         return self.word
 
     def get_absolute_url(self):
-        return reverse("polls:resources_alphabet", kwargs={"language_name": self.resource_id.dialect_id.language_id.name,\
-                                                           "dialect": self.resource_id.dialect_id.name})
-
+        namespace = ""
+        if self.resource_id.name == "Alphabet":
+            namespace = "polls:resources_alphabet"
+        elif self.resource_id.name == "Numbers":
+            namespace = "polls:resources_numbers"
+        return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name,\
+                                                       "dialect": self.resource_id.dialect_id.name})
 
 class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)

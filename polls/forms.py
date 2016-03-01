@@ -89,3 +89,12 @@ class LetterResourceForm(forms.ModelForm):
             "pronounciation_guide_or_date",
             "audio_url",
         ]
+
+class NumberResourceForm(forms.ModelForm):
+    class Meta:
+        model = ResourceItem
+        fields = [
+            "word",
+            "word_in_language",
+            "audio_url",
+        ]
