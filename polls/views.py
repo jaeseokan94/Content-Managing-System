@@ -19,7 +19,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion
+from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion, Dialect
 from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm, ExerciseQuestionForm, ExerciseVocabularyQuestionForm
 
 class JSONResponse(HttpResponse):
@@ -443,15 +443,28 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
 
     return render(request, 'polls/exercise_vocab_question_form.html', context)
 
-def language_resources(request, language_name):
+def choose_dialect(request, language_name):
+    language = Language.objects.get(name=language_name)
+    dialects = Dialect.objects.filter(language_id=language)
 
     context = {
         'language_name': language_name,
+        'dialects': dialects,
+    }
+
+    return render(request, 'polls/choose_dialect.html', context)
+
+def language_resources(request, language_name, dialect):
+
+    context = {
+        'language_name': language_name,
+        'dialect': dialect,
     }
 
     return render(request, 'polls/language_resources.html', context)
 
-def language_resources_alphabet(request, language_name):
+def language_resources_alphabet(request, language_name, dialect):
+
 
     context = {
     }
