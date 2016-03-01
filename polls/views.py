@@ -366,14 +366,6 @@ def exercise_question_detail(request, language_name, level, topic_name, subtopic
     return render(request, 'polls/exercise_question_detail.html', context)
 
 def exercise_question_update(request, language_name, level, topic_name, subtopic_name, question_id):
-    '''
-        language = Language.objects.get(name=language_name)
-        topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
-        languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
-        language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
-
-        exercise = Exercise.objects.filter(language_subtopic=language_subtopic.id)
-    '''
     instance = ExerciseQuestion.objects.get(id=question_id)
 
     form = ExerciseQuestionForm(request.POST or None, instance=instance)
@@ -392,4 +384,19 @@ def exercise_question_update(request, language_name, level, topic_name, subtopic
 
     return render(request, 'polls/exercise_question_form.html', context)
 
+def exercise_question_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    form = ExerciseQuestionForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
 
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/exercise_question_form.html', context)
