@@ -19,8 +19,8 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise
-from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm, ExerciseQuestionForm
+from .models import Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion
+from .forms import LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm, ExerciseQuestionForm, ExerciseVocabularyQuestionForm
 
 class JSONResponse(HttpResponse):
     """
@@ -243,7 +243,7 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     for exercise in exercises:
         questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
-
+    vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise.id)
 
     context = {
         'language': language,
@@ -252,6 +252,8 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
         'language_subtopic': language_subtopic,
         'exercises': exercises,
         'questions': questions,
+        'vocab_questions': vocab_questions,
+
     }
 
     return render(request, 'polls/language_subtopic_detail.html', context)
@@ -400,3 +402,43 @@ def exercise_question_create(request, language_name, level, topic_name, subtopic
         "form": form,
     }
     return render(request, 'polls/exercise_question_form.html', context)
+
+def exercise_vocab_question_detail(request, language_name, level, topic_name, subtopic_name, exercise):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
+    vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'language_subtopic': language_subtopic,
+        'exercise': exercise,
+        'vocab_questions': vocab_questions,
+    }
+
+    return render(request, 'polls/exercise_vocab_question_detail.html', context)
+
+def exercise_vocab_question_update(request, language_name, level, topic_name, subtopic_name, vocab_question_id):
+
+    instance = ExerciseVocabularyQuestion.objects.get(id=vocab_question_id)
+
+    form = ExerciseVocabularyQuestionForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/exercise_vocab_question_form.html', context)

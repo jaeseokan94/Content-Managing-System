@@ -35,6 +35,10 @@
     {% for question in questions|get_at_index:forloop.counter0 %}
     <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
     {% endfor %}
+
+    {% for vocab_question in vocab_questions %}
+    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{vocab_question.id}}/vocab/edit">{{vocab_question.question_text}}</a></li>
+    {% endfor %}
 </ol>
 {% endfor %}
 
