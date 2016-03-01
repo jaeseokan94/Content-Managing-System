@@ -1,8 +1,14 @@
+{% extends "base.html" %}
+{% load app_filters %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+
 <h1>List of all topics</h1>
 {% if topic_list %}
     <ul>
     {% for topic in topic_list %}
-        <li><a href="/polls/topic/{{ topic.topic_name }}/">{{ topic.topic_name }}</a></li>
+        <li><a href="{% url 'polls:topic_list' language.name topic.level topic_name %}">{{ topic.topic_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
