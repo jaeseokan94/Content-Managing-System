@@ -36,7 +36,7 @@ class LanguageSerializer(serializers.Serializer):
 class SituationalVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SituationalVideo
-        fields = ('language_topic','situation_description','video_with_transcript','video_wihtout_transcript')
+        fields = ('language_topic','situation_description','video_with_transcript','video_without_transcript')
 
 class GrammarVideoSerializer(serializers.ModelSerializer):
     class Meta:

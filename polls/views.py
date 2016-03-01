@@ -83,10 +83,13 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
         topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
         language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-        language_subtopic = LanguageSubtopic.objects.get(subtopic_name=subtopic_name)
+        language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
 
-        exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
-        question = ExerciseQuestion.objects.filter(exercise=exercise.id)
+        exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+
+        question = ExerciseQuestion.objects.none()
+        for exercise in exercises:
+            question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
         serializer = ExerciseQuestionSerializer(question, many=True)
         return JSONResponse(serializer.data)
 
