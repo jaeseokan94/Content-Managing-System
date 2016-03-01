@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{language.name}}>{{topic.level}}>{{topic.topic_name}}>{{subtopic.language_subtopic}}</h1>
+
+<li>{{ exerciseVocabularyQuestion.question }}</li>
+
+
+{% endblock content %}

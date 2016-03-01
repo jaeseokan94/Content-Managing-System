@@ -137,6 +137,9 @@ class ExerciseVocabularyQuestion(models.Model):
     def __str__(self):
         return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
 
+    def get_absolute_url(self):
+        return reverse("polls:subtopic_detail", kwargs={"language_name": self.exercise.language_subtopic.language_topic.language.name, "level": self.exercise.language_subtopic.language_topic.topic.level, "topic_name": self.exercise.language_subtopic.language_topic.topic.topic_name, "subtopic_name": self.exercise.language_subtopic.subtopic_name})
+
 #TODO Listening comprehension
 
 class Resource(models.Model):
