@@ -16,7 +16,9 @@
         <li>File : filename.mp3</li>
     </ul>
 
-<h3>Subtopics</h3><button>Add</button>
+<h3>Subtopics</h3>
+<a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}">New subtopics</a>
+
     <ul>
         {% for subtopic in language_subtopics %}
             <li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/">{{subtopic.subtopic_name}}</a></li>

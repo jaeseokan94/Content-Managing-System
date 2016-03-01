@@ -108,10 +108,39 @@ def situational_video_detail(request, pk):
         situationalVideo.delete()
         return HttpResponse(status=204)
 
+def topic_detail(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
 
-def topic_list(request):
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    #situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
+    language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        #'situational_video': situational_video,
+        'language_subtopics': language_subtopics,
+    }
+
+    return render(request, 'polls/languagetopic_detail.html', context)
+
+
+def topic_list(request, language_name, level):
+    language = Language.objects.filter(name=language_name)
+    level = Topic.objects.filter(level=level)
     topic_list = Topic.objects.all()
-    return render(request, 'polls/topiclist.html', {'topic_list': topic_list})
+
+
+    context = {'topic_list': topic_list,
+               'language_name': language_name,
+               'level': level,
+               'language' : language,
+               }
+
+    return render(request, 'polls/topiclist.html', context)
 
 def language_create(request):
     form = LanguageForm(request.POST or None)
@@ -249,7 +278,9 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     for exercise in exercises:
         questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
-    vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise.id)
+    vocab_questions = []
+    if len(exercises)>0:
+        vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise[0].id)
 
     context = {
         'language': language,
@@ -263,6 +294,29 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     }
 
     return render(request, 'polls/language_subtopic_detail.html', context)
+
+def subtopic_create(request, language_name, level, topic_name):
+
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    form = LanguageSubtopicForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.language_topic = language_topic
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/language_subtopic_form.html', context)
 
 def subtopic_update(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)

@@ -49,6 +49,7 @@ class ExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise
         fields = [
+            "exercise_name",
             "instructions",
             "instructions_in_language",
         ]

@@ -27,11 +27,12 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
 
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/topic/$', views.topic_list, name='topic_list'),
 
 
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/newsubtopic/', views.subtopic_create, name="subtopic_create"),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/$', views.subtopic_detail, name='subtopic_detail'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/edit/$', views.subtopic_update, name='subtopic_update'),
-
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/edit', views.topic_update, name='topic_update'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/$', views.topic_detail, name='topic_detail'),
@@ -65,7 +66,6 @@ urlpatterns = [
 
 
 
-    url(r'^topics/$', views.topic_list, name='topic_list'),
     #url(r'^list/$', 'list', name='list'),
 
     #For API
