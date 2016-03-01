@@ -102,10 +102,38 @@ def situational_video_detail(request, pk):
         situationalVideo.delete()
         return HttpResponse(status=204)
 
+def topic_detail(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
 
-def topic_list(request):
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    #situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
+    language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        #'situational_video': situational_video,
+        'language_subtopics': language_subtopics,
+    }
+
+    return render(request, 'polls/languagetopic_detail.html', context)
+
+
+def topic_list(request, language_name, level):
+    language_name = Language.objects.get(name=language_name)
+    level = Topic.objects.get(level=level)
     topic_list = Topic.objects.all()
-    return render(request, 'polls/topiclist.html', {'topic_list': topic_list})
+
+
+    context = {'topic_list': topic_list,
+               'language_name': language_name,
+               'level': level,
+               }
+
+    return render(request, 'polls/topiclist.html', context)
 
 def language_create(request):
     form = LanguageForm(request.POST or None)
