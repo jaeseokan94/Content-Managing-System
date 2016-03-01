@@ -237,15 +237,21 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
-    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
-    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+    exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+
+    #questions = []
+    #for exercise in exercises:
+    questions = ExerciseQuestion.objects.filter(exercise=exercises[0].id)
+
+
+    #questions = ExerciseQuestion.objects.filter(exercise=exercises.id)
 
     context = {
         'language': language,
         'topic': topic,
         'languagetopic': languagetopic,
         'language_subtopic': language_subtopic,
-        'exercise': exercise,
+        'exercises': exercises,
         'questions': questions,
     }
 
@@ -292,6 +298,23 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name):
     }
 
     return render(request, 'polls/exercise_detail.html', context)
+
+def exercise_create(request, language_name, level, topic_name, subtopic_name):
+    form = ExerciseForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/exercise_form.html', context)
 
 def exercise_update(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
@@ -375,3 +398,5 @@ def exercise_question_update(request, language_name, level, topic_name, subtopic
     }
 
     return render(request, 'polls/exercise_question_form.html', context)
+
+

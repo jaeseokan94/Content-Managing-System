@@ -15,17 +15,24 @@
 
 <p>File</p>
 
-<h3>Exercise</h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/exercise/edit">Edit</a>
+<h3>Exercises</h3>
+<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a>
+
+{% for exercise in exercises %}
+<h4>Exercise {{exercise.id}}</h4>
+
+
+<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/exercise/edit">Edit</a>
 
 <p>instructions:  {{ exercise.instructions }}</p>
 <p>instructions in language:  {{ exercise.instructions_in_language }}</p>
 
-<p>Questions</p>
+<p>Questions</p><a>New question</a>
 <ol>
     {% for question in questions %}
     <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{question.id}}/edit">{{question.question_text}}</a></li>
     {% endfor %}
 </ol>
-
+{% endfor %}
 
 {% endblock content %}
