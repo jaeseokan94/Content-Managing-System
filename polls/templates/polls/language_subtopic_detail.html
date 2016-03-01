@@ -18,11 +18,11 @@
 <h3>Exercises</h3>
 <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a>
 
+
 {% for exercise in exercises %}
 <h4>Exercise {{exercise.id}}</h4>
 
-
-<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/exercise/edit">Edit</a>
+<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit</a>
 
 <p>instructions:  {{ exercise.instructions }}</p>
 <p>instructions in language:  {{ exercise.instructions_in_language }}</p>
@@ -34,5 +34,6 @@
     {% endfor %}
 </ol>
 {% endfor %}
+
 
 {% endblock content %}

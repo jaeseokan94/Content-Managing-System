@@ -281,7 +281,7 @@ def subtopic_update(request, language_name, level, topic_name, subtopic_name):
 
     return render(request, 'polls/language_subtopic_form.html', context)
 
-def exercise_detail(request, language_name, level, topic_name, subtopic_name):
+def exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
@@ -316,17 +316,17 @@ def exercise_create(request, language_name, level, topic_name, subtopic_name):
     }
     return render(request, 'polls/exercise_form.html', context)
 
-def exercise_update(request, language_name, level, topic_name, subtopic_name):
+def exercise_update(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    '''
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
-    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
-    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+    questions = ExerciseQuestion.objects.filter(exercise=exercise_id)
+    '''
 
+    instance = Exercise.objects.get(id=exercise_id)
 
-
-    instance = Exercise.objects.get(language_subtopic=language_subtopic.id)
 
     form = ExerciseForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -340,13 +340,6 @@ def exercise_update(request, language_name, level, topic_name, subtopic_name):
     context = {
         "instance": instance,
         "form": form,
-        'exercise': exercise,
-        'questions': questions,
-        'language': language,
-        'topic': topic,
-        'languagetopic': languagetopic,
-        'language_subtopic': language_subtopic,
-
     }
 
     return render(request, 'polls/exercise_form.html', context)
