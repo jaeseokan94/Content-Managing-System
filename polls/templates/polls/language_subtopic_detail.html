@@ -33,7 +33,7 @@
 <p>Questions</p><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
 <ol>
     {% for question in questions|get_at_index:forloop.counter0 %}
-    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{question.id}}/edit">{{question.question_text}}</a></li>
+    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
     {% endfor %}
 </ol>
 {% endfor %}

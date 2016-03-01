@@ -243,6 +243,8 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     for exercise in exercises:
         questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
+
+
     context = {
         'language': language,
         'topic': topic,
@@ -340,14 +342,14 @@ def exercise_update(request, language_name, level, topic_name, subtopic_name, ex
     return render(request, 'polls/exercise_form.html', context)
 
 
-def exercise_question_detail(request, language_name, level, topic_name, subtopic_name, exercise):
+def exercise_question_detail(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
-    exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
-    questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+    exercise = Exercise.objects.get(id=exercise_id)
+    questions = ExerciseQuestion.objects.filter(id=question_id)
 
     context = {
         'language': language,
@@ -360,7 +362,7 @@ def exercise_question_detail(request, language_name, level, topic_name, subtopic
 
     return render(request, 'polls/exercise_question_detail.html', context)
 
-def exercise_question_update(request, language_name, level, topic_name, subtopic_name, question_id):
+def exercise_question_update(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
     instance = ExerciseQuestion.objects.get(id=question_id)
 
     form = ExerciseQuestionForm(request.POST or None, instance=instance)
