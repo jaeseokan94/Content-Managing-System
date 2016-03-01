@@ -8,7 +8,7 @@
 {% if topic_list %}
     <ul>
     {% for topic in topic_list %}
-        <li><a href="/polls/{{ language_name.name }}/{{topic.level}}/{{topic.topic_name}}">{{ topic.topic_name }}</a></li>
+        <li><a href="/polls/{{language_name}}/{{topic.level}}/{{topic.topic_name}}">{{ topic.topic_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

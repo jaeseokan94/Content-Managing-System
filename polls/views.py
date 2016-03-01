@@ -123,14 +123,15 @@ def topic_detail(request, language_name, level, topic_name):
 
 
 def topic_list(request, language_name, level):
-    language_name = Language.objects.get(name=language_name)
-    level = Topic.objects.get(level=level)
+    language = Language.objects.filter(name=language_name)
+    level = Topic.objects.filter(level=level)
     topic_list = Topic.objects.all()
 
 
     context = {'topic_list': topic_list,
                'language_name': language_name,
                'level': level,
+               'language' : language,
                }
 
     return render(request, 'polls/topiclist.html', context)
