@@ -243,8 +243,6 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     for exercise in exercises:
         questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
-    #questions = ExerciseQuestion.objects.filter(exercise=exercises.id)
-
     context = {
         'language': language,
         'topic': topic,
@@ -299,9 +297,15 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name, ex
     return render(request, 'polls/exercise_detail.html', context)
 
 def exercise_create(request, language_name, level, topic_name, subtopic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
     form = ExerciseForm(request.POST or None)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.language_subtopic = language_subtopic
             instance.save()
             messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -376,9 +380,12 @@ def exercise_question_update(request, language_name, level, topic_name, subtopic
     return render(request, 'polls/exercise_question_form.html', context)
 
 def exercise_question_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    exercise = Exercise.objects.get(id=exercise_id)
+
     form = ExerciseQuestionForm(request.POST or None)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.exercise = exercise
             instance.save()
             messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
