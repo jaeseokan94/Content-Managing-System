@@ -239,10 +239,9 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
     exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
 
-    #questions = []
-    #for exercise in exercises:
-    questions = ExerciseQuestion.objects.filter(exercise=exercises[0].id)
-
+    questions = []
+    for exercise in exercises:
+        questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
     #questions = ExerciseQuestion.objects.filter(exercise=exercises.id)
 
