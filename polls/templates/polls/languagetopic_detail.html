@@ -4,26 +4,88 @@
 
 {% block content %}
 
-<h1>{{language.name}}>{{topic.level}}>{{topic.topic_name}}</h1>
-<h3>Topic Name:{{topic.topic_name}}</h3><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/edit">Edit</a>
-<h3>Topic Name in language: {{languagetopic.topic_name_in_language}}</h3>
+ <div class="col-lg main-chart">
+                  <ol class="breadcrumb">
+                      <li><h1><i class="fa fa-angle-right"></i> {{ language.name }} -</h1></li>
+                      <li><h1><i class="fa fa-angle-right"></i> {{ topic.level }} </h1></li>
+                      <li><h1><i class="fa fa-angle-right"></i> {{ topic.topic_name }} </h1></li>
+
+                  </ol>
+                  		</div>
+<div class="row mt">
+          		<div class="col-lg-8">
+                  <div class="form-panel">
+                  	  <h2 class="mb"><i class="fa fa-angle-right"></i>{{topic.topic_name}} </h2>
+                      <form class="form-horizontal style-form" method="get">
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Topic Name in Language</label>
+                              <div class="col-sm-5">
+                                  <input type="text" class="form-control">
+                              </div><button type="button" class="btn btn-default"></h3><a href="{% url 'polls:topic_update' language.name topic.level topic.topic_name %}">Edit</a></button></div>
+
+                       <h2 class="mb"><i class="fa fa-angle-right"></i>Situational Videos</h2>
+                      <form class="form-horizontal style-form" method="get">
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Situational descriptions</label>
+                              <div class="col-sm-5">
+                                  <input type="text" class="form-control" placeholder="{{situational_video.situation_description}}">
+
+                              </div><button type="button" class="btn btn-default"><a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</a></button>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Situational descriptions in language</label>
+                              <div class="col-sm-5">
+                                  <input type="text" class="form-control" placeholder="{{situational_video.situation_description_in_language}}">
+                              </div><button type="button" class="btn btn-default">Edit</button></div>
+                           <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
+                              <div class="col-sm-5">
+                                  <input type="text" class="form-control" placeholder="{{situational_video.video_with_transcript}}">
+                              </div><button type="button" class="btn btn-default">Choose File</button></div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
+                              <div class="col-sm-5">
+                                  <input type="text" class="form-control" placeholder="{{situational_video.video_without_transcript}}">
+                              </div><button type="button" class="btn btn-default">Choose File</button>
+                          </div>
+                      </form>
+
+                          <div>
+                              <h3>Sub-Topics   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sub -Topic- Numbers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  <button type="button" class="btn btn-default"><a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}">Add</a>
+</h3>
+                          </div>
 
 
-<h3>Situational Videos </h3><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/situationalvideo/edit">Edit</a>
-    <ul>
-        <li>description: {{situational_video.situation_description}}</li>
-        <li>description in {{language_name}}: {{situational_video.situation_description_in_language}}</li>
-        <li>File : filename.mp3</li>
-    </ul>
+              <table class="table table-striped table-hover table-responsive table-condensed">
+                          {% for subtopic in language_subtopics %}
 
-<h3>Subtopics</h3>
-<a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}">New subtopics</a>
+                  <tr>
+                <td class="col-lg-2">
+                    <span style="font-size: 17px;">{{subtopic.subtopic_name}}</span>
 
-    <ul>
-        {% for subtopic in language_subtopics %}
-            <li><a href="/polls/{{ language.name }}/{{topic.level}}/{{topic.topic_name}}/{{subtopic.subtopic_name}}/">{{subtopic.subtopic_name}}</a></li>
-        {% endfor %}
-    </ul>
+                </td>
+
+                <td class="col-lg-2">
+                    <span style="font-size: 17px;">{{subtopic.id}}</span>
+                </td>
+
+                <td class="col-lg-3">
+                               <button type="button" class="btn btn-default">
+                                   <a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name subtopic.subtopic_name%}">Edit</a>
+
+</button>
+                </td>
+            </tr>
+                                  {% endfor %}
+
+                  </table>
+
+                      </form>
+                  </div>
+                </div>
+</div>
+
 
 
 {% endblock content %}

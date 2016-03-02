@@ -201,14 +201,14 @@ def topic_detail(request, language_name, level, topic_name):
 
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    #situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
+    situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
     language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
 
     context = {
         'language': language,
         'topic': topic,
         'languagetopic': languagetopic,
-        #'situational_video': situational_video,
+        'situational_video': situational_video,
         'language_subtopics': language_subtopics,
     }
 
