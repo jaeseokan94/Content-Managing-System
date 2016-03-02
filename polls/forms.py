@@ -99,3 +99,13 @@ class NumberResourceForm(forms.ModelForm):
             "word_in_language",
             "audio_url",
         ]
+
+class HolidaysResourceForm(forms.ModelForm):
+    class Meta:
+        model = ResourceItem
+        fields = [
+            "word",
+            "word_in_language",
+            "pronounciation_guide_or_date",
+            "audio_url",
+        ]

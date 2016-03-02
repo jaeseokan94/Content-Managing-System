@@ -25,7 +25,8 @@ from .models import (
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
-    ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm
+    ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
+    HolidaysResourceForm
 )
 
 class JSONResponse(HttpResponse):
@@ -639,7 +640,7 @@ def number_resource_create(request, language_name, dialect):
     }
     return render(request, 'polls/resource_numbers_form.html', context)
 
-def days_resource(request, language_name, dialect):
+def resources_days(request, language_name, dialect):
     resource_name = "Days"
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
@@ -693,3 +694,58 @@ def days_resource_create(request, language_name, dialect):
         "form": form,
     }
     return render(request, 'polls/resource_days_form.html', context)
+
+def resources_holidays(request, language_name, dialect):
+    resource_name = "Holidays"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    items = ResourceItem.objects.filter(resource_id=resource.id)
+
+    context = {
+        'language_name': language_name,
+        'dialect': dialect,
+        'items': items,
+        'resource_name': resource_name,
+    }
+
+    return render(request, 'polls/resource_holidays.html', context)
+
+def holidays_resource_update(request, language_name, dialect, resource_id):
+    instance = ResourceItem.objects.get(id=resource_id)
+
+    form = HolidaysResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_holidays_form.html', context)
+
+def holidays_resource_create(request, language_name, dialect):
+    resource_name = "Holidays"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    form = HolidaysResourceForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.resource_id = resource
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_holidays_form.html', context)
