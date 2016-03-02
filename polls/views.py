@@ -884,3 +884,11 @@ def time_resource_create(request, language_name, dialect):
     }
     return render(request, 'polls/resource_time_form.html', context)
 
+def dashboard(request):
+    language_list = Language.objects.all()
+    levels = dict(LEVEL).values()
+    context = {
+        'language_list': language_list,
+        'levels': levels,
+    }
+    return render(request, 'polls/dashboard.html', context)

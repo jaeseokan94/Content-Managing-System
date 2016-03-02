@@ -17,7 +17,7 @@ app_name='polls'
 urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^$', views.language_list),
+    url(r'^$', views.dashboard, name="dashboard"),
 
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
 
