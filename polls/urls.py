@@ -32,31 +32,34 @@ urlpatterns = [
 
     #Resources
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
+    url(r'^(?P<language_name>[\w]+)/resources/newdialect/$', views.dialect_create, name="dialect_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect_id>[0-9]+)/$', views.dialect_update, name="dialect_update"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/$', views.language_resources, name="language_resources"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/$', views.language_resources, name="language_resources"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/$', views.resources_days, name="resources_days"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/(?P<resource_id>[0-9]+)/edit$', views.days_resource_update, name="days_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/holidays/$', views.resources_holidays, name="resources_holidays"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/holidays/(?P<resource_id>[0-9]+)/edit$', views.holidays_resource_update, name="holidays_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/holidays/add/$', views.holidays_resource_create, name="holidays_resource_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/$', views.resources_days, name="resources_days"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<resource_id>[0-9]+)/edit$', views.days_resource_update, name="days_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/seasons_and_months/$', views.resources_months, name="resources_months"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/seasons_and_months/(?P<resource_id>[0-9]+)/edit$', views.months_resource_update, name="months_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/seasons_and_months/add/$', views.months_resource_create, name="months_resource_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/$', views.resources_holidays, name="resources_holidays"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/(?P<resource_id>[0-9]+)/edit$', views.holidays_resource_update, name="holidays_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/add/$', views.holidays_resource_create, name="holidays_resource_create"),
 
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/$', views.resources_time, name="resources_time"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/(?P<resource_id>[0-9]+)/edit$', views.time_resource_update, name="time_resource_update"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/$', views.resources_months, name="resources_months"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/(?P<resource_id>[0-9]+)/edit$', views.months_resource_update, name="months_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/add/$', views.months_resource_create, name="months_resource_create"),
+
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/$', views.resources_time, name="resources_time"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/(?P<resource_id>[0-9]+)/edit$', views.time_resource_update, name="time_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
 
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.language_topic_list, name='topic_list'),

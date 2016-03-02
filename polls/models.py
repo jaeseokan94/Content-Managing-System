@@ -52,6 +52,9 @@ class Dialect(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("polls:choose_dialect", kwargs={"language_name": self.language_id.name})
+
 
 class Topic(models.Model):
     level = models.CharField(max_length=1, choices=LEVEL, default=LEVEL[0][0])

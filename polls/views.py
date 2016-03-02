@@ -26,7 +26,7 @@ from .models import (
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
-    HolidaysResourceForm, TopicForm
+    HolidaysResourceForm, TopicForm, DialectForm
 )
 
 class JSONResponse(HttpResponse):
@@ -936,3 +936,41 @@ def topic_create(request, level):
         "form": form,
     }
     return render(request, 'polls/topic_form.html', context)
+
+def dialect_create(request, language_name):
+    language = Language.objects.get(name=language_name)
+
+    form = DialectForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.language_id = language
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/dialect_form.html', context)
+
+def dialect_update(request, language_name, dialect_id):
+    instance = Dialect.objects.get(id=dialect_id)
+
+    form = DialectForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/dialect_form.html', context)
