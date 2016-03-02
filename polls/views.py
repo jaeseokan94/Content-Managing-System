@@ -21,7 +21,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LEVEL
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -188,7 +188,11 @@ def language_delete(request, language_name):
 
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
-    context = {'language': language}
+    context = {
+        'language': language,
+        'language_name': language_name,
+        'levels': LEVEL
+    }
     return render(request, 'polls/language_detail.html', context)
 
 def topic_detail(request, language_name, level, topic_name):

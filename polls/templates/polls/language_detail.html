@@ -10,4 +10,10 @@
     <li>{{ language.name_in_language }}</li>
 </ul>
 
+<ul>
+{% for level in levels %}
+    <li><a href="{% url 'polls:topic_list' language_name level.0 %}">{{ level.1 }}</a></li>
+{% endfor %}
+</ul>
+
 {% endblock content %}
