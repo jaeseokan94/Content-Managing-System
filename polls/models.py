@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
     ('Numbers', 'Numbers'),
-    ('Days of the Week', 'Days of the Week'),
+    ('Days', 'Days of the Week'),
     ('Holidays', 'Holidays'),
     ('Seasons and Months', 'Seasons and Months'),
     ('Time', 'Time'),
@@ -169,8 +169,9 @@ class ResourceItem(models.Model):
             namespace = "polls:resources_alphabet"
         elif self.resource_id.name == "Numbers":
             namespace = "polls:resources_numbers"
-        return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name,\
-                                                       "dialect": self.resource_id.dialect_id.name})
+        elif self.resource_id.name == "Days":
+            namespace = "polls:resources_days"
+        return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
 class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)

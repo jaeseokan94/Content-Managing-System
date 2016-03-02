@@ -18,6 +18,8 @@ urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
+
+
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/$', views.language_resources, name="language_resources"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
@@ -26,6 +28,12 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
+
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/$', views.days_resource, name="resources_days"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/(?P<resource_id>[0-9]+)/edit$', views.days_resource_update, name="days_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
+
+
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/topic/$', views.topic_list, name='topic_list'),
 
