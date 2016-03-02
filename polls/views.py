@@ -892,3 +892,11 @@ def dashboard(request):
         'levels': levels,
     }
     return render(request, 'polls/dashboard.html', context)
+
+def level_detail(request, level):
+    topics = Topic.objects.filter(level=level)
+    context = {
+        'level': level,
+        'topics': topics,
+    }
+    return render(request, 'polls/level_detail.html', context)

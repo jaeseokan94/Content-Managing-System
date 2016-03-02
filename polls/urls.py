@@ -19,6 +19,8 @@ urlpatterns = [
 
     url(r'^$', views.dashboard, name="dashboard"),
 
+    url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
+
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
 
     url(r'^language/list/$', views.language_list, name='language_list'),

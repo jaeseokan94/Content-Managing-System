@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ level|upper }} topics</h1>
+
+<ul>
+{% for topic in topics %}
+    <li><a href="#">{{ topic.topic_name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
