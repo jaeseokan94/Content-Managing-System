@@ -18,9 +18,11 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from polls import views
 
 
 urlpatterns = [
+    url(r'^$', views.language_list, name='home_page'),
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
     #patterns('',
