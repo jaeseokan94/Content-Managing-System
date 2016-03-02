@@ -5,3 +5,12 @@
       <span>{{ topic.topic.topic_name }}</span>
     </a>
 {% endfor %}
+
+{% if topics %}
+<li class="sub-menu">
+    <a href="{% url 'polls:choose_dialect' 'Spanish' %}" >
+        <i class="fa fa-video-camera"></i>
+        <span>Spanish Resources</span>
+    </a>
+</li>
+{% endif %}
