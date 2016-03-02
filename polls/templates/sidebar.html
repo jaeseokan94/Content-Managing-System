@@ -1,7 +1,7 @@
 {% for topic in topics %}
 <li class="sub-menu">
-    <a href="{% url 'polls:topic_detail' 'Spanish' 'b' topic.topic_name %}" >
+    <a href="{% url 'polls:topic_detail' 'Spanish' 'b' topic.topic.topic_name %}" >
       <i class="fa fa-language"></i>
-      <span>{{ topic.topic_name }}</span>
+      <span>{{ topic.topic.topic_name }}</span>
     </a>
 {% endfor %}
