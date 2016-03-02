@@ -21,7 +21,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem
+    Dialect, Resource, ResourceItem, ResourceItemPicture
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -699,7 +699,7 @@ def resources_holidays(request, language_name, dialect):
     resource_name = "Holidays"
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
-    items = ResourceItem.objects.filter(resource_id=resource.id)
+    items = ResourceItemPicture.objects.filter(resource_id=resource.id)
 
     context = {
         'language_name': language_name,
@@ -711,7 +711,7 @@ def resources_holidays(request, language_name, dialect):
     return render(request, 'polls/resource_holidays.html', context)
 
 def holidays_resource_update(request, language_name, dialect, resource_id):
-    instance = ResourceItem.objects.get(id=resource_id)
+    instance = ResourceItemPicture.objects.get(id=resource_id)
 
     form = HolidaysResourceForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -805,3 +805,59 @@ def months_resource_create(request, language_name, dialect):
         "form": form,
     }
     return render(request, 'polls/resource_months_form.html', context)
+
+
+def resources_time(request, language_name, dialect):
+    resource_name = "Time"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    items = ResourceItemPicture.objects.filter(resource_id=resource.id)
+
+    context = {
+        'language_name': language_name,
+        'dialect': dialect,
+        'items': items,
+        'resource_name': resource_name,
+    }
+
+    return render(request, 'polls/resource_time.html', context)
+
+def time_resource_update(request, language_name, dialect, resource_id):
+    instance = ResourceItemPicture.objects.get(id=resource_id)
+
+    form = HolidaysResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_time_form.html', context)
+
+def time_resource_create(request, language_name, dialect):
+    resource_name = "Time"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    form = HolidaysResourceForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.resource_id = resource
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)

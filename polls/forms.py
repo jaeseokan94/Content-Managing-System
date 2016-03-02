@@ -2,7 +2,7 @@ from django import forms
 
 from .models import (
     Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion,
-    ExerciseVocabularyQuestion, ResourceItem)
+    ExerciseVocabularyQuestion, ResourceItem, ResourceItemPicture)
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -102,10 +102,10 @@ class NumberResourceForm(forms.ModelForm):
 
 class HolidaysResourceForm(forms.ModelForm):
     class Meta:
-        model = ResourceItem
+        model = ResourceItemPicture
         fields = [
-            "word",
-            "word_in_language",
-            "pronounciation_guide_or_date",
+            "phrase",
+            "phrase_in_language",
+            "picture_url",
             "audio_url",
         ]

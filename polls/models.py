@@ -171,10 +171,6 @@ class ResourceItem(models.Model):
             namespace = "polls:resources_numbers"
         elif self.resource_id.name == "Days":
             namespace = "polls:resources_days"
-        elif self.resource_id.name == "Holidays":
-            namespace = "polls:resources_holidays"
-        elif self.resource_id.name == "Months":
-            namespace = "polls:resources_months"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
 class ResourceItemPicture(models.Model):
@@ -186,3 +182,11 @@ class ResourceItemPicture(models.Model):
 
     def __str__(self):
         return self.phrase
+
+    def get_absolute_url(self):
+        namespace = ""
+        if self.resource_id.name == "Time":
+            namespace = "polls:resources_time"
+        elif self.resource_id.name == "Holidays":
+            namespace = "polls:resources_holidays"
+        return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})

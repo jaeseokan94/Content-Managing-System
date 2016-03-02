@@ -41,6 +41,11 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/seasons_and_months/(?P<resource_id>[0-9]+)/edit$', views.months_resource_update, name="months_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/seasons_and_months/add/$', views.months_resource_create, name="months_resource_create"),
 
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/$', views.resources_time, name="resources_time"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/(?P<resource_id>[0-9]+)/edit$', views.time_resource_update, name="time_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
+
+
 
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/topic/$', views.topic_list, name='topic_list'),

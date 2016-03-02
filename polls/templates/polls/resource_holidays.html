@@ -9,7 +9,7 @@
 
 <ul>
 {% for item in items %}
-    <li><a href="{% url 'polls:holidays_resource_update' language_name dialect item.id %}">{{ item.word }}</a></li>
+    <li><a href="{% url 'polls:holidays_resource_update' language_name dialect item.id %}">{{ item.phrase }}</a></li>
 {% endfor %}
 </ul>
 
