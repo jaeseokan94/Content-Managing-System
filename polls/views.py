@@ -889,7 +889,7 @@ def dashboard(request):
     levels = dict(LEVEL).values()
     context = {
         'language_list': language_list,
-        'levels': levels,
+        'levels': LEVEL,
     }
     return render(request, 'polls/dashboard.html', context)
 

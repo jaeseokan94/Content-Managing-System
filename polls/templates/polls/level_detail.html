@@ -5,11 +5,16 @@
 {% block content %}
 
 <h1>{{ level|upper }} topics</h1>
+<a>Add</a>
 
+{% if topics %}
 <ul>
 {% for topic in topics %}
-    <li><a href="#">{{ topic.topic_name }}</a></li>
+    <li>{{ topic.topic_name }}</li>
 {% endfor %}
 </ul>
+{% else %}
+<p>No topics to show</p>
+{% endif %}
 
 {% endblock content %}
