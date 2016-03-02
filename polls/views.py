@@ -749,3 +749,59 @@ def holidays_resource_create(request, language_name, dialect):
         "form": form,
     }
     return render(request, 'polls/resource_holidays_form.html', context)
+
+
+def resources_months(request, language_name, dialect):
+    resource_name = "Months"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    items = ResourceItem.objects.filter(resource_id=resource.id)
+
+    context = {
+        'language_name': language_name,
+        'dialect': dialect,
+        'items': items,
+        'resource_name': resource_name,
+    }
+
+    return render(request, 'polls/resource_months.html', context)
+
+def months_resource_update(request, language_name, dialect, resource_id):
+    instance = ResourceItem.objects.get(id=resource_id)
+
+    form = NumberResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_months_form.html', context)
+
+def months_resource_create(request, language_name, dialect):
+    resource_name = "Months"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    form = NumberResourceForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.resource_id = resource
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_months_form.html', context)

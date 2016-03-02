@@ -10,7 +10,7 @@ RESOURCES = (
     ('Numbers', 'Numbers'),
     ('Days', 'Days of the Week'),
     ('Holidays', 'Holidays'),
-    ('Seasons and Months', 'Seasons and Months'),
+    ('Months', 'Seasons and Months'),
     ('Time', 'Time'),
 )
 
@@ -173,6 +173,8 @@ class ResourceItem(models.Model):
             namespace = "polls:resources_days"
         elif self.resource_id.name == "Holidays":
             namespace = "polls:resources_holidays"
+        elif self.resource_id.name == "Months":
+            namespace = "polls:resources_months"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
 class ResourceItemPicture(models.Model):

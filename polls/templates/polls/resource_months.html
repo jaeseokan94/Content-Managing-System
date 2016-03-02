@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>Seasons and Months</h1>
+<a href="{% url 'polls:months_resource_create' language_name dialect %}">Add</a>
+
+<ul>
+{% for item in items %}
+    <li><a href="{% url 'polls:months_resource_update' language_name dialect item.id %}">{{ item.word }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
