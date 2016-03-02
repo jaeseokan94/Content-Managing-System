@@ -282,8 +282,8 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
         questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
     vocab_questions = []
-    if len(exercises)>0:
-        vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise[0].id)
+    if len(exercises)>1:
+        vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercises[0].id)
 
     context = {
         'language': language,
