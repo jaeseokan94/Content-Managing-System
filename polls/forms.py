@@ -18,7 +18,6 @@ class LanguageTopicForm(forms.ModelForm):
         model = LanguageTopic
         fields = [
             "topic",
-            "language",
             "topic_name_in_language",
         ]
 

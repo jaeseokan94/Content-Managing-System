@@ -134,7 +134,7 @@ def topic_detail(request, language_name, level, topic_name):
 
 def topic_list(request, language_name, level):
     language = Language.objects.filter(name=language_name)
-    level = Topic.objects.filter(level=level)
+    topics = Topic.objects.filter(level=level)
     topic_list = Topic.objects.all()
 
 
@@ -222,10 +222,10 @@ def topic_update(request, language_name, level, topic_name):
 
     form = LanguageTopicForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
     context = {
@@ -235,6 +235,24 @@ def topic_update(request, language_name, level, topic_name):
 
     return render(request, 'polls/languagetopic_form.html', context)
 
+def topic_create(request, language_name, level):
+    language = Language.objects.get(name=language_name)
+
+    form = LanguageTopicForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.language = language
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url_create())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/languagetopic_form.html', context)
 
 def situational_video_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
@@ -865,3 +883,4 @@ def time_resource_create(request, language_name, dialect):
         "form": form,
     }
     return render(request, 'polls/resource_time_form.html', context)
+

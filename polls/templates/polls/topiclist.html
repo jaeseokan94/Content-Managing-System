@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<h1>List of all topics</h1>
+<h1>List of topics for {{ language_name }}>{{ level }}</h1>
+<a href="{% url 'polls:topic_create' language_name level %}">Add</a>
+
 {% if topic_list %}
     <ul>
     {% for topic in topic_list %}

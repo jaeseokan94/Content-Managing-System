@@ -54,9 +54,9 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
 
 
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.topic_list, name='topic_list'),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.topic_create, name="topic_create"),
 
-
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/topic/$', views.topic_list, name='topic_list'),
 
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/newsubtopic/', views.subtopic_create, name="subtopic_create"),
