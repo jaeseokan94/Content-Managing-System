@@ -56,6 +56,10 @@ class Topic(models.Model):
     def __str__(self):
         return self.topic_name
 
+    def get_absolute_url(self):
+        return reverse("polls:level_detail", kwargs={"level": self.level})
+
+
 class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)

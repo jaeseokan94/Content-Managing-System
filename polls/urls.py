@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^$', views.dashboard, name="dashboard"),
 
     url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
+    url(r'^(?P<level>[\w]+)/newtopic/$', views.topic_create, name="topic_create"),
+    url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.topic_update, name="topic_update"),
 
 
     url(r'^language/list/$', views.language_list, name='language_list'),
@@ -57,8 +59,8 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
 
 
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.topic_list, name='topic_list'),
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.topic_create, name="topic_create"),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.language_topic_list, name='topic_list'),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.language_topic_create, name="topic_create"),
 
 
 

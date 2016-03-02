@@ -26,7 +26,7 @@ from .models import (
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
-    HolidaysResourceForm
+    HolidaysResourceForm, TopicForm
 )
 
 class JSONResponse(HttpResponse):
@@ -132,7 +132,7 @@ def topic_detail(request, language_name, level, topic_name):
     return render(request, 'polls/languagetopic_detail.html', context)
 
 
-def topic_list(request, language_name, level):
+def language_topic_list(request, language_name, level):
     language = Language.objects.filter(name=language_name)
     topics = Topic.objects.filter(level=level)
     topic_list = Topic.objects.all()
@@ -235,7 +235,7 @@ def topic_update(request, language_name, level, topic_name):
 
     return render(request, 'polls/languagetopic_form.html', context)
 
-def topic_create(request, language_name, level):
+def language_topic_create(request, language_name, level):
     language = Language.objects.get(name=language_name)
 
     form = LanguageTopicForm(request.POST or None)
@@ -900,3 +900,39 @@ def level_detail(request, level):
         'topics': topics,
     }
     return render(request, 'polls/level_detail.html', context)
+
+def topic_update(request, level, topic_id):
+    instance = Topic.objects.get(id=topic_id)
+
+    form = TopicForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/topic_form.html', context)
+
+def topic_create(request, level):
+    form = TopicForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.level = level
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/topic_form.html', context)

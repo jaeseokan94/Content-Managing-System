@@ -2,7 +2,7 @@ from django import forms
 
 from .models import (
     Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion,
-    ExerciseVocabularyQuestion, ResourceItem, ResourceItemPicture)
+    ExerciseVocabularyQuestion, ResourceItem, ResourceItemPicture, Topic)
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -41,8 +41,6 @@ class LanguageSubtopicForm(forms.ModelForm):
             "subtopic_name_in_language",
             "grammar_video_file",
         ]
-
-
 
 class ExerciseForm(forms.ModelForm):
     class Meta:
@@ -107,4 +105,11 @@ class HolidaysResourceForm(forms.ModelForm):
             "phrase_in_language",
             "picture_url",
             "audio_url",
+        ]
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = [
+            "topic_name",
         ]

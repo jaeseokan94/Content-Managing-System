@@ -5,16 +5,16 @@
 {% block content %}
 
 <h1>{{ level|upper }} topics</h1>
-<a>Add</a>
+<a href="{% url 'polls:topic_create' level %}">Add</a>
 
 {% if topics %}
-<ul>
-{% for topic in topics %}
-    <li>{{ topic.topic_name }}</li>
-{% endfor %}
-</ul>
+    <ul>
+    {% for topic in topics %}
+        <li>{{ topic.topic_name }} <a href="{% url 'polls:topic_update' level topic.id %}">Edit</a></li>
+    {% endfor %}
+    </ul>
 {% else %}
-<p>No topics to show</p>
+    <p>No topics to show</p>
 {% endif %}
 
 {% endblock content %}
