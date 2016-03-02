@@ -19,6 +19,12 @@ urlpatterns = [
 
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
 
+    url(r'^language/list/$', views.language_list, name='language_list'),
+    url(r'^language/add/$', views.language_create, name='language_create'),
+    url(r'^language/(?P<language_name>[\w]+)/edit/$', views.language_update, name='language_update'),
+    url(r'^language/(?P<language_name>[\w]+)/delete', views.language_delete, name='language_delete'),
+    url(r'^language/(?P<language_name>[\w]+)/$', views.language_detail, name='language_detail'),
+
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/$', views.language_resources, name="language_resources"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
@@ -78,11 +84,6 @@ urlpatterns = [
 
 
 
-    url(r'^language/list/$', views.language_list, name='language_list'),
-    url(r'^language/add/$', views.language_create, name='language_create'),
-    url(r'^language/(?P<language_name>[\w]+)/edit/$', views.language_update, name='language_update'),
-    url(r'^language/(?P<language_name>[\w]+)/delete', views.language_delete, name='language_delete'),
-    url(r'^language/(?P<language_name>[\w]+)/$', views.language_detail, name='language_detail'),
 
 
 
