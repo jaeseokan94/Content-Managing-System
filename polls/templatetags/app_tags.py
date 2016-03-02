@@ -20,7 +20,8 @@ def show_topics(url):
             lang_id = language.id
             found_language = True
 
-    language = Language.objects.get(id=lang_id)
+    if found_language:
+        language = Language.objects.get(id=lang_id)
 
     topics = []
     if lang_id != -1:
