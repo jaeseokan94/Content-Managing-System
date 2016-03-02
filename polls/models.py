@@ -40,6 +40,10 @@ class Language(models.Model):
     def get_absolute_url(self):
         return reverse("polls:language_detail", kwargs={"language_name": self.name})
 
+    def get_absolute_url_create(self):
+        return reverse("polls:dashboard", kwargs={})
+
+
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

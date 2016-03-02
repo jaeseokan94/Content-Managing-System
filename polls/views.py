@@ -149,10 +149,10 @@ def language_topic_list(request, language_name, level):
 def language_create(request):
     form = LanguageForm(request.POST or None)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Successfully created")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url_create())
     else:
         messages.error(request, "Not successfully created")
     if request.method == "POST":
