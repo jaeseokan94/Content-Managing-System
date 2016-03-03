@@ -2,8 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language
-from polls.models import SituationalVideo, LanguageSubtopic, ExerciseQuestion
+from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture
 
 '''
 from polls.serializers import LanguageSerializer
@@ -15,8 +14,6 @@ class LanguageSerializer(serializers.Serializer):
     pk = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
     name2 = serializers.CharField(required=True)
-
-
 
     def create(self, validated_data):
         """
@@ -48,28 +45,17 @@ class ExerciseQuestionSerializer(serializers.ModelSerializer):
         model = ExerciseQuestion
         fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
 
+class ResourceItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResourceItem
+        fields = ('word','pronounciation_guide_or_date','audio_url')
 
-'''
-  pk = serializers.IntegerField(read_only=True)
-    language_topic = serializers.IntergerField(required=True)
-    situational_description = serializers.CharField(required=True)
-    video_with_transcript =serializers.FileField(required=True)
-    video_without_transcript=serializers.FileField(required=True)
+class ResourceItemNumbersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResourceItem
+        fields = ('word','word_in_language','audio_url')
 
-    def create(self, validated_data):
-        """
-        Create and return a new `Snippet` instance, given the validated data.
-        """
-        return SituationalVideo.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        """
-        Update and return an existing `Snippet` instance, given the validated data.
-        """
-        instance.language_topic = validated_data.get('langTopic', instance.language_topic)
-        instance.situational_description = validated_data.get('description', instance.situational_description)
-        instance.video_with_transcript = validated_data.get('transcript',instance.video_with_transcript)
-        instance.video_without_transcript = validated_data.get('noTranscript',instance.video_without_transcript)
-        instance.save()
-        return instance
-'''
+class ResourceItemPictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResourceItemPicture
+        fields = ('phrase','phrase_in_language','picture_url','audio_url')

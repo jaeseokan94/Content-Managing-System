@@ -5,7 +5,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
 from polls.serializers import LanguageSerializer
-from polls.serializers import SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer
+from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
+                               ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer
+                               )
 from polls.serializers import SituationalVideo
 
 
@@ -1217,3 +1219,18 @@ def listening_comprehension_temp(request, language_name, level, topic_name):
     }
 
     return JsonResponse(to_json)
+
+def resource_api(request, language_name, dialect, resource_name):
+    if request.method == 'GET':
+        dialect = Dialect.objects.get(name=dialect)
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+        resource_items = ResourceItem.objects.filter(resource_id=resource.id)
+
+        if resource_name=="Alphabet" or resource_name=="Months":
+            serializer = ResourceItemSerializer(resource_items, many=True)
+        elif resource_name=="Numbers" or resource_name=="Days":
+            serializer = ResourceItemNumbersSerializer(resource_items, many=True)
+        elif resource_name=="Holidays" or resource_name=="Time":
+            serializer = ResourceItemPictureSerializer(resource_items, many=True)
+
+    return JSONResponse(serializer.data)

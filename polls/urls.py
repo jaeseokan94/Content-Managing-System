@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exerciseQuestion/$', views.exercise_question_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list),
+    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
 
     url(r'^language/list/$', views.language_list, name='language_list'),
     url(r'^language/add/$', views.language_create, name='language_create'),
@@ -112,10 +113,6 @@ urlpatterns = [
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/$', views.exercise_vocab_question_detail, name='exercise_vocab_question_detail'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/edit/$', views.exercise_vocab_question_update, name='exercise_vocab_question_update'),
-
-
-
-    #url(r'^list/$', 'list', name='list'),
 
 
 
