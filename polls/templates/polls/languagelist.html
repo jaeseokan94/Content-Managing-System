@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}{{language_name}}|{{topic_name}}{% endblock %}
 
@@ -10,7 +11,7 @@
 
 {% if language_list %}
 <ul>
-        {% for language in language_list %}
+    {% for language in language_list %}
 
     <li>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
@@ -18,7 +19,9 @@
                 <div class="project">
                     <div class="photo-wrapper">
                         <div class="photo">
-                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.jpg" alt="">{{ language.name }}</a>
+                            {% with 'img/flags/'|add:language.name|add:'.png'|lower as image_static %}
+                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="{% static image_static %}" alt="">{{ language.name }}</a>
+                            {% endwith %}
                         </div>
                         <div class="overlay"></div>
                     </div>
