@@ -51,7 +51,9 @@
               </div>
           </form>
 
-              <a><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
+              {% if situational_video %}
+              <a href="{% url 'polls:listening_comprehension_update' language.name topic.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
+              {% endif %}
 
               <div>
                   <h3>Sub-Topics   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sub -Topic- Numbers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

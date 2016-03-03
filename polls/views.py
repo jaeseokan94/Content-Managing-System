@@ -983,6 +983,27 @@ def dialect_update(request, language_name, dialect_id):
 
     return render(request, 'polls/dialect_form.html', context)
 
+
+def listening_comprehension_update(request, language_name, level, topic_name, sv_id):
+    instance = SituationalVideo.objects.get(id=sv_id)
+
+    form = SituationalVideoForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/dialect_form.html', context)
+
+
 def situational_video_list_temp(request, language_name, level, topic_name):
     to_json = {
         "language_topic": "2",
