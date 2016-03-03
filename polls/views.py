@@ -163,8 +163,8 @@ def language_create(request):
     }
     return render(request, 'polls/language_form.html', context)
 
-def language_update(request, language_name):
-    instance = get_object_or_404(Language, name=language_name)
+def language_update(request, language_id):
+    instance = get_object_or_404(Language, id=language_id)
     form = LanguageForm(request.POST or None, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
@@ -180,8 +180,8 @@ def language_update(request, language_name):
 
     return render(request, 'polls/language_form.html', context)
 
-def language_delete(request, language_name):
-    instance = get_object_or_404(Language, name=language_name)
+def language_delete(request, language_id):
+    instance = get_object_or_404(Language, name=language_id)
     instance.delete()
     messages.success(request, "Successfully deleted")
     return redirect("polls:language_list")

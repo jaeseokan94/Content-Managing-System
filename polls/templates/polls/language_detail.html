@@ -5,7 +5,7 @@
 {% block content %}
 
 <h1>{{ language.name }}</h1>
-<a href="{% url 'polls:language_update' language_name %}">Edit</a>
+<a href="{% url 'polls:language_update' language.id %}">Edit</a>
 
 <br>
 Name in language: {{ language.name_in_language }}
