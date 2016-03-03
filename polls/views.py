@@ -26,7 +26,7 @@ from .models import (
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
-    HolidaysResourceForm, TopicForm, DialectForm
+    HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm
 )
 
 

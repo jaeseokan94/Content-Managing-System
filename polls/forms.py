@@ -32,6 +32,20 @@ class SituationalVideoForm(forms.ModelForm):
             "video_without_transcript",
         ]
 
+class ListeningComprehensionForm(forms.ModelForm):
+    class Meta:
+        model = SituationalVideo
+        fields = [
+            "question_text",
+            "choice_1",
+            "choice_2",
+            "choice_3",
+            "choice_4",
+            "choice_5",
+            "choice_6",
+            "correct_answers",
+        ]
+
 
 class LanguageSubtopicForm(forms.ModelForm):
     class Meta:

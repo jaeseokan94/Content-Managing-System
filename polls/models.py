@@ -87,12 +87,21 @@ class SituationalVideo(models.Model):
     situation_description_in_language = models.CharField(max_length=200, blank=True)
     video_with_transcript = models.FileField(null=True, blank=True)
     video_without_transcript =  models.FileField(null=True, blank=True)
+    question_text = models.CharField(max_length=200)
+    choice_1 = models.CharField(max_length=200, blank=True)
+    choice_2 = models.CharField(max_length=200, blank=True)
+    choice_3 = models.CharField(max_length=200, blank=True)
+    choice_4 = models.CharField(max_length=200, blank=True)
+    choice_5 = models.CharField(max_length=200, blank=True)
+    choice_6 = models.CharField(max_length=200, blank=True)
+    correct_answers = models.CharField(max_length=200)
 
     def __str__(self):
         return self.situation_description
 
     def get_absolute_url(self):
         return reverse("polls:topic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name})
+
 
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
@@ -155,7 +164,6 @@ class ExerciseVocabularyQuestion(models.Model):
     def get_absolute_url(self):
         return reverse("polls:subtopic_detail", kwargs={"language_name": self.exercise.language_subtopic.language_topic.language.name, "level": self.exercise.language_subtopic.language_topic.topic.level, "topic_name": self.exercise.language_subtopic.language_topic.topic.topic_name, "subtopic_name": self.exercise.language_subtopic.subtopic_name})
 
-#TODO Listening comprehension
 
 class Resource(models.Model):
     dialect_id = models.ForeignKey(Dialect, on_delete=models.CASCADE)
@@ -204,3 +212,4 @@ class ResourceItemPicture(models.Model):
         elif self.resource_id.name == "Holidays":
             namespace = "polls:resources_holidays"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
+
