@@ -28,24 +28,28 @@
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Situational descriptions</label>
                   <div class="col-sm-5">
-                      <input type="textfield" class="form-control" placeholder="{{situational_video.situation_description}}
+                      <p>{{situational_video.situation_description}}</p>
 
                   </div><button type="button" class="btn btn-default"><a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</a></button>
               </div>
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Situational descriptions in language</label>
                   <div class="col-sm-5">
-                      <input type="textfield" class="form-control" placeholder="{{situational_video.situation_description_in_language}}">
-                  </div><button type="button" class="btn btn-default">Edit</button></div>
+                      <p>{{situational_video.situation_description_in_language}}"></p>
+                  </div>
+              </div>
+
                <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="{{situational_video.video_with_transcript}}">
+                    <p> {{situational_video.video_with_transcript}} </p>
                   </div><button type="button" class="btn btn-default">Choose File</button></div>
+
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="{{situational_video.video_without_transcript}}">
+                     <p> {{situational_video.video_without_transcript}}</p>
+
                   </div><button type="button" class="btn btn-default">Choose File</button>
               </div>
           </form>
