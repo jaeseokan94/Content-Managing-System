@@ -9,7 +9,6 @@
       <li><h1><i class="fa fa-angle-right"></i> {{ language.name }} -</h1></li>
       <li><h1><i class="fa fa-angle-right"></i> {{ topic.level }} </h1></li>
       <li><h1><i class="fa fa-angle-right"></i> {{ topic.topic_name }} </h1></li>
-
     </ol>
 </div>
 
@@ -21,7 +20,7 @@
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Topic Name in Language</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control">
+                      <input type="textlabel" class="form-control">
                   </div><button type="button" class="btn btn-default"></h3><a href="{% url 'polls:topic_update' language.name topic.level topic.topic_name %}">Edit</a></button></div>
 
             <h2 class="mb"><i class="fa fa-angle-right"></i>Situational Videos</h2>
@@ -29,14 +28,14 @@
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Situational descriptions</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="{{situational_video.situation_description}}">
+                      <input type="textfield" class="form-control" placeholder="{{situational_video.situation_description}}
 
                   </div><button type="button" class="btn btn-default"><a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</a></button>
               </div>
               <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Situational descriptions in language</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="{{situational_video.situation_description_in_language}}">
+                      <input type="textfield" class="form-control" placeholder="{{situational_video.situation_description_in_language}}">
                   </div><button type="button" class="btn btn-default">Edit</button></div>
                <div class="form-group">
                   <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
