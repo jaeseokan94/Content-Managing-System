@@ -300,7 +300,20 @@ def situational_video_update(request, language_name, level, topic_name):
     return render(request, 'polls/situational_video_form.html', context)
 
 def situational_video_create(request, language_name, level, topic_name):
-    pass
+    form = SituationalVideoForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/situational_video_form.html', context)
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
