@@ -998,7 +998,6 @@ def grammar_video_list_temp(request, language_name, level, topic_name, subtopic_
     return JsonResponse(to_json)
 
 def exercise_question_list_temp(request, language_name, level, topic_name, subtopic_name):
-
     if subtopic_name=="Vocabulary":
         to_json = [
             {
@@ -1122,3 +1121,18 @@ def subtopic_list_temp(request, language_name, level, topic_name):
     ]
 
     return JsonResponse(to_json, safe=False)
+
+def listening_comprehension_temp(request, language_name, level, topic_name):
+    to_json = {
+        "exercise": "1",
+        "audio_url": "1",
+        "choice_1": "Marta llega a Madrid en tren",
+        "choice_2": "Peter es amigo de Julia",
+        "choice_3": "Julia presenta a Julia y Peter",
+        "choice_4": "Julia pregunta dónde está su amigo",
+        "choice_5": "Todos están en la estación de tren",
+        "choice_6": "Peter esta en España",
+        "correct_answers": "2,3,4,5,6",
+    }
+
+    return JsonResponse(to_json)

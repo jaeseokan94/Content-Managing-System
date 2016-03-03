@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list_temp),
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exerciseQuestion/$', views.exercise_question_list_temp),
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list_temp),
+    url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension_temp),
 
 
     #For API
