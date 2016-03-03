@@ -7,34 +7,30 @@
 
 
 <h1>Languages</h1>
-    <a href="#">Add language</a><br><br>
+    <a href="{% url 'polls:language_create' %}">Add language</a><br><br>
 
 {% if language_list %}
-<ul>
-    {% for language in language_list %}
-
-    <li>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
-            <div class="project-wrapper">
-                <div class="project">
-                    <div class="photo-wrapper">
-                        <div class="photo">
-                            {% with 'img/flags/'|add:language.name|add:'.png'|lower as image_static %}
-                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="{% static image_static %}" alt="">{{ language.name }}</a>
-                            {% endwith %}
+    <ul>
+        {% for language in language_list %}
+        <li>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                <div class="project-wrapper">
+                    <div class="project">
+                        <div class="photo-wrapper">
+                            <div class="photo">
+                                {% with 'img/flags/'|add:language.name|add:'.png'|lower as image_static %}
+                                <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="{% static image_static %}" alt="">{{ language.name }}</a>
+                                {% endwith %}
+                            </div>
+                            <div class="overlay"></div>
                         </div>
-                        <div class="overlay"></div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-    </li>
-
-
-    {% endfor %}
-
-</ul>
+        </li>
+        {% endfor %}
+    </ul>
 {% else %}
     <p>No languages are available.</p>
 {% endif %}
