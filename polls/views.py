@@ -195,7 +195,7 @@ def language_detail(request, language_name):
     }
     return render(request, 'polls/language_detail.html', context)
 
-def topic_detail(request, language_name, level, topic_name):
+def language_topic_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.get(topic_name=topic_name)
 
@@ -909,7 +909,7 @@ def level_detail(request, level):
     }
     return render(request, 'polls/level_detail.html', context)
 
-def topic_update(request, level, topic_id):
+def language_topic_update(request, level, topic_id):
     instance = Topic.objects.get(id=topic_id)
 
     form = TopicForm(request.POST or None, instance=instance)
