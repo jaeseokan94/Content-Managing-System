@@ -136,10 +136,9 @@ def topic_detail(request, language_name, level, topic_name):
 def language_topic_list(request, language_name, level):
     language = Language.objects.filter(name=language_name)
     topics = Topic.objects.filter(level=level)
-    topic_list = Topic.objects.all()
 
 
-    context = {'topic_list': topic_list,
+    context = {'topic_list': topics,
                'language_name': language_name,
                'level': level,
                'language' : language,
@@ -895,6 +894,7 @@ def dashboard(request):
     return render(request, 'polls/dashboard.html', context)
 
 def level_detail(request, level):
+    print("LEVEL " + level)
     topics = Topic.objects.filter(level=level)
     context = {
         'level': level,
