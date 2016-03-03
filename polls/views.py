@@ -998,52 +998,102 @@ def grammar_video_list_temp(request, language_name, level, topic_name, subtopic_
     return JsonResponse(to_json)
 
 def exercise_question_list_temp(request, language_name, level, topic_name, subtopic_name):
-    to_json = [
-        {
-            "exercise": "1",
-            "question_text": "___ te llamas",
-            "choice_1": "vosotros",
-            "choice_2": "él/ella/usted",
-            "choice_3": "yo",
-            "choice_4": "tú",
-            "choice_5": "nosotros",
-            "choice_6": "ellos/ellas/ustedes",
-            "correct_answer": "2",
-        },
-        {
-            "exercise": "1",
-            "question_text": "___ se llaman",
-            "choice_1": "vosotros",
-            "choice_2": "él/ella/usted",
-            "choice_3": "yo",
-            "choice_4": "tú",
-            "choice_5": "nosotros",
-            "choice_6": "ellos/ellas/ustedes",
-            "correct_answer": "6",
-        },
-        {
-            "exercise": "1",
-            "question_text": "___ os llamáis",
-            "choice_1": "vosotros",
-            "choice_2": "él/ella/usted",
-            "choice_3": "yo",
-            "choice_4": "tú",
-            "choice_5": "nosotros",
-            "choice_6": "ellos/ellas/ustedes",
-            "correct_answer": "1",
-        },
-        {
-            "exercise": "1",
-            "question_text": "___ me llamo",
-            "choice_1": "vosotros",
-            "choice_2": "él/ella/usted",
-            "choice_3": "yo",
-            "choice_4": "tú",
-            "choice_5": "nosotros",
-            "choice_6": "ellos/ellas/ustedes",
-            "correct_answer": "3",
-        },
-    ]
+
+    if subtopic_name=="Vocabulary":
+        to_json = [
+            {
+                "exercise": "2",
+                "question_text": "tren",
+                "choice_1": "media/vocabulary/U01-02-train.png",
+                "choice_2": "media/vocabulary/U01-03-airplane.png",
+                "choice_3": "media/vocabulary/U01-05-ship.png",
+                "choice_4": "media/vocabulary/U01-07-bus.png",
+                "choice_5": "media/vocabulary/U01-10-bike.png",
+                "choice_6": "media/vocabulary/U01-09-car.png",
+                "correct_answer": "1",
+            },
+            {
+                "exercise": "2",
+                "question_text": "avión",
+                "choice_1": "media/vocabulary/U01-02-train.png",
+                "choice_2": "media/vocabulary/U01-03-airplane.png",
+                "choice_3": "media/vocabulary/U01-05-ship.png",
+                "choice_4": "media/vocabulary/U01-07-bus.png",
+                "choice_5": "media/vocabulary/U01-10-bike.png",
+                "choice_6": "media/vocabulary/U01-09-car.png",
+                "correct_answer": "2",
+            },
+            {
+                "exercise": "2",
+                "question_text": "coche",
+                "choice_1": "media/vocabulary/U01-02-train.png",
+                "choice_2": "media/vocabulary/U01-03-airplane.png",
+                "choice_3": "media/vocabulary/U01-05-ship.png",
+                "choice_4": "media/vocabulary/U01-07-bus.png",
+                "choice_5": "media/vocabulary/U01-10-bike.png",
+                "choice_6": "media/vocabulary/U01-09-car.png",
+                "correct_answer": "6",
+            },
+            {
+                "exercise": "2",
+                "question_text": "autobús",
+                "choice_1": "media/vocabulary/U01-02-train.png",
+                "choice_2": "media/vocabulary/U01-03-airplane.png",
+                "choice_3": "media/vocabulary/U01-05-ship.png",
+                "choice_4": "media/vocabulary/U01-07-bus.png",
+                "choice_5": "media/vocabulary/U01-10-bike.png",
+                "choice_6": "media/vocabulary/U01-09-car.png",
+                "correct_answer": "4",
+            },
+        ]
+    else:
+        to_json = [
+            {
+                "exercise": "1",
+                "question_text": "___ te llamas",
+                "choice_1": "vosotros",
+                "choice_2": "él/ella/usted",
+                "choice_3": "yo",
+                "choice_4": "tú",
+                "choice_5": "nosotros",
+                "choice_6": "ellos/ellas/ustedes",
+                "correct_answer": "2",
+            },
+            {
+                "exercise": "1",
+                "question_text": "___ se llaman",
+                "choice_1": "vosotros",
+                "choice_2": "él/ella/usted",
+                "choice_3": "yo",
+                "choice_4": "tú",
+                "choice_5": "nosotros",
+                "choice_6": "ellos/ellas/ustedes",
+                "correct_answer": "6",
+            },
+            {
+                "exercise": "1",
+                "question_text": "___ os llamáis",
+                "choice_1": "vosotros",
+                "choice_2": "él/ella/usted",
+                "choice_3": "yo",
+                "choice_4": "tú",
+                "choice_5": "nosotros",
+                "choice_6": "ellos/ellas/ustedes",
+                "correct_answer": "1",
+            },
+            {
+                "exercise": "1",
+                "question_text": "___ me llamo",
+                "choice_1": "vosotros",
+                "choice_2": "él/ella/usted",
+                "choice_3": "yo",
+                "choice_4": "tú",
+                "choice_5": "nosotros",
+                "choice_6": "ellos/ellas/ustedes",
+                "correct_answer": "3",
+            },
+        ]
+
 
     return JsonResponse(to_json, safe=False)
 
