@@ -206,7 +206,10 @@ def topic_detail(request, language_name, level, topic_name):
     except SituationalVideo.DoesNotExist:
         situational_video = SituationalVideo.objects.none()
 
-    language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
+    try:
+        language_subtopics = LanguageSubtopic.objects.filter(language_topic=languagetopic.id)
+    except SituationalVideo.DoesNotExist:
+        language_subtopics = LanguageSubtopic.objects.none()
 
     context = {
         'language': language,
