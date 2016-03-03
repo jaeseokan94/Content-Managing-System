@@ -8,33 +8,28 @@ a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_nam
 
 {% block content %}
 
+ <div class="form-panel">
+<ul class="breadcrumb">
+	<h2><li><a href="#">{{ language.name }} -</a></li></h2>
+	<h2><li><a href="#">{{ topic.level }} -</a></li></h2>
+	<h2><li><a href="#">{{ topic.topic_name }}</a></li></h2>
+</ul>
 
-<h3>Subtopics</h3>
 
-<div class="col-lg main-chart">
-                  <ol class="breadcrumb">
-                      <li><h1><i class="fa fa-angle-right"></i> {{ language.name }} -</h1></li>
-                      <li><h1><i class="fa fa-angle-right"></i> {{ topic.level }} </h1></li>
-                      <li><h1><i class="fa fa-angle-right"></i> {{ topic.topic_name }} </h1></li>
 
-                  </ol>
-                  		</div>
-<div class="row mt">
-          		<div class="col-lg-8">
-                  <div class="form-panel">
+
+
+
                   	  <h2 class="mb"><i class="fa fa-angle-right"></i> {{ language_subtopic.subtopic_name }} </h2>
                       <form class="form-horizontal style-form" method="get">
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Subopic name</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Subtopic name</label>
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" placeholder=" {{ language_subtopic.subtopic_name }}">
                                   <input type="text" class="form-control" placeholder=" {{ language_subtopic.subtopic_name_in_language }}">
-
-
-                              </div><button type="button" class="btn btn-default"></h3>
-<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a>
-                          </button>
-                          </div>
+                              </div>
+                              <button type="button" class="btn btn-default"></h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a></button>
+                              </div>
 
                        <h2 class="mb"><i class="fa fa-angle-right"></i>Grammar Videos</h2>
                       <form class="form-horizontal style-form" method="get">
@@ -42,9 +37,7 @@ a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_nam
                               <label class="col-sm-2 col-sm-2 control-label">Grammar descriptions</label>
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" placeholder="{{situational_video.situation_description}}">
-
-                              </div><button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">
-Edit</a></button>
+                              </div><button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a></button>
                           </div>
 
 
@@ -62,17 +55,14 @@ Edit</a></button>
                       </form>
 
                           <div>
+                              <h1> Exercises &nbsp;&nbsp;<button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a> </button> <br>
+                              {% for exercise in exercises %}</h1>
 
-<h1> Exercises </h1>                                                                                 <button type="button" class="btn btn-default">
-<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a> </button> <br>
-
-{% for exercise in exercises %}
                               <h3>{{exercise.exercise_name}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   Sub -Topic- Numbers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                   <button type="button" class="btn btn-default">
 <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit exercise</a>
-</h3>
                               <button type="button" class="btn btn-default">
                               <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
 </button>
