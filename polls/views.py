@@ -575,7 +575,13 @@ def language_resources(request, language_name, dialect):
 def language_resources_alphabet(request, language_name, dialect):
     resource_name = "Alphabet"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
     context = {
@@ -631,7 +637,13 @@ def letter_resource_create(request, language_name, dialect):
 def language_resources_numbers(request, language_name, dialect):
     resource_name = "Numbers"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Numbers")
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
     context = {
@@ -688,7 +700,13 @@ def number_resource_create(request, language_name, dialect):
 def resources_days(request, language_name, dialect):
     resource_name = "Days"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
     context = {
@@ -743,7 +761,14 @@ def days_resource_create(request, language_name, dialect):
 def resources_holidays(request, language_name, dialect):
     resource_name = "Holidays"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
+
     items = ResourceItemPicture.objects.filter(resource_id=resource.id)
 
     context = {
@@ -799,7 +824,13 @@ def holidays_resource_create(request, language_name, dialect):
 def resources_months(request, language_name, dialect):
     resource_name = "Months"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
     context = {
@@ -855,7 +886,13 @@ def months_resource_create(request, language_name, dialect):
 def resources_time(request, language_name, dialect):
     resource_name = "Time"
     dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    try:
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+    except Resource.DoesNotExist:
+        resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
+        resource.save()
+
     items = ResourceItemPicture.objects.filter(resource_id=resource.id)
 
     context = {
