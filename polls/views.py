@@ -299,6 +299,9 @@ def situational_video_update(request, language_name, level, topic_name):
 
     return render(request, 'polls/situational_video_form.html', context)
 
+def situational_video_create(request, language_name, level, topic_name):
+    pass
+
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.get(topic_name=topic_name)
@@ -987,7 +990,7 @@ def dialect_update(request, language_name, dialect_id):
 def listening_comprehension_update(request, language_name, level, topic_name, sv_id):
     instance = SituationalVideo.objects.get(id=sv_id)
 
-    form = SituationalVideoForm(request.POST or None, instance=instance)
+    form = ListeningComprehensionForm(request.POST or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -1001,7 +1004,7 @@ def listening_comprehension_update(request, language_name, level, topic_name, sv
         "form": form,
     }
 
-    return render(request, 'polls/dialect_form.html', context)
+    return render(request, 'polls/listening_comprehension_form.html', context)
 
 
 def situational_video_list_temp(request, language_name, level, topic_name):
