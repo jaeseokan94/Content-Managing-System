@@ -38,7 +38,7 @@ urlpatterns = [
 
     url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
     url(r'^(?P<level>[\w]+)/newtopic/$', views.topic_create, name="topic_create"),
-    url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.language_topic_update, name="topic_update"),
+    url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.topic_update, name="topic_update"),
 
 
     url(r'^language/list/$', views.language_list, name='language_list'),
@@ -81,8 +81,6 @@ urlpatterns = [
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.language_topic_list, name='topic_list'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.language_topic_create, name="topic_create"),
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/edit', views.language_topic_update, name='topic_update'),
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/$', views.language_topic_detail, name='topic_detail'),
 
 
 
@@ -90,6 +88,8 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/$', views.subtopic_detail, name='subtopic_detail'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/edit/$', views.subtopic_update, name='subtopic_update'),
 
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/edit', views.language_topic_update, name='topic_update'),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/$', views.language_topic_detail, name='topic_detail'),
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/edit$', views.situational_video_update, name='situational_video_update'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/$', views.situational_video_detail, name='situational_video_detail'),
