@@ -1,39 +1,30 @@
 {% extends "base.html" %}
-
 {% block title %}{{language_name}}|{{topic_name}}{% endblock %}
-
 {% block content %}
 
 
 <h1>Languages</h1>
     <a href="#">Add language</a><br><br>
-
-{% if language_list %}
-<ul>
-        {% for language in language_list %}
-
-    <li>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
-            <div class="project-wrapper">
-                <div class="project">
-                    <div class="photo-wrapper">
-                        <div class="photo">
-                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.jpg" alt="">{{ language.name }}</a>
+        {% if language_list %}
+            <ul>
+                {% for language in language_list %}
+                    <li>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                            <div class="project-wrapper">
+                                <div class="project">
+                                    <div class="photo-wrapper">
+                                        <div class="photo">
+                                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}"><img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.jpg" alt="">{{ language.name }}</a>
+                                        </div>
+                                            <div class="overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="overlay"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </li>
-
-
-    {% endfor %}
-
-</ul>
-{% else %}
-    <p>No languages are available.</p>
-{% endif %}
-
-{% endblock content %}
+                    </li>
+                {% endfor %}
+            </ul>
+                {% else %}
+            <p>No languages are available.</p>
+                {% endif %}
+                {% endblock content %}
