@@ -1125,7 +1125,7 @@ def subtopic_list_temp(request, language_name, level, topic_name):
 def listening_comprehension_temp(request, language_name, level, topic_name):
     to_json = {
         "exercise": "1",
-        "audio_url": "1",
+        "audio_url": "media/listening_comprehension/U01-E05.mp3",
         "choice_1": "Marta llega a Madrid en tren",
         "choice_2": "Peter es amigo de Julia",
         "choice_3": "Julia presenta a Julia y Peter",
