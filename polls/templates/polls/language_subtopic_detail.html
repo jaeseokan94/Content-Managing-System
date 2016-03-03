@@ -54,61 +54,49 @@ a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_nam
                           </div>
                       </form>
 
+
+
+
+
                           <div>
                               <h1> Exercises &nbsp;&nbsp;<button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a> </button> <br>
                               {% for exercise in exercises %}</h1>
+                              <div><h3>{{exercise.exercise_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <button type="button" class="btn btn-default">
+                                      <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit exercise</a>
 
-                              <h3>{{exercise.exercise_name}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                  Sub -Topic- Numbers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                  <button type="button" class="btn btn-default">
-<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit exercise</a>
-                              <button type="button" class="btn btn-default">
-                              <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
-</button>
-              <table class="table table-striped table-hover table-responsive table-condensed">
+                                      <button type="button" class="btn btn-default">
+                                          <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
+                                      </button>
+
+                                      <table class="table table-striped table-hover table-responsive table-condensed">
 
                   <input type="text" class="form-control" placeholder=" {{ exercise.instructions }}">
                                   <input type="text" class="form-control" placeholder="{{ exercise.instructions_in_language }}">
+                                          {% for question in questions|get_at_index:forloop.counter0 %}
 
-
-
-    {% for question in questions|get_at_index:forloop.counter0 %}
-
-                  <tr>
-                <td class="col-lg-2">
-                    <span style="font-size: 17px;">
-                            <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
-
-                    </span>
-
-                </td>
-            </tr>
-
-
-                                                {% endfor %}
-
-    {% for vocab_question in vocab_questions %}
-
-                  <tr>
-                <td class="col-lg-2">
-                    <span style="font-size: 17px;">
-                            <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
-                    </span>
-                  </tr>
-
-
-                                                {% endfor %}
-                  </table>
-
-                                                            {% endfor %}
-
-
-                      </form>
-
-                  </div>
-                </div>
-</div>
+                                          <tr>
+                                            <td class="col-lg-2">
+                                            <span style="font-size: 17px;">
+                                            <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
+                                            </span>
+                                            </td>
+                                          </tr>
+                                          {% endfor %}
+                                          {% for vocab_question in vocab_questions %}
+                                          <tr>
+                                            <td class="col-lg-2">
+                                            <span style="font-size: 17px;">
+                                            <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
+                                            </span>
+                                          </tr>
+                                          {% endfor %}
+                                      </table>
+                                      {% endfor %}
+                                    </form>
+                                    </div>
+                                    </div>
+                                    </div>
 
 
 
