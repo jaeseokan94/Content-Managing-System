@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -28,6 +28,7 @@ from .forms import (
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm
 )
+
 
 class JSONResponse(HttpResponse):
     """
@@ -974,3 +975,100 @@ def dialect_update(request, language_name, dialect_id):
     }
 
     return render(request, 'polls/dialect_form.html', context)
+
+def situational_video_list_temp(request, language_name, level, topic_name):
+    to_json = {
+        "language_topic": "2",
+        "situation_description": "In the park",
+        "situation_description_in_language": "En el parque",
+        "video_with_transcript": "media/U01-01.mp4",
+        "video_without_transcript": "media/U01-02.mp4",
+    }
+
+    return JsonResponse(to_json)
+
+def grammar_video_list_temp(request, language_name, level, topic_name, subtopic_name):
+    to_json = {
+        "language_topic": "2",
+        "subtopic_name": "Pronouns",
+        "subtopic_name_in_language": "Pronombres",
+        "grammar_video_file": "media/U01-01-Gra-Pronombres.mp4",
+    }
+
+    return JsonResponse(to_json)
+
+def exercise_question_list_temp(request, language_name, level, topic_name, subtopic_name):
+    to_json = [
+        {
+            "exercise": "1",
+            "question_text": "___ te llamas",
+            "choice_1": "vosotros",
+            "choice_2": "él/ella/usted",
+            "choice_3": "yo",
+            "choice_4": "tú",
+            "choice_5": "nosotros",
+            "choice_6": "ellos/ellas/ustedes",
+            "correct_answer": "2",
+        },
+        {
+            "exercise": "1",
+            "question_text": "___ se llaman",
+            "choice_1": "vosotros",
+            "choice_2": "él/ella/usted",
+            "choice_3": "yo",
+            "choice_4": "tú",
+            "choice_5": "nosotros",
+            "choice_6": "ellos/ellas/ustedes",
+            "correct_answer": "6",
+        },
+        {
+            "exercise": "1",
+            "question_text": "___ os llamáis",
+            "choice_1": "vosotros",
+            "choice_2": "él/ella/usted",
+            "choice_3": "yo",
+            "choice_4": "tú",
+            "choice_5": "nosotros",
+            "choice_6": "ellos/ellas/ustedes",
+            "correct_answer": "1",
+        },
+        {
+            "exercise": "1",
+            "question_text": "___ me llamo",
+            "choice_1": "vosotros",
+            "choice_2": "él/ella/usted",
+            "choice_3": "yo",
+            "choice_4": "tú",
+            "choice_5": "nosotros",
+            "choice_6": "ellos/ellas/ustedes",
+            "correct_answer": "3",
+        },
+    ]
+
+    return JsonResponse(to_json, safe=False)
+
+def subtopic_list_temp(request, language_name, level, topic_name):
+    to_json = [
+        {
+        "language_topic": "2",
+        "subtopic_name": "Pronouns",
+        "subtopic_name_in_language": "Pronombres",
+        },
+        {
+        "language_topic": "2",
+        "subtopic_name": "Llamarse",
+        "subtopic_name_in_language": "Llamarse",
+        },
+        {
+        "language_topic": "2",
+        "subtopic_name": "Ser and Estar",
+        "subtopic_name_in_language": "Ser y Estar",
+        },
+        {
+        "language_topic": "2",
+        "subtopic_name": "Vocabulary",
+        "subtopic_name_in_language": "Vocabulario",
+        },
+    ]
+
+    return JsonResponse(to_json, safe=False)
