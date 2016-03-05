@@ -182,6 +182,10 @@ class ResourceItem(models.Model):
     pronounciation_guide_or_date = models.CharField(max_length=200, blank=True)
     audio_url = models.FileField(null=True, blank=True)
 
+    '''
+        Months resource: word only accepts {Spring,Summer,Autumn,Winter,January,}
+    '''
+
     def __str__(self):
         return self.word
 
@@ -193,6 +197,8 @@ class ResourceItem(models.Model):
             namespace = "polls:resources_numbers"
         elif self.resource_id.name == "Days":
             namespace = "polls:resources_days"
+        elif self.resource_id.name == "Months":
+            namespace = "polls:resources_months"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
 class ResourceItemPicture(models.Model):

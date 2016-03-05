@@ -844,8 +844,15 @@ def resources_months(request, language_name, dialect):
 
     return render(request, 'polls/resource_months.html', context)
 
-def months_resource_update(request, language_name, dialect, resource_id):
-    instance = ResourceItem.objects.get(id=resource_id)
+def months_resource_update(request, language_name, dialect, season_or_month_name):
+    #TODO can only take in one dialect name, dialect must be unique, also season_or_month_name
+    dialect_object = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(dialect_id=dialect_object.id).get(name="Months")
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=season_or_month_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=season_or_month_name)
+        instance.save()
 
     form = NumberResourceForm(request.POST or None, instance=instance)
     if form.is_valid():

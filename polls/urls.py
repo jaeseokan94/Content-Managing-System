@@ -72,7 +72,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/add/$', views.holidays_resource_create, name="holidays_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/$', views.resources_months, name="resources_months"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/(?P<resource_id>[0-9]+)/edit$', views.months_resource_update, name="months_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/(?P<season_or_month_name>[\w]+)/edit$', views.months_resource_update, name="months_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/seasons_and_months/add/$', views.months_resource_create, name="months_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/$', views.resources_time, name="resources_time"),
