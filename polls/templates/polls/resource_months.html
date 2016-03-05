@@ -7,10 +7,36 @@
 <h1>Seasons and Months</h1>
 <a href="{% url 'polls:months_resource_create' language_name dialect %}">Add</a>
 
+<h2>Spring</h2>
+<ul>
+    <li>March</li>
+    <li>April</li>
+    <li>May</li>
+</ul>
+
+<h2>Summer</h2>
+<ul>
+    <li>June</li>
+    <li>July</li>
+    <li>August</li>
+</ul>
+
+<h2>Autumn</h2>
+<ul>
+    <li>September</li>
+    <li>October</li>
+    <li>November</li>
+</ul>
+
+<h2>Winter</h2>
 <ul>
 {% for item in items %}
     <li><a href="{% url 'polls:months_resource_update' language_name dialect item.id %}">{{ item.word }}</a></li>
 {% endfor %}
+    <li>December</li>
+    <li>January</li>
+    <li>February</li>
 </ul>
+
 
 {% endblock content %}
