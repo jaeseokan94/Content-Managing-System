@@ -49,6 +49,10 @@ class Dialect(models.Model):
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
 
+    '''
+        name must be unique for urls to work
+    '''
+
     def __str__(self):
         return self.name
 
@@ -171,6 +175,19 @@ class Resource(models.Model):
     name_in_language = models.CharField(max_length=200)
     instructions = models.CharField(max_length=200)
     instructions_in_language = models.CharField(max_length=200)
+
+    def get_absolute_url(self):
+        namespace = ""
+        if self.name == "Alphabet":
+            namespace = "polls:resources_alphabet"
+        elif self.name == "Numbers":
+            namespace = "polls:resources_numbers"
+        elif self.name == "Days":
+            namespace = "polls:resources_days"
+        elif self.name == "Months":
+            namespace = "polls:resources_months"
+        return reverse(namespace, kwargs={"language_name": self.dialect_id.language_id.name, "dialect": self.dialect_id.name})
+
 
     def __str__(self):
         return self.name

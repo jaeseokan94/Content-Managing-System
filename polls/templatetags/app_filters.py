@@ -9,7 +9,6 @@ def get_at_index(list, index):
 @register.filter(name="get_word")
 def get_word(list, word):
     for item in list:
-        print(item.word + "?=" + word)
         if item.word == word:
             return item.word_in_language
     return "None"

@@ -5,8 +5,8 @@
 
 {% block content %}
 
-<h1>Seasons and Months</h1>
-
+<h1>Seasons and Months</h1><a href="{% url 'polls:resources_edit' language_name dialect.name 'Months' %}">Edit</a>
+<p>{{ resource.name_in_language }}</p>
 
 <h2>Spring - {{ items|get_word:"Spring" }}</h2><a href="{% url 'polls:months_resource_update' language_name dialect.name 'Spring' %}">Edit</a>
 <ul>

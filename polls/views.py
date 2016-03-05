@@ -6,7 +6,7 @@ from rest_framework.parsers import JSONParser
 
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
-                               ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer
+                               ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
                                )
 from polls.serializers import SituationalVideo
 
@@ -28,7 +28,7 @@ from .models import (
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
-    HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm
+    HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm
 )
 
 
@@ -822,7 +822,6 @@ def holidays_resource_create(request, language_name, dialect):
     }
     return render(request, 'polls/resource_holidays_form.html', context)
 
-
 def resources_months(request, language_name, dialect):
     resource_name = "Months"
     dialect = Dialect.objects.get(name=dialect)
@@ -840,9 +839,30 @@ def resources_months(request, language_name, dialect):
         'dialect': dialect,
         'items': items,
         'resource_name': resource_name,
+        'resource': resource,
     }
 
     return render(request, 'polls/resource_months.html', context)
+
+def resources_edit(request, language_name, dialect, resource_name):
+    dialect = Dialect.objects.get(name=dialect)
+    instance = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+
+    form = ResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_form.html', context)
 
 def months_resource_update(request, language_name, dialect, season_or_month_name):
     #TODO can only take in one dialect name, dialect must be unique, also season_or_month_name

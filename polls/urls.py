@@ -55,6 +55,8 @@ urlpatterns = [
 
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/$', views.language_resources, name="language_resources"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/(?P<resource_name>[\w]+)/edit/$', views.resources_edit, name="resources_edit"),
+
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/$', views.language_resources_alphabet, name="resources_alphabet"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/(?P<resource_id>[0-9]+)/edit$', views.letter_resource_update, name="letter_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
