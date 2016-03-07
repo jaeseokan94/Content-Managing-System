@@ -150,5 +150,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Make Django work with Heroku's postgres database
+'''
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
+'''
