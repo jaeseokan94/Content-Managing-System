@@ -11,14 +11,7 @@
         </div>
 
 
-
-
-            <h2><i class="fa fa-angle-right"></i>{{topic.topic_name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-            </h2>
+        <h2><i class="fa fa-angle-right"></i>{{topic.topic_name}}</h2>
 
             <form class="form-horizontal style-form">
                   <div class="form-group">
@@ -60,8 +53,7 @@
 
               </div>
           </form>
-
-              {% if situational_video %}
+{% if situational_video %}
               <a href="{% url 'polls:listening_comprehension_update' language.name topic.level topic.topic_name situational_video.id %}">
                   <button type="button" class="btn btn-default">Listening Comprehension question</button>
               </a>
