@@ -4,29 +4,27 @@
 
 {% block content %}
 
-<div class="col-lg main-chart">
-    <ol class="breadcrumb">
-      <li><h1><i class="fa fa-angle-right"></i> {{ language.name }} -</h1></li>
-      <li><h1><i class="fa fa-angle-right"></i> {{ topic.level }} </h1></li>
-      <li><h1><i class="fa fa-angle-right"></i> {{ topic.topic_name }} </h1></li>
-    </ol>
-</div>
+        <div class="btn-group btn-breadcrumb">
+            <a href="#" class="btn btn-"><h2>{{ language.name }} </h2></a>
+            <a href="#" class="btn btn-"><h2>{{ topic.level }} </h2></a>
+            <a href="#" class="btn btn-"><h2>{{ topic.topic_name }}</h2></a>
+        </div>
 
 
 
-       
+
             <h2><i class="fa fa-angle-right"></i>{{topic.topic_name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-default">
-                            <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</a>
-                        </button>
+
             </h2>
 
             <form class="form-horizontal style-form">
                   <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Topic Name in Language</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Topic Name in Language</label> <button type="button" class="btn btn-default">
+                            <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</a>
+                        </button>
                        <div class="col-sm-5">
                          <input type="textlabel" class="form-control" placeholder="{{subtopic.subtopic_name}}">
                       </div>
