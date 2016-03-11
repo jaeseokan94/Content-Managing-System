@@ -1,19 +1,44 @@
 from django.contrib import admin
 
-from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect
+from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect
 
 admin.site.register(Language)
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-	pass
+	list_filter = ('level',)
 
-admin.site.register(LanguageTopic)
-admin.site.register(LanguageSubtopic)
-admin.site.register(SituationalVideo)
+@admin.register(LanguageTopic)
+class LanguageTopicAdmin(admin.ModelAdmin):
+	list_filter = ('language',)
+
+@admin.register(ExerciseQuestion)
+class ExerciseQuestionAdmin(admin.ModelAdmin):
+	list_filter = ('exercise',)
+
+@admin.register(ExerciseVocabularyQuestion)
+class ExerciseVocabularyQuestionAdmin(admin.ModelAdmin):
+	list_filter = ('exercise',)
+
+@admin.register(Dialect)
+class DialectAdmin(admin.ModelAdmin):
+	list_filter = ('language_id',)
+
+@admin.register(LanguageSubtopic)
+class LanguageSubtopicAdmin(admin.ModelAdmin):
+	list_filter = ('language_topic',)
+
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
+	list_filter = ('dialect_id',)
+
+@admin.register(ResourceItem)
+class ResourceItemAdmin(admin.ModelAdmin):
+	list_filter = ('resource_id',)
+
+@admin.register(ResourceItemPicture)
+class ResourceItemPictureAdmin(admin.ModelAdmin):
+	list_filter = ('resource_id',)
+
 admin.site.register(Exercise)
-admin.site.register(ExerciseQuestion)
-admin.site.register(Dialect)
-admin.site.register(Resource)
-admin.site.register(ResourceItem)
-admin.site.register(ResourceItemPicture)
+admin.site.register(SituationalVideo)

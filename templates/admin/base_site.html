@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Lang it up{% endblock %}
+
+{% block branding %}
+<img src="{% static 'admin/Kings1.jpg' %}" height="30px"/><br>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Lang it up</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %} PARAGON 2016 {% endblock footer %}

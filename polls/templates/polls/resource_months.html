@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load app_filters %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>Seasons and Months</h1><a href="{% url 'polls:resources_edit' language_name dialect.name 'Months' %}">Edit</a>
+<p>{{ resource.name_in_language }}</p>
+
+<h2>Spring - {{ items|get_word:"Spring" }}</h2><a href="{% url 'polls:months_resource_update' language_name dialect.name 'Spring' %}">Edit</a>
+<ul>
+    <li>March - {{ items|get_word:"March" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'March' %}">Edit</a>
+    <li>April - {{ items|get_word:"April" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'April' %}">Edit</a>
+    <li>May - {{ items|get_word:"May" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'May' %}">Edit</a>
+</ul>
+
+<h2>Summer - {{ items|get_word:"Summer" }}</h2><a href="{% url 'polls:months_resource_update' language_name dialect.name 'Summer' %}">Edit</a>
+<ul>
+    <li>June - {{ items|get_word:"June" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'June' %}">Edit</a>
+    <li>July - {{ items|get_word:"July" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'July' %}">Edit</a>
+    <li>August - {{ items|get_word:"August" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'August' %}">Edit</a>
+</ul>
+
+<h2>Autumn - {{ items|get_word:"Autumn" }}</h2><a href="{% url 'polls:months_resource_update' language_name dialect.name 'Autumn' %}">Edit</a>
+<ul>
+    <li>September - {{ items|get_word:"September" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'September' %}">Edit</a>
+    <li>October - {{ items|get_word:"October" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'October' %}">Edit</a>
+    <li>November - {{ items|get_word:"November" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'November' %}">Edit</a>
+</ul>
+
+<h2>Winter - {{ items|get_word:"Winter" }}</h2><a href="{% url 'polls:months_resource_update' language_name dialect.name 'Winter' %}">Edit</a>
+<ul>
+{% for item in items %}
+    <li><a href="{% url 'polls:months_resource_update' language_name dialect.name item.id %}">{{ item.word }}</a></li>
+{% endfor %}
+    <li>December - {{ items|get_word:"December" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'December' %}">Edit</a>
+    <li>January - {{ items|get_word:"January" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'January' %}">Edit</a>
+    <li>February - {{ items|get_word:"February" }}</li><a href="{% url 'polls:months_resource_update' language_name dialect.name 'February' %}">Edit</a>
+</ul>
+
+
+{% endblock content %}

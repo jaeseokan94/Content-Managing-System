@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ level|upper }} topics</h1>
+<a href="{% url 'polls:topic_create' level %}">Add</a>
+
+{% if topics %}
+    <ul>
+    {% for topic in topics %}
+        <li>{{ topic.topic_name }} <a href="{% url 'polls:topic_update' level topic.id %}">Edit</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topics to show</p>
+{% endif %}
+
+{% endblock content %}

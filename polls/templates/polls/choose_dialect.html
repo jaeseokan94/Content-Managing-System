@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>Dialect</h1>
+<a href="{% url 'polls:dialect_create' language_name %}">Add</a>
+
+<ul>
+{% for dialect in dialects %}
+    <li><a href="{% url 'polls:language_resources' language_name dialect.name %}">{{ dialect.name }}</a></li>
+    <a href="{% url 'polls:dialect_update' language_name dialect.id %}" >Edit</a>
+{% endfor %}
+</ul>
+
+{% endblock content %}

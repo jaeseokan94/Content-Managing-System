@@ -1,10 +1,28 @@
-<h1>List of all languages</h1>
-{% if language_list %}
-    <ul>
-    {% for language in language_list %}
-        <li><a href="/polls/language/{{ language.name }}/">{{ language.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No languages are available.</p>
-{% endif %}
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block content %}
+
+
+<div class="jumbotron">
+  <h1>Languages</h1>
+
+</div>
+        {% if language_list %}
+            <ul>
+                {% for language in language_list %}
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}">
+                                <img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.png"><h2>{{ language.name }}</h2></a>
+                                    <div class="overlay"></div>
+                        </div>
+
+
+                {% endfor %}
+            </ul>
+
+                {% else %}
+            <p>No languages are available.</p>
+                {% endif %}
+                {% endblock content %}
