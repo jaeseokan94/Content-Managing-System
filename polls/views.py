@@ -41,7 +41,6 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-
 def language_list(request):
     language_list = Language.objects.all()
     context = {'language_list': language_list,}
@@ -55,6 +54,15 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
         serializer = GrammarVideoSerializer(subtopic, many=True)
         return JSONResponse(serializer.data)
 '''http://127.0.0.1:8000/polls/German/beginner/Bathroom/subtopic-test/grammarVideo/'''
+
+@csrf_exempt
+def language_list(request):
+
+      if request.method == 'GET':
+        language = Language.objects.all()
+        serializer = LanguageSerializer(language, many=True)
+        return JSONResponse(serializer.data)
+
 
 @csrf_exempt
 def subtopic_list(request, language, level, topic_name):

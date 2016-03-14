@@ -58,6 +58,7 @@ class Dialect(models.Model):
 
     def get_absolute_url(self):
         return reverse("polls:choose_dialect", kwargs={"language_name": self.language_id.name})
+    
 
 
 class Topic(models.Model):
