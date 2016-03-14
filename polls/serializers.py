@@ -13,7 +13,7 @@ print(repr(serializer))
 class LanguageSerializer(serializers.Serializer):
     pk = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
-    name2 = serializers.CharField(required=True)
+    name_in_language = serializers.CharField(required=True)
 
     def create(self, validated_data):
         """
@@ -26,7 +26,7 @@ class LanguageSerializer(serializers.Serializer):
         Update and return an existing `Snippet` instance, given the validated data.
         """
         instance.name = validated_data.get('title', instance.name)
-        instance.name2 = validated_data.get('code', instance.name2)
+        instance.name_in_language = validated_data.get('code', instance.name2)
         instance.save()
         return instance
 

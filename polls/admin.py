@@ -1,8 +1,12 @@
 from django.contrib import admin
 
-from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect
+from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect, LevelLanguage
 
 admin.site.register(Language)
+
+@admin.register(LevelLanguage)
+class LevelAdmin(admin.ModelAdmin):
+	list_filter = ('language',)
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
@@ -39,6 +43,8 @@ class ResourceItemAdmin(admin.ModelAdmin):
 @admin.register(ResourceItemPicture)
 class ResourceItemPictureAdmin(admin.ModelAdmin):
 	list_filter = ('resource_id',)
+
+
 
 admin.site.register(Exercise)
 admin.site.register(SituationalVideo)
