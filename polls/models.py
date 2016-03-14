@@ -13,7 +13,6 @@ RESOURCES = (
     ('Months', 'Seasons and Months'),
     ('Time', 'Time'),
 )
-
 LEVEL = (
     ('b', 'Beginner'),
     ('i', 'Intermediate'),
@@ -58,12 +57,17 @@ class Dialect(models.Model):
 
     def get_absolute_url(self):
         return reverse("polls:choose_dialect", kwargs={"language_name": self.language_id.name})
-    
 
+class LevelLanguage(models.Model):
+    level = models.CharField(max_length=200)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.level
 
 class Topic(models.Model):
-    level = models.CharField(max_length=1, choices=LEVEL, default=LEVEL[0][0])
     topic_name = models.CharField(max_length=200)
+    level = models.ForeignKey(LevelLanguage, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.topic_name
