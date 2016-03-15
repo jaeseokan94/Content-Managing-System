@@ -77,8 +77,14 @@ class Dialect(models.Model):
     def get_absolute_url(self):
         return reverse("polls:choose_dialect", kwargs={"language_name": self.language_id.name})
 
-class LevelLanguage(models.Model):
+class Level(models.Model):
     level = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.level
+
+class LevelLanguage(models.Model):
+    level = models.ForeignKey(Level, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
 
     def __str__(self):
