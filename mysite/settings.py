@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'rest_framework',
     'polls.templatetags.app_filters',
-    'gdstorage',
 ]
 
 MIDDLEWARE_CLASSES = [

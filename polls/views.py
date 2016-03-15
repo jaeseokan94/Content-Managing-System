@@ -40,11 +40,12 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
+'''
 def language_list(request):
     language_list = Language.objects.all()
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
+'''
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
