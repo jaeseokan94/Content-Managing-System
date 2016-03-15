@@ -41,12 +41,12 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-'''
+
 def language_list(request):
     language_list = Language.objects.all()
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
-'''
+
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
@@ -58,7 +58,7 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
 '''http://127.0.0.1:8000/polls/German/beginner/Bathroom/subtopic-test/grammarVideo/'''
 
 @csrf_exempt
-def language_list(request):
+def language_list_show(request):
 
       if request.method == 'GET':
         language = Language.objects.all()
@@ -147,7 +147,8 @@ def topic_detail(request, language_name, level, topic_name):
 
 def language_topic_list(request, language_name, level):
     language = Language.objects.filter(name=language_name)
-    topics = Topic.objects.filter(level=level)
+    level = Level.objects.get(level=level)
+    topics = Topic.objects.filter(level=level.id)
 
 
     context = {'topic_list': topics,
@@ -200,10 +201,11 @@ def language_delete(request, language_id):
 
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
+    level = Level.objects.all()
     context = {
         'language': language,
         'language_name': language_name,
-        'levels': LEVEL
+        'levels': level
     }
     return render(request, 'polls/language_detail.html', context)
 

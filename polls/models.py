@@ -28,6 +28,7 @@ CHOICES = [
     ("6", "6")
 ]
 
+
 def validate_movie_extension(value):
         ext = os.path.splitext(value.name)[1]
         valid_extensions = ['.mp4']
