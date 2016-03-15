@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
+                               LevelSerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -23,7 +24,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LEVEL
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -1268,5 +1269,17 @@ def resource_api(request, language_name, dialect, resource_name):
             serializer = ResourceItemNumbersSerializer(resource_items, many=True)
         elif resource_name=="Holidays" or resource_name=="Time":
             serializer = ResourceItemPictureSerializer(resource_items, many=True)
+
+    return JSONResponse(serializer.data)
+
+def level_api(request, language_name):
+    if request.method == 'GET':
+        language = Language.objects.get(name=language_name)
+        levellang = LevelLanguage.objects.filter(language=language.id)
+        levels = []
+        for level in levellang:
+            levels.append(Level.objects.get(level=level.level))
+
+        serializer = LevelSerializer(levels, many=True)
 
     return JSONResponse(serializer.data)

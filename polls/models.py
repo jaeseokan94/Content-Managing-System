@@ -88,7 +88,7 @@ class LevelLanguage(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.level
+        return self.level.level
 
 class Topic(models.Model):
     topic_name = models.CharField(max_length=200)
