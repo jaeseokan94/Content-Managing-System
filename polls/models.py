@@ -3,7 +3,8 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
-
+from django.core.exceptions import ValidationError
+import os
 
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
@@ -26,6 +27,24 @@ CHOICES = [
     ("5", "5"),
     ("6", "6")
 ]
+
+def validate_movie_extension(value):
+        ext = os.path.splitext(value.name)[1]
+        valid_extensions = ['.mp4']
+        if not ext in valid_extensions:
+            raise ValidationError(u'File not supported! Only .mp4 is allowed.')
+
+def validate_audio_extension(value):
+        ext = os.path.splitext(value.name)[1]
+        valid_extensions = ['.mp3']
+        if not ext in valid_extensions:
+            raise ValidationError(u'File not supported! Only .mp3 is allowed.')
+
+def validate_picture_extension(value):
+        ext = os.path.splitext(value.name)[1]
+        valid_extensions = ['.jpeg', '.jpg', '.png']
+        if not ext in valid_extensions:
+            raise ValidationError(u'File not supported! Only .mp3 is allowed.')
 
 class Language(models.Model):
     name = models.CharField(max_length=200)
@@ -94,8 +113,8 @@ class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
     situation_description_in_language = models.CharField(max_length=200, blank=True)
-    video_with_transcript = models.FileField(null=True, blank=True)
-    video_without_transcript =  models.FileField(null=True, blank=True)
+    video_with_transcript = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
+    video_without_transcript =  models.FileField(null=True, blank=True, validators=[validate_movie_extension])
     question_text = models.CharField(max_length=200)
     choice_1 = models.CharField(max_length=200, blank=True)
     choice_2 = models.CharField(max_length=200, blank=True)
@@ -116,7 +135,7 @@ class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
     subtopic_name_in_language = models.CharField(max_length=200, null=True)
-    grammar_video_file = models.FileField(null=True, blank=True)
+    grammar_video_file = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
 
     def __str__(self):
         return self.language_topic. topic_name_in_language + "|" + self.subtopic_name
@@ -159,12 +178,12 @@ class ExerciseQuestion(models.Model):
 class ExerciseVocabularyQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
-    choice_1 = models.FileField(null=True, blank=True)
-    choice_2 = models.FileField(null=True, blank=True)
-    choice_3 = models.FileField(null=True, blank=True)
-    choice_4 = models.FileField(null=True, blank=True)
-    choice_5 = models.FileField(null=True, blank=True)
-    choice_6 = models.FileField(null=True, blank=True)
+    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
     correct_answer = models.CharField(max_length=1, choices=CHOICES, default=CHOICES[0])
 
     def __str__(self):
@@ -202,7 +221,7 @@ class ResourceItem(models.Model):
     word = models.CharField(max_length=200)
     word_in_language = models.CharField(max_length=200, blank=True, default="")
     pronounciation_guide_or_date = models.CharField(max_length=200, blank=True)
-    audio_url = models.FileField(null=True, blank=True)
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
 
     '''
         Months resource: word only accepts {Spring,Summer,Autumn,Winter,January,}
@@ -227,8 +246,8 @@ class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)
     phrase_in_language = models.CharField(max_length=200)
-    picture_url = models.FileField(null=True, blank=True)
-    audio_url = models.FileField(null=True, blank=True)
+    picture_url = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
 
     def __str__(self):
         return self.phrase
