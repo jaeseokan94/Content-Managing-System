@@ -71,7 +71,9 @@ def subtopic_list(request, language, level, topic_name):
 
       if request.method == 'GET':
         language = Language.objects.get(name=language)
-        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=level)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
         topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
         serializer = GrammarVideoSerializer(topic, many=True)
@@ -331,7 +333,9 @@ def situational_video_create(request, language_name, level, topic_name):
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.get(topic_name=topic_name)
+    level_name = Level.objects.get(level=level)
+    langLevel = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)

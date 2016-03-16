@@ -34,6 +34,8 @@ urlpatterns = [
     url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api),
     url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
 
+
+
     url(r'^language/list/$', views.language_list, name='language_list'),
     url(r'^language/add/$', views.language_create, name='language_create'),
     url(r'^language/(?P<language_id>[\w]+)/edit/$', views.language_update, name='language_update'),
