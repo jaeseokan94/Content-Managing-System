@@ -1,10 +1,11 @@
 from django.contrib import admin
 
 from .models import Language, Topic, SituationalVideo, Exercise, LanguageTopic, LanguageSubtopic, ExerciseQuestion, \
-	ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect, LevelLanguage, Level
+	ExerciseVocabularyQuestion, Resource, ResourceItem, ResourceItemPicture, Dialect, LevelLanguage, Level, Key
 
 admin.site.register(Language)
 admin.site.register(Level)
+admin.site.register(Key)
 @admin.register(LevelLanguage)
 class LevelAdmin(admin.ModelAdmin):
 	list_filter = ('language',)

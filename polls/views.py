@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
-                               LevelSerializer
+                               LevelSerializer, KeySerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -24,7 +24,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Key
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -41,6 +41,7 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+
 
 def language_list(request):
     language_list = Language.objects.all()
@@ -67,6 +68,15 @@ def language_list_show(request):
 
 
 @csrf_exempt
+def key_list(request):
+
+    if request.method == 'GET':
+        key = Key.objects.all()
+        serializer = KeySerializer(key, many=True)
+        return JSONResponse(serializer.data)
+
+
+@csrf_exempt
 def subtopic_list(request, language, level, topic_name):
 
       if request.method == 'GET':
@@ -76,6 +86,19 @@ def subtopic_list(request, language, level, topic_name):
         topic_list= Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
         topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
+        serializer = GrammarVideoSerializer(topic, many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def subtopic_list_all(request):
+
+      if request.method == 'GET':
+        language = Language.objects.all()
+        level_name = Level.objects.all()
+        levelLang_name = LevelLanguage.objects.all()
+        topic_list= Topic.objects.filter.all()
+        language_topic= LanguageTopic.objects.all()
+        topic = LanguageSubtopic.objects.all()
         serializer = GrammarVideoSerializer(topic, many=True)
         return JSONResponse(serializer.data)
 

@@ -102,6 +102,8 @@ class Topic(models.Model):
         return reverse("polls:level_detail", kwargs={"level": self.level})
 
 
+
+
 class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
@@ -138,6 +140,7 @@ class SituationalVideo(models.Model):
         return reverse("polls:topic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name})
 
 
+
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
@@ -149,6 +152,14 @@ class LanguageSubtopic(models.Model):
 
     def get_absolute_url(self):
         return reverse("polls:subtopic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name, "subtopic_name": self.subtopic_name})
+
+
+
+class Key(models.Model):
+    language_name = models.ForeignKey(Language, on_delete=models.CASCADE)
+    level_name = models.ForeignKey(Level, on_delete=models.CASCADE)
+    topic_name = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
+    subtopic_name = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
 
 
 class Exercise(models.Model):
@@ -222,6 +233,7 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ResourceItem(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)

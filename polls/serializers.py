@@ -2,7 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level
+from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Key
 
 '''
 from polls.serializers import LanguageSerializer
@@ -64,3 +64,9 @@ class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
         fields = ('level',)
+
+class KeySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Key
+        fields = ('language_name','level_name','topic_name','subtopic_name')
+
