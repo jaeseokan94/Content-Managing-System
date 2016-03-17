@@ -107,7 +107,9 @@ def situational_video_list(request, language, level, topic_name):
 
     if request.method == 'GET':
         language = Language.objects.get(name=language)
-        topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
@@ -304,7 +306,9 @@ def language_topic_create(request, language_name, level):
 
 def situational_video_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     situational_video = SituationalVideo.objects.filter(language_topic=languagetopic.id)
@@ -320,7 +324,9 @@ def situational_video_detail(request, language_name, level, topic_name):
 
 def situational_video_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
@@ -412,7 +418,9 @@ def subtopic_create(request, language_name, level, topic_name):
 
 def subtopic_update(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
 
@@ -454,7 +462,9 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name, ex
 
 def exercise_create(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
