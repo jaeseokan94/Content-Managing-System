@@ -28,6 +28,13 @@ CHOICES = [
     ("6", "6")
 ]
 
+QUESTION_TYPE = [
+    ("ty", "Typing"),
+    ("tf", "True or False"),
+    ("dd", "Drag and Drop"),
+    ("mc", "Multiple Choice"),
+]
+
 
 def validate_movie_extension(value):
         ext = os.path.splitext(value.name)[1]
@@ -167,6 +174,7 @@ class Exercise(models.Model):
     language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
     instructions = models.CharField(max_length=500, null=True)
     instructions_in_language = models.CharField(max_length=500, null=True)
+    question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default=QUESTION_TYPE[0])
 
     def __str__(self):
         return self.language_subtopic.subtopic_name + "|" + self.instructions
