@@ -33,7 +33,6 @@ urlpatterns = [
     url(r'^api/languageList/$', views.language_list_show),
     url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api),
     url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
-    url(r'^api/showAll/$', views.key_list),
 
 
 

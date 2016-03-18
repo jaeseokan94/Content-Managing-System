@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
-                               LevelSerializer, KeySerializer
+                               LevelSerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -24,7 +24,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Key
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -65,16 +65,6 @@ def language_list_show(request):
         language = Language.objects.all()
         serializer = LanguageSerializer(language, many=True)
         return JSONResponse(serializer.data)
-
-
-@csrf_exempt
-def key_list(request):
-
-    if request.method == 'GET':
-        key = Key.objects.all()
-        serializer = KeySerializer(key, many=True)
-        return JSONResponse(serializer.data)
-
 
 @csrf_exempt
 def subtopic_list(request, language, level, topic_name):
