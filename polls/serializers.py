@@ -2,7 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level
+from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Exercise, ExerciseVocabularyQuestion
 
 '''
 from polls.serializers import LanguageSerializer
@@ -44,6 +44,18 @@ class ExerciseQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseQuestion
         fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
+'''
+class ExerciseQuestionSerializer(serializers.Serializer):
+    class Meta:
+        fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
+
+    def to_representation(self, ExerciseSerializer ):
+        serialized_data = super(ExerciseQuestion, self).to_representation(ExerciseSerializer)
+        exercise_id = serialized_data.get('exercise')
+        exercise_name = Exercise.objects.get(id=exercise_id)
+        serialized_data[exercise_name] = exercise_name
+        return serialized_data
+'''
 
 class ResourceItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -64,3 +76,9 @@ class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
         fields = ('level',)
+
+class ExerciseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exercise
+        fields = ('exercise_name','language_subtopic','instructions','instructions_in_language','question_type')
+
