@@ -129,6 +129,7 @@ class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     topic_name_in_language = models.CharField(max_length=200, blank=True)
+    #TODO must check if topic's level is in language's level
  
     def __str__(self):
         return self.topic_name_in_language
