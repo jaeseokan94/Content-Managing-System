@@ -30,7 +30,7 @@ from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
-    LevelLanguageForm
+    LevelLanguageForm, LevelForm
 )
 
 
@@ -1371,6 +1371,22 @@ def level_language_create(request, language_name):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.language = language
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        #messages.error(request, "Not successfully created")
+        pass
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)
+
+def level_create(request):
+    form = LevelForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     else:

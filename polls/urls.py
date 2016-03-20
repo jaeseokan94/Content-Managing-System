@@ -40,7 +40,7 @@ urlpatterns = [
 
 
     url(r'^language/list/$', views.language_list, name='language_list'),
-    url(r'^language/add/$', views.language_create, name='language_create'),
+    url(r'^language/new/$', views.language_create, name='language_create'),
     url(r'^language/(?P<language_id>[\w]+)/edit/$', views.language_update, name='language_update'),
     url(r'^language/(?P<language_id>[\w]+)/delete', views.language_delete, name='language_delete'),
     url(r'^language/(?P<language_name>[\w]+)/$', views.language_detail, name='language_detail'),
@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^$', views.dashboard, name="dashboard"),
 
     url(r'^(?P<language_name>[\w]+)/newLevel/$', views.level_language_create, name="level_language_create"),
+    url(r'^level/new/$', views.level_create, name="level_create"),
     url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
     url(r'^(?P<level>[\w]+)/newtopic/$', views.topic_create, name="topic_create"),
     url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.topic_update, name="topic_update"),
