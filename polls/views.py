@@ -1362,3 +1362,21 @@ def level_api(request, language_name):
 
     return JSONResponse(serializer.data)
 
+def level_language_create(request, language_name):
+    language = Language.objects.get(name=language_name)
+
+    form = LevelLanguageForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.language = language
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        #messages.error(request, "Not successfully created")
+        pass
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)

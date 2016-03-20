@@ -60,6 +60,10 @@ class Language(models.Model):
     class Meta:
         ordering = ('name',)
 
+    '''
+        language name must be unique for urls to work
+    '''
+
     def __str__(self):
         return self.name
 
