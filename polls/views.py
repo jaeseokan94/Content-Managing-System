@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
+                               LevelSerializer, DialectSerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -23,7 +24,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LEVEL
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -41,10 +42,12 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+
 def language_list(request):
     language_list = Language.objects.all()
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
+
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
@@ -56,22 +59,31 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
 '''http://127.0.0.1:8000/polls/German/beginner/Bathroom/subtopic-test/grammarVideo/'''
 
 @csrf_exempt
-def language_list(request):
+def language_list_show(request):
 
       if request.method == 'GET':
         language = Language.objects.all()
         serializer = LanguageSerializer(language, many=True)
         return JSONResponse(serializer.data)
 
-
 @csrf_exempt
 def subtopic_list(request, language, level, topic_name):
 
       if request.method == 'GET':
         language = Language.objects.get(name=language)
-        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=level)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
         topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
+        serializer = GrammarVideoSerializer(topic, many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def subtopic_list_all(request):
+
+      if request.method == 'GET':
+        topic = LanguageSubtopic.objects.all()
         serializer = GrammarVideoSerializer(topic, many=True)
         return JSONResponse(serializer.data)
 
@@ -80,7 +92,9 @@ def situational_video_list(request, language, level, topic_name):
 
     if request.method == 'GET':
         language = Language.objects.get(name=language)
-        topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
         serializer = SituationalVideoSerializer(video, many=True)
@@ -92,7 +106,9 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
 
     if request.method == 'GET':
         language = Language.objects.get(name=language)
-        topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
         language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
@@ -104,6 +120,16 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
             question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
         serializer = ExerciseQuestionSerializer(question, many=True)
         return JSONResponse(serializer.data)
+
+@csrf_exempt
+def dialect_list(request, language):
+
+    if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        dialect_name = Dialect.objects.filter(language_id=language.id)
+        serializer = DialectSerializer(dialect_name , many=True)
+        return JSONResponse(serializer.data)
+
 
 @csrf_exempt
 def situational_video_detail(request, pk):
@@ -145,7 +171,8 @@ def topic_detail(request, language_name, level, topic_name):
 
 def language_topic_list(request, language_name, level):
     language = Language.objects.filter(name=language_name)
-    topics = Topic.objects.filter(level=level)
+    level = Level.objects.get(level=level)
+    topics = Topic.objects.filter(level=level.id)
 
 
     context = {'topic_list': topics,
@@ -198,10 +225,11 @@ def language_delete(request, language_id):
 
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
+    level = Level.objects.all()
     context = {
         'language': language,
         'language_name': language_name,
-        'levels': LEVEL
+        'levels': level
     }
     return render(request, 'polls/language_detail.html', context)
 
@@ -273,7 +301,9 @@ def language_topic_create(request, language_name, level):
 
 def situational_video_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     situational_video = SituationalVideo.objects.filter(language_topic=languagetopic.id)
@@ -289,7 +319,9 @@ def situational_video_detail(request, language_name, level, topic_name):
 
 def situational_video_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
@@ -327,7 +359,9 @@ def situational_video_create(request, language_name, level, topic_name):
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.get(topic_name=topic_name)
+    level_name = Level.objects.get(level=level)
+    langLevel = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
@@ -379,7 +413,9 @@ def subtopic_create(request, language_name, level, topic_name):
 
 def subtopic_update(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
 
@@ -421,7 +457,9 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name, ex
 
 def exercise_create(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level_name = Level.objects.get(level=level)
+    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
@@ -1267,5 +1305,17 @@ def resource_api(request, language_name, dialect, resource_name):
             serializer = ResourceItemNumbersSerializer(resource_items, many=True)
         elif resource_name=="Holidays" or resource_name=="Time":
             serializer = ResourceItemPictureSerializer(resource_items, many=True)
+
+    return JSONResponse(serializer.data)
+
+def level_api(request, language_name):
+    if request.method == 'GET':
+        language = Language.objects.get(name=language_name)
+        levellang = LevelLanguage.objects.filter(language=language.id)
+        levels = []
+        for level in levellang:
+            levels.append(Level.objects.get(level=level.level))
+
+        serializer = LevelSerializer(levels, many=True)
 
     return JSONResponse(serializer.data)

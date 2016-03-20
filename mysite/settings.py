@@ -81,6 +81,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# Make Django work with Heroku's postgres database
+
+#DATABASES = {}
+#DATABASES['default'] =  dj_database_url.config()
 
 DATABASES = {
     'default': {
@@ -88,6 +92,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
@@ -149,8 +154,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-# Make Django work with Heroku's postgres database
-'''
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-'''
+#
+# Google Drive Storage Settings
+#
+GOOGLE_DRIVE_STORAGE_KEY = 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQkpGe/dmhFQv6\n38LXo8U8WG/UlGuxaKT4jj0yVeUaUrUscPQEBwho517GmWbQgCFk6K0v1y+P23NL\nVmLJxVzcBeivQ8iVPCnrtrL/IsWKR7OznSGj3Zp38o8C313JWSovw4y2DfotrvBr\nVEQyTX/R+IJh5ub2BKVIsoXnJ1WK7eStp8ZGDn7UYacVSlWfvLq/Za1FMscCqeiU\nAbQzjtA2q8I1XocpTeVlBnCHXJE/WrEqqRVbdGvSSswkdpAGjQ0SISdeulFtYFgK\nK+YMslja1gU1ZjrJF/vZOc5CDbCW8e/gwQxbOemzEsOxmT++xnFNYnahhls6IuHz\nLJfNCK/hAgMBAAECggEAa3CBR+bfFRbPEGG6KwdKTM5sTU7/uZhLAWyzjfTHjghp\nG93Veii/1zYa+PyHq+uM5bEFA8inUAGGbTaFs+04VUsO4TE+n6lWfhYIcBMnOtyO\nb60WkvDdGsboAPp+eGQLNfPdXm6Eve6EPT8ibz+o/iHww1EV0z8gliYV3PMeX1/L\nUSk6HNUD/EgtAmP33oKI66x6QLOA26kCTFD6vdKbfqJnk4FOwH2O4VA0WxafJJZQ\ny5mBa2kXnKpiTP/1nPR2tCp7mw4KU6JgAMPY9MnhjdYwFnQZTW+DUIAGyNuewzTR\nbHVUzjPdQzBgsSAc9Fkc0lHQz2gdVtDUB2dW20QdAQKBgQDb6zXPvn46KwQPRxO1\nD7b0JPZAYk6QjVufXabcY/voxvnr/eRWZftNf3eeiAw7d0+TEqWGi5dNTmWgRatL\nfZYaU834fB6FNvtJDMuNH1twuJ5R30+yYiAi9C+9tmKCx40lu77QF/q82o36j7j+\nxvy9Vuy5SckdrHDGPRiesz3/EwKBgQCoSr9Gj47AB35X1YZiUM8SYvwtZ915/qxS\nA8sp0INL7dsDWOcA/BwEDhlNkJSnjTqbDl9TlG8Zxn3m9CS8ekc+jmG7zrXXIvwq\nueh0NtPuEG6LaBA6A1j6iNkqELO3kmcJNndLt+6MGAbInq0MC7AL3wDTCLj37Kd0\nZLGV2WXPuwKBgHnZoT8x9Q6VtvIgF7NCucQclrSlw5IkQJfUdBe47mLTnLY9Pr8A\nUnVmIwkbqGtqeBStSDl8LqEOxxA+ieKR+xErTfxYCTEWfbTD+iR/M1MJd+81JBta\ncyPq2GjtHTgJCRPXKqpyHuN01SX3bDD+YBsohpFDaMOgP/wW7gVAmyExAoGAdogH\nBpywD2J3w0d6Gh8OacXcFeL05CrSlgVj/7SD9WO3ATmJonDvDpAblD0D5qsbHwDV\ndVmzkrTyEkvc3/9D1LSV86BZBQj4EOPV7Jx9Ukyyf2+xFhsrfXILeow++EmeVqfN\nCECpPHTjukPAYB6PRR0xSHH5TW2aV+lgBsoS4mcCgYEAmaGpG8ZJoL3yTRAthfmC\nATnzoOnBokYSXLSZD2bmNAfMj6QLqndqH9rDrpiiL8rkoHSSAlmoLOSrdPPWEwsj\nkEzHTbJUyztMnXHQgGBcf7fEsyLYcbe4kzfVmFF11QoavhoADJFpa9fHnqdMlKIa\nZ1zPIqRe1CPDP1EEl/zEvUQ='
+GOOGLE_DRIVE_STORAGE_SERVICE_EMAIL = 'lang-it-up@sublime-lens-124715.iam.gserviceaccount.com'

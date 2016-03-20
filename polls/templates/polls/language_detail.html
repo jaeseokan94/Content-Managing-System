@@ -13,7 +13,7 @@ Name in language: {{ language.name_in_language }}
 <h2>Levels</h2>
 <ul>
 {% for level in levels %}
-    <li><a href="{% url 'polls:topic_list' language_name level.0 %}">{{ level.1 }}</a></li>
+    <li><a href="{% url 'polls:topic_list' language_name level %}">{{ level.level }}</a></li>
 {% endfor %}
 </ul>
 
