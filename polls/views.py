@@ -100,8 +100,29 @@ def situational_video_list(request, language, level, topic_name):
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)
 
-def exercise_list():
-    pass
+def exercise_list(request, language, level, topic_name, subtopic_name):
+    if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+        language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+        language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
+
+        exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+
+        to_json = []
+
+        for exercise in exercises:
+            exercise_json = {}
+            exercise_json['exercise_id'] = exercise.id
+            exercise_json['exercise_name'] = exercise.exercise_name
+
+            to_json.append(exercise_json)
+
+        return JsonResponse(to_json, safe=False)
+
 
 def exercise_question_list(request, language, level, topic_name, subtopic_name, exercise_id):
 
