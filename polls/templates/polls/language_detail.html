@@ -11,7 +11,7 @@
 Name in language: {{ language.name_in_language }}
 
 <h2>Levels</h2>
-<a href="#">Add</a>
+<a href="{% url 'polls:level_language_create' language.name %}">Add</a>
 <ul>
 {% for levelLang in levelLangs %}
     <li><a href="{% url 'polls:topic_list' language_name levelLang.language.name %}">{{ levelLang.level.level }}</a></li>
