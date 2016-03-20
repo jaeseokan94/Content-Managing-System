@@ -1,5 +1,5 @@
 from django import template
-from polls.models import LanguageTopic, Language, LevelLanguage
+from polls.models import LanguageTopic, Language, LevelLanguage, Dialect
 import re
 
 register = template.Library()
@@ -36,14 +36,19 @@ def show_topics(url):
     '''
 
     levelLangs = []
+    dialects = []
 
+    #if language exists
     if lang_id != -1:
         levelLangs = LevelLanguage.objects.filter(language=lang_id)
+        dialects = Dialect.objects.filter(language_id=lang_id)
+
 
     context = {
         'topics': topics,
         'language': language,
         'levelLangs': levelLangs,
+        'dialects': dialects,
         'found_language': found_language,
     }
 
