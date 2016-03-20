@@ -103,7 +103,7 @@ def situational_video_list(request, language, level, topic_name):
 def exercise_list():
     pass
 
-def exercise_question_list_2(request, language, level, topic_name, subtopic_name, exercise_id):
+def exercise_question_list(request, language, level, topic_name, subtopic_name, exercise_id):
 
     if request.method == 'GET':
         exercise = Exercise.objects.get(id=exercise_id)
