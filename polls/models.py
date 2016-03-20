@@ -102,6 +102,9 @@ class LevelLanguage(models.Model):
     def __str__(self):
         return self.level.level
 
+    def get_absolute_url(self):
+        return reverse("polls:language_detail", kwargs={"language_name": self.language.name})
+
 class Topic(models.Model):
     topic_name = models.CharField(max_length=200)
     level = models.ForeignKey(LevelLanguage, on_delete=models.CASCADE)
