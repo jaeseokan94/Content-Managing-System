@@ -59,6 +59,9 @@ class Language(models.Model):
     name_in_language = models.CharField(max_length=200)
     class Meta:
         ordering = ('name',)
+        permissions = (
+            ("add_language", "Can add a new language"),
+        )
 
     '''
         language name must be unique for urls to work
@@ -78,7 +81,6 @@ class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
-
     '''
         name must be unique for urls to work
     '''

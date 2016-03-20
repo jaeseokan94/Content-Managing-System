@@ -21,6 +21,7 @@ from django.utils import timezone
 #from tutorial 3 for language_list()
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.decorators import permission_required
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
@@ -226,6 +227,7 @@ def language_topic_list(request, language_name, level):
 
     return render(request, 'polls/topiclist.html', context)
 
+@permission_required('polls.add_language')
 def language_create(request):
     form = LanguageForm(request.POST or None)
     if form.is_valid():
