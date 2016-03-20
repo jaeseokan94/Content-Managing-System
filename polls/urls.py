@@ -60,7 +60,7 @@ urlpatterns = [
     #Resources
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
     url(r'^(?P<language_name>[\w]+)/resources/newdialect/$', views.dialect_create, name="dialect_create"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect_id>[0-9]+)/$', views.dialect_update, name="dialect_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect_id>[0-9]+)/edit/$', views.dialect_update, name="dialect_update"),
 
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/$', views.language_resources, name="language_resources"),
