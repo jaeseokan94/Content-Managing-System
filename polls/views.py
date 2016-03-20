@@ -121,6 +121,25 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
         serializer = ExerciseQuestionSerializer(question, many=True)
         return JSONResponse(serializer.data)
 
+def exercise_question_list_2(request, language, level, topic_name, subtopic_name):
+
+    if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+        language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+        language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
+
+        exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+
+        question = ExerciseQuestion.objects.none()
+        for exercise in exercises:
+            question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
+        serializer = ExerciseQuestionSerializer(question, many=True)
+        return JSONResponse(serializer.data)
+
 @csrf_exempt
 def dialect_list(request, language):
 
