@@ -47,5 +47,6 @@ class ResourceItemPictureAdmin(admin.ModelAdmin):
 
 
 
+
 admin.site.register(Exercise)
 admin.site.register(SituationalVideo)
