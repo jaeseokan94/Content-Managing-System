@@ -121,9 +121,10 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
         serializer = ExerciseQuestionSerializer(question, many=True)
         return JSONResponse(serializer.data)
 
-def exercise_question_list_2(request, language, level, topic_name, subtopic_name):
+def exercise_question_list_2(request, language, level, topic_name, subtopic_name, exercise_id):
 
     if request.method == 'GET':
+
         language = Language.objects.get(name=language)
         level_name = Level.objects.get(level=level)
         levelLang_name = LevelLanguage.objects.get(level=level_name.id)
@@ -139,17 +140,17 @@ def exercise_question_list_2(request, language, level, topic_name, subtopic_name
             question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
         serializer = ExerciseQuestionSerializer(question, many=True)
 
-        to_json = {
-                "exercise": "2",
-                "question_text": "tren",
-                "choice_1": "media/vocabulary/U01-02-train.png",
-                "choice_2": "media/vocabulary/U01-03-airplane.png",
-                "choice_3": "media/vocabulary/U01-05-ship.png",
-                "choice_4": "media/vocabulary/U01-07-bus.png",
-                "choice_5": "media/vocabulary/U01-10-bike.png",
-                "choice_6": "media/vocabulary/U01-09-car.png",
-                "correct_answer": "1",
-            }
+
+        to_json = {}
+        to_json['exercise_name'] = "2"
+        to_json['question_type'] = "2"
+        to_json['instructions'] = "2"
+        to_json['instructions_in_language'] = "2"
+        to_json['exercise_questions'] = {"question": "answer"}
+
+
+
+
 
         return JsonResponse(to_json, safe=False)
 
