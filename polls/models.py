@@ -278,3 +278,8 @@ class ResourceItemPicture(models.Model):
             namespace = "polls:resources_holidays"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
+
+class Glossary(models.Model):
+    language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
+    word = models.CharField(max_length=50)
+    word_in_lang = models.CharField(max_length=50)
