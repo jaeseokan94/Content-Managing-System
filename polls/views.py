@@ -138,7 +138,21 @@ def exercise_question_list_2(request, language, level, topic_name, subtopic_name
         for exercise in exercises:
             question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
         serializer = ExerciseQuestionSerializer(question, many=True)
-        return JSONResponse(serializer.data)
+
+        to_json = {
+                "exercise": "2",
+                "question_text": "tren",
+                "choice_1": "media/vocabulary/U01-02-train.png",
+                "choice_2": "media/vocabulary/U01-03-airplane.png",
+                "choice_3": "media/vocabulary/U01-05-ship.png",
+                "choice_4": "media/vocabulary/U01-07-bus.png",
+                "choice_5": "media/vocabulary/U01-10-bike.png",
+                "choice_6": "media/vocabulary/U01-09-car.png",
+                "correct_answer": "1",
+            }
+
+        return JsonResponse(to_json, safe=False)
+
 
 @csrf_exempt
 def dialect_list(request, language):
