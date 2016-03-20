@@ -2,7 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Exercise, ExerciseVocabularyQuestion, Dialect
+from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Exercise, ExerciseVocabularyQuestion, Dialect, Glossary
 
 '''
 from polls.serializers import LanguageSerializer
@@ -87,5 +87,8 @@ class DialectSerializer(serializers.ModelSerializer):
         model = Dialect
         fields = ('language_id','name','name_in_language')
 
-
+class GlossarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Glossary
+        fields = ('language_id','word','word_in_lang')
 

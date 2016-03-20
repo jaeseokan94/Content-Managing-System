@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
-                               LevelSerializer, DialectSerializer
+                               LevelSerializer, DialectSerializer, GlossarySerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -24,7 +24,7 @@ from django.template import loader
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Glossary
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
@@ -161,6 +161,15 @@ def dialect_list(request, language):
         language = Language.objects.get(name=language)
         dialect_name = Dialect.objects.filter(language_id=language.id)
         serializer = DialectSerializer(dialect_name , many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def glossary_api(request, language):
+
+    if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        words = Glossary.objects.filter(language_id=language.id)
+        serializer = GlossarySerializer(words , many=True)
         return JSONResponse(serializer.data)
 
 
@@ -1352,3 +1361,4 @@ def level_api(request, language_name):
         serializer = LevelSerializer(levels, many=True)
 
     return JSONResponse(serializer.data)
+
