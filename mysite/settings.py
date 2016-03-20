@@ -160,4 +160,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/' #url to redirect to after login
