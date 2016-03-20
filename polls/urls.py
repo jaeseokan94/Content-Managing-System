@@ -49,7 +49,7 @@ urlpatterns = [
 
     url(r'^$', views.dashboard, name="dashboard"),
 
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/$', views.level_language_create, name="level_language_create"),
+    url(r'^(?P<language_name>[\w]+)/newLevel/$', views.level_language_create, name="level_language_create"),
     url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
     url(r'^(?P<level>[\w]+)/newtopic/$', views.topic_create, name="topic_create"),
     url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.topic_update, name="topic_update"),

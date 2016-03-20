@@ -147,7 +147,7 @@ class ResourceForm(forms.ModelForm):
             "instructions_in_language",
         ]
 
-class LevelLanguage(forms.ModelForm):
+class LevelLanguageForm(forms.ModelForm):
     class Meta:
         model = LevelLanguage
         fields = [
