@@ -133,13 +133,11 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name, 
 
         to_json = {}
         to_json['exercise_name'] = exercise.exercise_name
-        to_json['question_type'] = exercise.question_type
-        to_json['instructions'] = exercise.instructions
-        to_json['instructions_in_language'] = exercise.instructions_in_language
         to_json['exercise_questions'] = []
 
         for question in exercise_questions:
             exercise_question = {}
+            exercise_question['question_type'] = question.question_type
             exercise_question['question_text'] = question.question_text
             exercise_question['choice_1'] = question.choice_1
             exercise_question['choice_2'] = question.choice_2
