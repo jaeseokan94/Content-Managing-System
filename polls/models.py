@@ -92,6 +92,10 @@ class Dialect(models.Model):
 class Level(models.Model):
     level = models.CharField(max_length=200)
 
+    '''
+        level must be unique for urls to work
+    '''
+
     def __str__(self):
         return self.level
 
@@ -110,7 +114,7 @@ class LevelLanguage(models.Model):
 
 class Topic(models.Model):
     topic_name = models.CharField(max_length=200)
-    level = models.ForeignKey(LevelLanguage, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.topic_name

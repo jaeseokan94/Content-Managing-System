@@ -1072,7 +1072,7 @@ def dashboard(request):
     return render(request, 'polls/dashboard.html', context)
 
 def level_detail(request, level):
-    print("LEVEL " + level)
+    level = Level.objects.get(level=level)
     topics = Topic.objects.filter(level=level)
     context = {
         'level': level,
