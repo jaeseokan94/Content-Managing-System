@@ -267,11 +267,11 @@ def language_delete(request, language_id):
 
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
-    level = Level.objects.all()
+    levelLangs = LevelLanguage.objects.filter(language=language.id)
     context = {
         'language': language,
         'language_name': language_name,
-        'levels': level
+        'levelLangs': levelLangs
     }
     return render(request, 'polls/language_detail.html', context)
 
