@@ -12,4 +12,3 @@ def get_word(list, word):
         if item.word == word:
             return item.word_in_language
     return "None"
-
