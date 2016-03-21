@@ -1,20 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}{{language_name}}|{{ level }}{% endblock %}
+{% block title %}{{ level }}{% endblock %}
 
 {% block content %}
 
-<h1>{{ level|upper }} topics</h1>
-<a href="{% url 'polls:topic_create' level %}">Add</a>
+<div class="showback">
+    {% if topics %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            <div>
+                <h2>Topics for level: {{ level }}</h2>
 
-{% if topics %}
-    <ul>
-    {% for topic in topics %}
-        <li>{{ topic.topic_name }} <a href="{% url 'polls:topic_update' level topic.id %}">Edit</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No topics to show</p>
-{% endif %}
+                {% for topic in topics %}
+                    <tr>
+                        <td class="col-lg-2">
+                            <span style="font-size: 17px;">{{ topic.topic_name }}</a>
+                            </span>
+                        </td>
+                        <td class="col-lg-3">
+                            <a href="{% url 'polls:topic_update' level topic.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </div>
+        </table>
+
+        <a href="{% url 'polls:topic_create' level %}"><button type="button" class="btn btn-primary">Add topic</button></a>
+    {% else %}
+        <div class="alert alert-warning">There are no topics at the moment.</div>
+    {% endif %}
+</div>
+
 
 {% endblock content %}
