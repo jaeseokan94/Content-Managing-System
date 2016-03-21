@@ -60,7 +60,7 @@
         <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
     </div>
 
-    <!-- Listening comprehension question --->
+        <!-- LISTENING COMPREHENSION QUESTION --->
     <div class="showback">
         <h4><i class="fa fa-angle-right"></i> Listening comprehension question</h4>
         <div class="form-group">
@@ -74,10 +74,40 @@
         <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
     {% endif %}
 
-    <!-- GRAMMAR TOPICS AND VOCABULARY -->
+    <!-- GRAMMAR TOPICS -->
     <div class="showback">
-        <h4><i class="fa fa-angle-right"></i> Grammar Topics and Vocabulary</h4>
+        <h4><i class="fa fa-angle-right"></i> Grammar Topics</h4>
 
+        {% if language_subtopics %}
+            <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for subtopic in language_subtopics %}
+                <tr>
+                    <td class="col-lg-2">
+                        <span style="font-size: 17px;">{{ subtopic.subtopic_name }}</span>
+                    </td>
+                    <td class="col-lg-3">
+                        <a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name subtopic.subtopic_name%}"><button type="button" class="btn btn-primary">
+                            <i class="fa fa-pencil"></i>
+                        </button></a>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            <div class="alert alert-warning">There are no Grammar Topics at the moment.</div>
+        {% endif %}
+
+        <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">
+            Add grammar topic
+        </button></a>
+    </div>
+
+    <!-- VOCABULARY -->
+    <div class="showback">
+        <h4><i class="fa fa-angle-right"></i> Vocabulary</h4>
+
+        <!-- TODO check if Vocabulary -->
         {% if language_subtopics %}
             <table class="table table-striped table-hover table-responsive table-condensed">
             {% for subtopic in language_subtopics %}
@@ -99,7 +129,7 @@
         {% endif %}
 
         <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">
-            Add grammar topic or vocabulary
+            Add vocabulary topic
         </button></a>
     </div>
 

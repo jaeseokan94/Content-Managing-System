@@ -458,16 +458,17 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
 def subtopic_create(request, language_name, level, topic_name):
 
     language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     form = LanguageSubtopicForm(request.POST or None)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.language_topic = language_topic
-            instance.save()
-            messages.success(request, "Successfully created")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.language_topic = language_topic
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully created")
     if request.method == "POST":
