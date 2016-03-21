@@ -823,8 +823,16 @@ def resources_days(request, language_name, dialect):
 
     return render(request, 'polls/resource_days.html', context)
 
-def days_resource_update(request, language_name, dialect, resource_id):
-    instance = ResourceItem.objects.get(id=resource_id)
+def days_resource_update(request, language_name, dialect, day_name):
+    resource_name = "Days"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
+
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=day_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=day_name)
+        instance.save()
 
     form = NumberResourceForm(request.POST or None, instance=instance)
     if form.is_valid():

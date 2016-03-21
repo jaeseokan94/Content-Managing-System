@@ -76,7 +76,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/$', views.resources_days, name="resources_days"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<resource_id>[0-9]+)/edit$', views.days_resource_update, name="days_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<day_name>[\w]+)/edit$', views.days_resource_update, name="days_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/$', views.resources_holidays, name="resources_holidays"),

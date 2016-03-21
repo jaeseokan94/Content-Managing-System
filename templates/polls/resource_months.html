@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load app_filters %}
 
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block title %}{{language_name}}|Seasons and Months{% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
 <div class="showback">
     <form class="form-horizontal style-form">
         <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Name in language</label>
+            <label class="col-sm-2 col-sm-2 control-label">Name in {{ language_name }}</label>
             <div class="col-sm-5">
                 <input type="textlabel" class="form-control" placeholder="{{ resource.name_in_language }}">
             </div>

@@ -11,61 +11,57 @@
 
 <!-- DAYS OF THE WEEK -->
 <div class="showback">
-    {% if items %}
-        <form class="form-horizontal style-form">
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Monday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Monday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Monday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Monday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Tuesday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Tuesday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Monday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Tuesday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Tuesday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Wednesday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Wednesday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Tuesday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Wednesday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Wednesday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Thursday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Thursday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Wednesday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Thursday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Thursday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Friday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Friday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Thursday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Friday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Friday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Saturday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Saturday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Friday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Saturday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Saturday'}}">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Sunday</label>
-                <div class="col-sm-5">
-                    <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Sunday'}}">
-                </div>
-                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Saturday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Sunday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Sunday'}}">
             </div>
-        </form>
-    {% else %}
-        <div class="alert alert-warning">There are no letters at the moment.</div>
-    {% endif %}
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Sunday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+    </form>
 </div>
 
 {% endblock content %}
