@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
-{% block content %}
 
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
 
 <div class="jumbotron">
   <h1>Languages</h1>
-
+  <p>Please choose a language.</p>
 </div>
-        {% if language_list %}
-            <ul>
-                {% for language in language_list %}
-
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
-                            <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}">
-                                <img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.png"><h2>{{ language.name }}</h2></a>
-                                    <div class="overlay"></div>
-                        </div>
 
 
-                {% endfor %}
-            </ul>
+{% if language_list %}
+    <ul>
+        {% for language in language_list %}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                <a class="fancybox"  href="{% url 'polls:language_detail' language.name %}">
+                    <img class="img-responsive" src="/static/img/portfolio/{{ language.name }}.png"><h2>{{ language.name }}</h2></a>
+                        <div class="overlay"></div>
+            </div>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="alert alert-warning">There are no languages available.</div>
+{% endif %}
 
-                {% else %}
-            <p>No languages are available.</p>
-                {% endif %}
-                {% endblock content %}
+{% endblock content %}
