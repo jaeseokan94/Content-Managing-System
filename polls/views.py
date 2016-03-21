@@ -318,7 +318,8 @@ def language_topic_detail(request, language_name, level, topic_name):
 
 def language_topic_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
 
     instance = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
@@ -376,19 +377,18 @@ def situational_video_detail(request, language_name, level, topic_name):
 
 def situational_video_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
 
     form = SituationalVideoForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
     context = {
@@ -399,16 +399,23 @@ def situational_video_update(request, language_name, level, topic_name):
     return render(request, 'polls/situational_video_form.html', context)
 
 def situational_video_create(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    instance = SituationalVideo(language_topic=languagetopic)
+
     form = SituationalVideoForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.language_topic = languagetopic
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
     context = {
-        "instance": instance,
         "form": form,
     }
 
@@ -416,13 +423,16 @@ def situational_video_create(request, language_name, level, topic_name):
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    langLevel = LevelLanguage.objects.get(level=level_name.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
-    exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+    exercises = []
+    try:
+        language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+        exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+    except LanguageSubtopic.DoesNotExist:
+        language_subtopic = []
 
     questions = []
     for exercise in exercises:

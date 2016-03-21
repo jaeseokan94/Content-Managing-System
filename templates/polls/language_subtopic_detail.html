@@ -13,13 +13,19 @@
 <div class="showback">
     <form class="form-horizontal style-form">
         <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Name in {{ language.name }}</label>
+            <label class="col-sm-2 col-sm-2 control-label">Subtopic name</label>
             <div class="col-sm-5">
-                <input type="textlabel" class="form-control" placeholder="{{ language_subtopic.subtopic_name_in_language }}">
+                <input type="text" class="form-control" placeholder="{{ language_subtopic.subtopic_name }}">
             </div>
-            <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Subtopic name in {{ language.name }}</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="{{ language_subtopic.subtopic_name_in_language }}">
+            </div>
         </div>
     </form>
+    <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
 </div>
 
 <!-- GRAMMAR VIDEOS -->
@@ -27,19 +33,14 @@
     <h2 class="mb"><i class="fa fa-angle-right"></i>Grammar Video</h2>
     <form class="form-horizontal style-form">
         <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Grammar descriptions</label>
+            <label class="col-sm-2 col-sm-2 control-label">Grammar video file</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="{{situational_video.situation_description}}">
+                <input type="text" class="form-control" placeholder="{{language_subtopic.grammar_video_file}}">
             </div>
-            <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit"><button type="button" class="btn btn-default">Edit</button></a>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="{{situational_video.video_with_transcript}}">
-            </div>
-        <button type="button" class="btn btn-default">Choose File</button></div>
     </form>
+
+    <a href=""><button type="button" class="btn btn-primary">Edit</button></div></a>
 </div>
 
 <!-- EXERCISES -->
@@ -61,7 +62,7 @@
             {% endfor %}
         </table>
     {% else %}
-        <div class="alert alert-warning">There are no holidays at the moment.</div>
+        <div class="alert alert-warning">There are no exercises at the moment.</div>
     {% endif %}
 
 
