@@ -40,6 +40,11 @@ class GrammarVideoSerializer(serializers.ModelSerializer):
         model = LanguageSubtopic
         fields = ('language_topic','subtopic_name','grammar_video_file')
 
+class ExerciseVocabularyQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExerciseVocabularyQuestion
+        fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
+
 class ExerciseQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseQuestion
