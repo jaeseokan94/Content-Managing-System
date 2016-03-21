@@ -295,7 +295,7 @@ def language_topic_detail(request, language_name, level, topic_name):
     except LanguageTopic.DoesNotExist:
         languagetopic = LanguageTopic(topic=topic, language=language, topic_name_in_language="topic_name_in_language")
         languagetopic.save()
-        
+
     try:
         situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
     except SituationalVideo.DoesNotExist:
