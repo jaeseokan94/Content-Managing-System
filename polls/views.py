@@ -141,6 +141,8 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name, 
         exercise = Exercise.objects.get(id=exercise_id)
         exercise_questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
 
+        to_json2 = []
+
         to_json = {}
         to_json['exercise_name'] = exercise.exercise_name
         to_json['exercise_questions'] = []
@@ -159,8 +161,9 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name, 
 
             to_json['exercise_questions'].append(exercise_question)
 
+        to_json2.append(to_json)
 
-        return JsonResponse(to_json, safe=False)
+        return JsonResponse(to_json2, safe=False)
 
 
 @csrf_exempt
