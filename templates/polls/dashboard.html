@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 
@@ -17,8 +17,6 @@
 <!-- LANGUAGES -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Languages</h4>
-    <a href="{% url 'polls:language_create' %}"><button type="button" class="btn btn-primary btn-xs">Add language</button></a>
-
     {% if language_list %}
         <ul class="list-group">
         {% for language in language_list %}
@@ -28,17 +26,20 @@
     {% else %}
         <p>No languages are available.</p>
     {% endif %}
+
+    <a href="{% url 'polls:language_create' %}"><button type="button" class="btn btn-primary">Add language</button></a>
 </div>
 
 <!-- LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
-    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary btn-xs">Add level</button></a>
 
     <ul class="list-group">
     {% for level in levels %}
         <a class="list-group-item" href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary">Add level</button></a>
 </div>
 {% endblock content %}

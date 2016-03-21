@@ -13,19 +13,22 @@
     <div class="col-sm-10">
         <input class="form-control" id="disabledInput" type="text" placeholder={{ language.name_in_language }} disabled="">
     </div>
+
+    <button type="button" class="btn btn-primary">Edit</button>
 </div>
 
 
 <!-- LANGUAGE LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_language_create' language.name %}">Add</button>
 
     <ul class="list-group">
     {% for levelLang in levelLangs %}
         <a class="list-group-item" href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a>
     {% endfor %}
     </ul>
+
+    <button type="button" class="btn btn-primary" href="{% url 'polls:level_language_create' language.name %}">Add</button>
 </div>
 
 {% endblock content %}
