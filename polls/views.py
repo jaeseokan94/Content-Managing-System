@@ -416,7 +416,7 @@ def situational_video_create(request, language_name, level, topic_name):
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
     level_name = Level.objects.get(level=level)
-    langLevel = LevelLanguage.objects.get(level=level_name.id)
+    langLevel = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
@@ -447,8 +447,10 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
 def subtopic_create(request, language_name, level, topic_name):
 
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
-    language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    level_name = Level.objects.get(level=level)
+    langLevel = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
+    language_topic = LanguageTopic.objects.get(topic=topic.id)
 
     form = LanguageSubtopicForm(request.POST or None)
     if form.is_valid():
