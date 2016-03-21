@@ -1,21 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block title %}{{language_name}}{% endblock %}
 
 {% block content %}
 
-<h1>{{ language.name }}</h1>
-<a href="{% url 'polls:language_update' language.id %}">Edit</a>
+<div class="page-header">
+    <h1>{{ language.name }}</h1>
+</div>
 
-<br>
-Name in language: {{ language.name_in_language }}
+<div class="showback">
+    <label class="col-sm-2 col-sm-2 control-label">Name in language</label>
+    <div class="col-sm-10">
+        <input class="form-control" id="disabledInput" type="text" placeholder={{ language.name_in_language }} disabled="">
+    </div>
+</div>
 
-<h2>Levels</h2>
-<a href="{% url 'polls:level_language_create' language.name %}">Add</a>
-<ul>
-{% for levelLang in levelLangs %}
-    <li><a href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a></li>
-{% endfor %}
-</ul>
+
+<!-- LANGUAGE LEVELS -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Levels</h4>
+    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_language_create' language.name %}">Add</button>
+
+    <ul class="list-group">
+    {% for levelLang in levelLangs %}
+        <a class="list-group-item" href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a>
+    {% endfor %}
+    </ul>
+</div>
 
 {% endblock content %}

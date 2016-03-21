@@ -22,7 +22,7 @@
     {% if language_list %}
         <ul class="list-group">
         {% for language in language_list %}
-            <li class="list-group-item"><a href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a></li>
+            <a class="list-group-item" href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a>
         {% endfor %}
         </ul>
     {% else %}
@@ -37,7 +37,7 @@
 
     <ul class="list-group">
     {% for level in levels %}
-        <li class="list-group-item"><a href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a></li>
+        <a class="list-group-item" href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a>
     {% endfor %}
     </ul>
 </div>
