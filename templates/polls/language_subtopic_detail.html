@@ -51,7 +51,7 @@
             {% for exercise in exercises %}
                 <tr>
                     <td class="col-lg-1">
-                        <a href="#"><span style="font-size: 17px;">{{ exercise.exercise_name }}</span></a>
+                        <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><span style="font-size: 17px;">{{ exercise.exercise_name }}</span></a>
                     </td>
                     <td class="col-lg-2">
                         <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
