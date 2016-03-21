@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load app_filters %}
+
 
 {% block title %}{{language_name}}|{{topic_name}}{% endblock %}
 
@@ -9,6 +11,29 @@
 <li>{{ exercise.instructions }}</li>
 <li>{{ exercise.instructions_in_language }}</li>
 
-exercise detail file
+<div class="showback">
+    <h2 class="mb"><i class="fa fa-angle-right"></i>Exercise</h2>
+
+    {% if questions|get_at_index:forloop.counter0 %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for question in questions|get_at_index:forloop.counter0 %}
+                <tr>
+                    <td class="col-lg-1">
+                        <a href="{% url 'polls:exercise_question_update' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id question.id %}"><span style="font-size: 17px;">{{ question.question_text }}</span></a>
+                    </td>
+                    <td class="col-lg-2">
+                        <a href="{% url 'polls:exercise_question_update' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id question.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <div class="alert alert-warning">There are no questions at the moment.</div>
+    {% endif %}
+    <a href="{% url 'polls:exercise_question_create' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id %}"><button class="btn btn-primary">Add holiday</button></a>
+
+</div>
 
 {% endblock content %}
