@@ -4,13 +4,31 @@
 
 {% block content %}
 
-<h1>Holidays</h1>
-<a href="{% url 'polls:holidays_resource_create' language_name dialect %}">Add</a>
+<div class="page-header">
+    <h1>Holidays</h1>
+</div>
 
-<ul>
-{% for item in items %}
-    <li><a href="{% url 'polls:holidays_resource_update' language_name dialect item.id %}">{{ item.phrase }}</a></li>
-{% endfor %}
-</ul>
+<!-- List of letters -->
+<div class="showback">
+    {% if items %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for item in items %}
+                <tr>
+                    <td class="col-lg-1">
+                        <a href="{% url 'polls:holidays_resource_update' language_name dialect item.id %}"><span style="font-size: 17px;">{{ item.phrase }}</span></a>
+                    </td>
+                    <td class="col-lg-2">
+                        <a href="{% url 'polls:holidays_resource_update' language_name dialect item.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <div class="alert alert-warning">There are no holidays at the moment.</div>
+    {% endif %}
+    <a href="{% url 'polls:holidays_resource_create' language_name dialect %}"><button class="btn btn-primary">Add holiday</button></a>
+</div>
 
 {% endblock content %}
