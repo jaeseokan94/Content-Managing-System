@@ -86,8 +86,7 @@ def topic_list(request, level):
 
       if request.method == 'GET':
         level_name = Level.objects.get(level=level)
-        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
-        topic_list= Topic.objects.filter(level=levelLang_name.id)
+        topic_list= Topic.objects.filter(level=level_name.id)
         serializer = TopicSerializer(topic_list, many=True)
         return JSONResponse(serializer.data)
 
