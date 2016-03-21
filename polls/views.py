@@ -8,7 +8,7 @@ from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
                                LevelSerializer, DialectSerializer, GlossarySerializer, TopicSerializer
-                               )
+                               ,ExerciseVocabularyQuestionSerializer)
 from polls.serializers import SituationalVideo
 
 
@@ -104,7 +104,7 @@ def situational_video_list(request, language, level, topic_name):
     if request.method == 'GET':
         language = Language.objects.get(name=language)
         level_name = Level.objects.get(level=level)
-        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
         topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
         video = SituationalVideo.objects.filter(language_topic=language_topic.id)
@@ -168,31 +168,18 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name, 
 def exercise_vocab_question_list(request, language, level, topic_name, subtopic_name, exercise_id):
 
     if request.method == 'GET':
-        exercise = Exercise.objects.get(id=exercise_id)
+        language = Language.objects.get(name=language)
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
+        topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+        language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+        language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
+
+        exercise = Exercise.objects.filter(id=exercise_id).get(language_subtopic=language_subtopic.id)
         exercise_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise.id)
-
-        to_json2 = []
-
-        to_json = {}
-        to_json['exercise_name'] = exercise.exercise_name
-        to_json['exercise_questions'] = []
-
-        for question in exercise_questions:
-            exercise_question = {}
-            exercise_question['question_text'] = question.question_text
-            exercise_question['choice_1'] = question.choice_1
-            exercise_question['choice_2'] = question.choice_2
-            exercise_question['choice_3'] = question.choice_3
-            exercise_question['choice_4'] = question.choice_4
-            exercise_question['choice_5'] = question.choice_5
-            exercise_question['choice_6'] = question.choice_6
-            exercise_question['correct_answer'] = question.correct_answer
-
-            to_json['exercise_questions'].append(exercise_question)
-
-        to_json2.append(to_json)
-
-        return JsonResponse(to_json2, safe=False)
+        serializer = ExerciseVocabularyQuestionSerializer(exercise_questions, many=True)
+        return JSONResponse(serializer.data)
 
 
 @csrf_exempt

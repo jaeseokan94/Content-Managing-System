@@ -205,12 +205,12 @@ class ExerciseQuestion(models.Model):
 class ExerciseVocabularyQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
-    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
+    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
     correct_answer = models.CharField(max_length=1, choices=CHOICES, default=CHOICES[0])
 
     def __str__(self):
