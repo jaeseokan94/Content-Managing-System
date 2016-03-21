@@ -22,13 +22,11 @@ from polls import views
 
 
 urlpatterns = [
-    url(r'^$', views.language_list, name='home_page'),
+    url(r'^$', views.dashboard, name='dashboard'),
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
-    #patterns('',
-    #(r'^polls', include('polls.urls')),
-#) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
-     
+
+    url(r'^accounts/', include('registration.backends.default.urls')),
 ]
 
 if settings.DEBUG:

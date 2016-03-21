@@ -78,7 +78,6 @@ class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
-
     '''
         name must be unique for urls to work
     '''

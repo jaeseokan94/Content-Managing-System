@@ -21,6 +21,7 @@ from django.utils import timezone
 #from tutorial 3 for language_list()
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.decorators import permission_required
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
@@ -234,6 +235,7 @@ def language_topic_list(request, language_name, level):
 
     return render(request, 'polls/topiclist.html', context)
 
+@permission_required('polls.add_language', raise_exception=True)
 def language_create(request):
     form = LanguageForm(request.POST or None)
     if form.is_valid():
@@ -1088,6 +1090,7 @@ def level_detail(request, level):
     }
     return render(request, 'polls/level_detail.html', context)
 
+@permission_required('polls.edit_topic', raise_exception=True)
 def topic_update(request, level, topic_id):
     instance = Topic.objects.get(id=topic_id)
 
@@ -1107,6 +1110,7 @@ def topic_update(request, level, topic_id):
 
     return render(request, 'polls/topic_form.html', context)
 
+@permission_required('polls.add_topic', raise_exception=True)
 def topic_create(request, level):
     form = TopicForm(request.POST or None)
 
@@ -1371,6 +1375,7 @@ def level_api(request, language_name):
 
     return JSONResponse(serializer.data)
 
+@permission_required('polls.add_level_language', raise_exception=True)
 def level_language_create(request, language_name):
     language = Language.objects.get(name=language_name)
 
@@ -1390,6 +1395,7 @@ def level_language_create(request, language_name):
     }
     return render(request, 'polls/resource_time_form.html', context)
 
+@permission_required('polls.add_level', raise_exception=True)
 def level_create(request):
     form = LevelForm(request.POST or None)
 
