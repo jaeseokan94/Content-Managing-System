@@ -14,7 +14,7 @@
         <input class="form-control" id="disabledInput" type="text" placeholder={{ language.name_in_language }} disabled="">
     </div>
 
-    <button type="button" class="btn btn-primary">Edit</button>
+    <a href="{% url 'polls:language_update' language.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
 </div>
 
 
@@ -28,7 +28,7 @@
     {% endfor %}
     </ul>
 
-    <button type="button" class="btn btn-primary" href="{% url 'polls:level_language_create' language.name %}">Add</button>
+    <a href="{% url 'polls:level_language_create' language.name %}"><button type="button" class="btn btn-primary">Add</button></a>
 </div>
 
 {% endblock content %}

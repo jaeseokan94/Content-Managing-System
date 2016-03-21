@@ -27,37 +27,37 @@
         <h4><i class="fa fa-angle-right"></i> Situational video</h4>
 
         {% if situational_video %}
-        <form class="form-horizontal style-form">
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Description</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" placeholder={{situational_video.situation_description}}>
+            <form class="form-horizontal style-form">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Description</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" placeholder={{situational_video.situation_description}}>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Descriptions in {{ language.name }}</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" placeholder={{situational_video.situation_description_in_language}}>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Descriptions in {{ language.name }}</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" placeholder={{situational_video.situation_description_in_language}}>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" placeholder={{situational_video.video_with_transcript}}>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" placeholder={{situational_video.video_with_transcript}}>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" placeholder={{situational_video.video_without_transcript}}>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" placeholder={{situational_video.video_without_transcript}}>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
-        <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
     </div>
 
         <!-- LISTENING COMPREHENSION QUESTION --->
@@ -68,11 +68,14 @@
         </div>
     </div>
 
-    {% else %}
-        <div class="alert alert-warning">There is no situational video at the moment.</div>
+        {% else %}
+            <div class="alert alert-warning">There is no situational video at the moment.</div>
 
-        <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
-    {% endif %}
+            <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
+        {% endif %}
+
+
+
 
     <!-- GRAMMAR TOPICS -->
     <div class="showback">
@@ -125,7 +128,7 @@
             {% endfor %}
             </table>
         {% else %}
-            <div class="alert alert-warning">There are no Grammar Topics and Vocabulary at the moment.</div>
+            <div class="alert alert-warning">There is no Vocabulary at the moment.</div>
         {% endif %}
 
         <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">
