@@ -4,29 +4,41 @@
 
 {% block content %}
 
-<h1>Dashboard</h1>
+<!-- JUMBOTRON -->
+<div class="jumbotron">
+  <h1>MLC Grammar App!</h1>
+  <p>Please choose a language.</p>
+</div>
 
-<h1>Languages</h1>
-<a href="{% url 'polls:language_create' %}">Add language</a>
+<div class="page-header">
+  <h1>Dashboard</h1>
+</div>
 
-{% if language_list %}
-    <ul>
-    {% for language in language_list %}
-        <li><a href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a></li>
+<!-- LANGUAGES -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Languages</h4>
+    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:language_create' %}">Add language</button>
+
+    {% if language_list %}
+        <ul class="list-group">
+        {% for language in language_list %}
+            <a class="list-group-item" href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No languages are available.</p>
+    {% endif %}
+</div>
+
+<!-- LEVELS -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Levels</h4>
+    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_create' %}">Add</button>
+
+    <ul class="list-group">
+    {% for level in levels %}
+        <a class="list-group-item" href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a>
     {% endfor %}
     </ul>
-{% else %}
-    <p>No languages are available.</p>
-{% endif %}
-
-
-<h1>Levels</h1>
-<a href="{% url 'polls:level_create' %}">Add</a>
-
-<ul>
-{% for level in levels %}
-    <li><a href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a></li>
-{% endfor %}
-</ul>
-
+</div>
 {% endblock content %}
