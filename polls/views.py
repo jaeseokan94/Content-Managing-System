@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
-                               LevelSerializer, DialectSerializer, GlossarySerializer
+                               LevelSerializer, DialectSerializer, GlossarySerializer, TopicSerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -78,6 +78,16 @@ def subtopic_list(request, language, level, topic_name):
         language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
         topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
         serializer = GrammarVideoSerializer(topic, many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def topic_list(request, level):
+
+      if request.method == 'GET':
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic_list= Topic.objects.filter(level=levelLang_name.id)
+        serializer = TopicSerializer(topic_list, many=True)
         return JSONResponse(serializer.data)
 
 @csrf_exempt

@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list),
     url(r'^api/languageList/$', views.language_list_show),
     url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api),
+    url(r'^api/(?P<level>[a-zA-Z]+)/topicList/$', views.topic_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/dialectList/$', views.dialect_list),
     url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/glossaryList/$', views.glossary_api),
