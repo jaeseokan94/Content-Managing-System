@@ -760,6 +760,33 @@ def language_resources_numbers(request, language_name, dialect):
 
     return render(request, 'polls/resource_numbers.html', context)
 
+def number_resource_update_1_to_31(request, language_name, dialect, number_name):
+    resource_name = "Numbers"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
+
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=number_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=number_name)
+        instance.save()
+
+    form = NumberResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_numbers_form.html', context)
+
 def number_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
 

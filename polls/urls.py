@@ -72,6 +72,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/1-31/(?P<number_name>[\w]+)/edit$', views.number_resource_update_1_to_31, name="number_resource_update_1_to_31"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
 
