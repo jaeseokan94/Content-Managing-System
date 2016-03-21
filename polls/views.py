@@ -115,7 +115,7 @@ def exercise_list(request, language, level, topic_name, subtopic_name):
     if request.method == 'GET':
         language = Language.objects.get(name=language)
         level_name = Level.objects.get(level=level)
-        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
         topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
         language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
