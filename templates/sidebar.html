@@ -1,0 +1,55 @@
+{% if found_language %}
+    <!-- static Language -->
+    <li class="mt">
+      <a class="active">
+          <i class="fa fa-dashboard"></i>
+          <span>Language</span>
+      </a>
+    </li>
+
+    <!-- Current Language -->
+    <li class="sub-menu">
+        <a href="{% url 'polls:language_detail' language.name %}" >
+            <i class="fa fa-video-camera"></i>
+            <span>{{ language.name }}</span>
+        </a>
+    </li>
+{% endif %}
+
+{% if levelLangs %}
+    <!-- static Level -->
+    <li class="mt">
+      <a class="active">
+          <i class="fa fa-dashboard"></i>
+          <span>Levels</span>
+      </a>
+    </li>
+{% endif %}
+
+{% for levelLang in levelLangs %}
+    <li class="sub-menu">
+        <a href="{% url 'polls:topic_list' language.name levelLang.level.level %}" >
+          <i class="fa fa-language"></i>
+          <span>{{ levelLang.level.level }}</span>
+        </a>
+{% endfor %}
+
+<!-- Resources -->
+{% if found_language %}
+    <li class="sub-menu">
+        <a class="active" href="{% url 'polls:choose_dialect' language.name %}" >
+            <i class="fa fa-video-camera"></i>
+            <span>Resources by Dialect</span>
+        </a>
+    </li>
+
+    {% for dialect in dialects %}
+        <li class="sub-menu">
+            <a href="{% url 'polls:language_resources' language.name dialect.name %}" >
+                <i class="fa fa-video-camera"></i>
+                <span>{{ dialect.name }}</span>
+            </a>
+        </li>
+    {% endfor %}
+
+{% endif %}

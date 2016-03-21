@@ -2,7 +2,7 @@ __author__ = 'JAESEOKAN'
 
 
 from rest_framework import serializers
-from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Exercise, ExerciseVocabularyQuestion, Dialect
+from polls.models import Language, SituationalVideo, LanguageSubtopic, ExerciseQuestion, ResourceItem, ResourceItemPicture, Level, Exercise, ExerciseVocabularyQuestion, Dialect, Glossary, Topic
 
 '''
 from polls.serializers import LanguageSerializer
@@ -43,7 +43,7 @@ class GrammarVideoSerializer(serializers.ModelSerializer):
 class ExerciseQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseQuestion
-        fields = ('exercise','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
+        fields = ('exercise','question_type','question_text','choice_1','choice_2','choice_3','choice_4','choice_5','choice_6','correct_answer')
 '''
 class ExerciseQuestionSerializer(serializers.Serializer):
     class Meta:
@@ -80,12 +80,19 @@ class LevelSerializer(serializers.ModelSerializer):
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
-        fields = ('exercise_name','language_subtopic','instructions','instructions_in_language','question_type')
+        fields = ('exercise_name','language_subtopic')
 
 class DialectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dialect
         fields = ('language_id','name','name_in_language')
 
+class GlossarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Glossary
+        fields = ('language_id','word','word_in_lang')
 
-
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = ('topic_name','level')

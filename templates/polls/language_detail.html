@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ language.name }}</h1>
+<a href="{% url 'polls:language_update' language.id %}">Edit</a>
+
+<br>
+Name in language: {{ language.name_in_language }}
+
+<h2>Levels</h2>
+<a href="{% url 'polls:level_language_create' language.name %}">Add</a>
+<ul>
+{% for levelLang in levelLangs %}
+    <li><a href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

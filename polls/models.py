@@ -14,10 +14,6 @@ RESOURCES = (
     ('Months', 'Seasons and Months'),
     ('Time', 'Time'),
 )
-LEVEL = (
-    ('b', 'Beginner'),
-    ('i', 'Intermediate'),
-)
 
 CHOICES = [
     ("1", "1"),
@@ -60,6 +56,10 @@ class Language(models.Model):
     class Meta:
         ordering = ('name',)
 
+    '''
+        language name must be unique for urls to work
+    '''
+
     def __str__(self):
         return self.name
 
@@ -74,7 +74,6 @@ class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     name_in_language = models.CharField(max_length=200)
-
     '''
         name must be unique for urls to work
     '''
@@ -88,8 +87,15 @@ class Dialect(models.Model):
 class Level(models.Model):
     level = models.CharField(max_length=200)
 
+    '''
+        level must be unique for urls to work
+    '''
+
     def __str__(self):
         return self.level
+
+    def get_absolute_url(self):
+        return reverse("polls:dashboard", kwargs={})
 
 class LevelLanguage(models.Model):
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
@@ -98,9 +104,12 @@ class LevelLanguage(models.Model):
     def __str__(self):
         return self.level.level
 
+    def get_absolute_url(self):
+        return reverse("polls:language_detail", kwargs={"language_name": self.language.name})
+
 class Topic(models.Model):
     topic_name = models.CharField(max_length=200)
-    level = models.ForeignKey(LevelLanguage, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.topic_name
@@ -115,6 +124,7 @@ class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     topic_name_in_language = models.CharField(max_length=200, blank=True)
+    #TODO must check if topic's level is in language's level
  
     def __str__(self):
         return self.topic_name_in_language
@@ -165,7 +175,6 @@ class Exercise(models.Model):
     language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
     instructions = models.CharField(max_length=500, null=True)
     instructions_in_language = models.CharField(max_length=500, null=True)
-    question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default=QUESTION_TYPE[0])
 
     def __str__(self):
         return self.language_subtopic.subtopic_name + "|" + self.instructions
@@ -176,6 +185,7 @@ class Exercise(models.Model):
 
 class ExerciseQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
+    question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default=QUESTION_TYPE[0])
     question_text = models.CharField(max_length=200)
     choice_1 = models.CharField(max_length=200, blank=True)
     choice_2 = models.CharField(max_length=200, blank=True)
@@ -278,3 +288,8 @@ class ResourceItemPicture(models.Model):
             namespace = "polls:resources_holidays"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
+
+class Glossary(models.Model):
+    language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
+    word = models.CharField(max_length=50)
+    word_in_lang = models.CharField(max_length=50)

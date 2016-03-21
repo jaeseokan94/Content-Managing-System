@@ -1,7 +1,36 @@
-# DEVELOP branch 
+# Content Managing System for Android app
+cms - paragon , Django + Android project
+Git merge (Branch into master) http://stackoverflow.com/questions/5601931/best-and-safest-way-to-merge-a-git-branch-into-master
 
-Everyone should make a feature branch from "Develop" branch. 
-Every successfully working feature need to be merged to this branch frequently. 
+    git checkout master
+    git pull origin master
+    git merge test
+    git push origin master
 
-Here's an additional document for our branching model. 
-http://nvie.com/posts/a-successful-git-branching-model/
+Remove pyc file in git https://yuji.wordpress.com/2010/10/29/git-remove-all-pyc/
+
+    find . -name "*.pyc" -exec git rm -f {} \;
+
+Going back to certain commit http://stackoverflow.com/questions/4114095/revert-git-repo-to-a-previous-commit
+
+    git reset 56e05fced (commit name)
+    git reset --soft HEAD@{1}
+    git commit -m "Revert to 56e05fced"
+    git reset --hard
+
+Git new branch - Local 
+
+    git checkout -b <branchname>
+    
+
+and then push it to remote. 
+
+    git push origin <branchname>
+    
+Git remove branch -local 
+
+    git branch -D <branchname>
+Git remove branch - remote 
+
+    git push origin :<branchName>
+

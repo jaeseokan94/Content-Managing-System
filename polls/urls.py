@@ -28,17 +28,20 @@ urlpatterns = [
     #For API
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/situationalVideo/$', views.situational_video_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exerciseQuestion/$', views.exercise_question_list),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exercisesList/$', views.exercise_list),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/exerciseQuestions/$', views.exercise_question_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list),
     url(r'^api/languageList/$', views.language_list_show),
     url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api),
+    url(r'^api/(?P<level>[a-zA-Z]+)/topicList/$', views.topic_list),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/dialectList/$', views.dialect_list),
     url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/glossaryList/$', views.glossary_api),
 
 
 
     url(r'^language/list/$', views.language_list, name='language_list'),
-    url(r'^language/add/$', views.language_create, name='language_create'),
+    url(r'^language/new/$', views.language_create, name='language_create'),
     url(r'^language/(?P<language_id>[\w]+)/edit/$', views.language_update, name='language_update'),
     url(r'^language/(?P<language_id>[\w]+)/delete', views.language_delete, name='language_delete'),
     url(r'^language/(?P<language_name>[\w]+)/$', views.language_detail, name='language_detail'),
@@ -47,6 +50,8 @@ urlpatterns = [
 
     url(r'^$', views.dashboard, name="dashboard"),
 
+    url(r'^(?P<language_name>[\w]+)/newLevel/$', views.level_language_create, name="level_language_create"),
+    url(r'^level/new/$', views.level_create, name="level_create"),
     url(r'^(?P<level>[\w]+)/$', views.level_detail, name="level_detail"),
     url(r'^(?P<level>[\w]+)/newtopic/$', views.topic_create, name="topic_create"),
     url(r'^(?P<level>[\w]+)/(?P<topic_id>[\w]+)/edit/$', views.topic_update, name="topic_update"),
@@ -56,7 +61,7 @@ urlpatterns = [
     #Resources
     url(r'^(?P<language_name>[\w]+)/resources/$', views.choose_dialect, name="choose_dialect"),
     url(r'^(?P<language_name>[\w]+)/resources/newdialect/$', views.dialect_create, name="dialect_create"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect_id>[0-9]+)/$', views.dialect_update, name="dialect_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect_id>[0-9]+)/edit/$', views.dialect_update, name="dialect_update"),
 
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/$', views.language_resources, name="language_resources"),

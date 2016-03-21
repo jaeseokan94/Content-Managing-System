@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from polls.serializers import LanguageSerializer
 from polls.serializers import (SituationalVideoSerializer , GrammarVideoSerializer , ExerciseQuestionSerializer,
                                ResourceItemSerializer, ResourceItemNumbersSerializer, ResourceItemPictureSerializer,
-                               LevelSerializer, DialectSerializer
+                               LevelSerializer, DialectSerializer, GlossarySerializer, TopicSerializer
                                )
 from polls.serializers import SituationalVideo
 
@@ -21,15 +21,17 @@ from django.utils import timezone
 #from tutorial 3 for language_list()
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.decorators import permission_required
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Glossary
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
-    HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm
+    HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
+    LevelLanguageForm, LevelForm
 )
 
 
@@ -80,6 +82,16 @@ def subtopic_list(request, language, level, topic_name):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
+def topic_list(request, level):
+
+      if request.method == 'GET':
+        level_name = Level.objects.get(level=level)
+        levelLang_name = LevelLanguage.objects.get(level=level_name.id)
+        topic_list= Topic.objects.filter(level=levelLang_name.id)
+        serializer = TopicSerializer(topic_list, many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
 def subtopic_list_all(request):
 
       if request.method == 'GET':
@@ -100,10 +112,7 @@ def situational_video_list(request, language, level, topic_name):
         serializer = SituationalVideoSerializer(video, many=True)
         return JSONResponse(serializer.data)
 
-
-@csrf_exempt
-def exercise_question_list(request, language, level, topic_name, subtopic_name):
-
+def exercise_list(request, language, level, topic_name, subtopic_name):
     if request.method == 'GET':
         language = Language.objects.get(name=language)
         level_name = Level.objects.get(level=level)
@@ -115,11 +124,45 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name):
 
         exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
 
-        question = ExerciseQuestion.objects.none()
+        to_json = []
+
         for exercise in exercises:
-            question = question | ExerciseQuestion.objects.filter(exercise=exercise.id)
-        serializer = ExerciseQuestionSerializer(question, many=True)
-        return JSONResponse(serializer.data)
+            exercise_json = {}
+            exercise_json['exercise_id'] = exercise.id
+            exercise_json['exercise_name'] = exercise.exercise_name
+
+            to_json.append(exercise_json)
+
+        return JsonResponse(to_json, safe=False)
+
+
+def exercise_question_list(request, language, level, topic_name, subtopic_name, exercise_id):
+
+    if request.method == 'GET':
+        exercise = Exercise.objects.get(id=exercise_id)
+        exercise_questions = ExerciseQuestion.objects.filter(exercise=exercise.id)
+
+        to_json = {}
+        to_json['exercise_name'] = exercise.exercise_name
+        to_json['exercise_questions'] = []
+
+        for question in exercise_questions:
+            exercise_question = {}
+            exercise_question['question_type'] = question.question_type
+            exercise_question['question_text'] = question.question_text
+            exercise_question['choice_1'] = question.choice_1
+            exercise_question['choice_2'] = question.choice_2
+            exercise_question['choice_3'] = question.choice_3
+            exercise_question['choice_4'] = question.choice_4
+            exercise_question['choice_5'] = question.choice_5
+            exercise_question['choice_6'] = question.choice_6
+            exercise_question['correct_answer'] = question.correct_answer
+
+            to_json['exercise_questions'].append(exercise_question)
+
+
+        return JsonResponse(to_json, safe=False)
+
 
 @csrf_exempt
 def dialect_list(request, language):
@@ -128,6 +171,15 @@ def dialect_list(request, language):
         language = Language.objects.get(name=language)
         dialect_name = Dialect.objects.filter(language_id=language.id)
         serializer = DialectSerializer(dialect_name , many=True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def glossary_api(request, language):
+
+    if request.method == 'GET':
+        language = Language.objects.get(name=language)
+        words = Glossary.objects.filter(language_id=language.id)
+        serializer = GlossarySerializer(words , many=True)
         return JSONResponse(serializer.data)
 
 
@@ -183,6 +235,7 @@ def language_topic_list(request, language_name, level):
 
     return render(request, 'polls/topiclist.html', context)
 
+@permission_required('polls.add_language', raise_exception=True)
 def language_create(request):
     form = LanguageForm(request.POST or None)
     if form.is_valid():
@@ -225,11 +278,11 @@ def language_delete(request, language_id):
 
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
-    level = Level.objects.all()
+    levelLangs = LevelLanguage.objects.filter(language=language.id)
     context = {
         'language': language,
         'language_name': language_name,
-        'levels': level
+        'levelLangs': levelLangs
     }
     return render(request, 'polls/language_detail.html', context)
 
@@ -1021,15 +1074,15 @@ def time_resource_create(request, language_name, dialect):
 
 def dashboard(request):
     language_list = Language.objects.all()
-    levels = dict(LEVEL).values()
+    levels = Level.objects.all()
     context = {
         'language_list': language_list,
-        'levels': LEVEL,
+        'levels': levels,
     }
     return render(request, 'polls/dashboard.html', context)
 
 def level_detail(request, level):
-    print("LEVEL " + level)
+    level = Level.objects.get(level=level)
     topics = Topic.objects.filter(level=level)
     context = {
         'level': level,
@@ -1037,6 +1090,7 @@ def level_detail(request, level):
     }
     return render(request, 'polls/level_detail.html', context)
 
+@permission_required('polls.edit_topic', raise_exception=True)
 def topic_update(request, level, topic_id):
     instance = Topic.objects.get(id=topic_id)
 
@@ -1056,6 +1110,7 @@ def topic_update(request, level, topic_id):
 
     return render(request, 'polls/topic_form.html', context)
 
+@permission_required('polls.add_topic', raise_exception=True)
 def topic_create(request, level):
     form = TopicForm(request.POST or None)
 
@@ -1319,3 +1374,40 @@ def level_api(request, language_name):
         serializer = LevelSerializer(levels, many=True)
 
     return JSONResponse(serializer.data)
+
+@permission_required('polls.add_level_language', raise_exception=True)
+def level_language_create(request, language_name):
+    language = Language.objects.get(name=language_name)
+
+    form = LevelLanguageForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.language = language
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        #messages.error(request, "Not successfully created")
+        pass
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)
+
+@permission_required('polls.add_level', raise_exception=True)
+def level_create(request):
+    form = LevelForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        #messages.error(request, "Not successfully created")
+        pass
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)
