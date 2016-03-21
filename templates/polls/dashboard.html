@@ -17,7 +17,7 @@
 <!-- LANGUAGES -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Languages</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:language_create' %}">Add language</button>
+    <a href="{% url 'polls:language_create' %}"><button type="button" class="btn btn-primary btn-xs">Add language</button></a>
 
     {% if language_list %}
         <ul class="list-group">
@@ -33,7 +33,7 @@
 <!-- LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_create' %}">Add</button>
+    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary btn-xs">Add level</button></a>
 
     <ul class="list-group">
     {% for level in levels %}

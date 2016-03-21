@@ -14,7 +14,7 @@
         <form class="form-horizontal style-form">
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Topic name in {{ language.name }}</label>
-                <button type="button" class="btn btn-primary" href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}">Edit</button>
+                <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
                 <div class="col-sm-5">
                     <input type="textlabel" class="form-control" placeholder="{{subtopic.subtopic_name}}">
                 </div>
@@ -25,7 +25,7 @@
     <!-- SITUATIONAL VIDEO -->
     <div class="showback">
         <h4><i class="fa fa-angle-right"></i> Situational video</h4>
-        <button type="button" class="btn btn-primary" href="#">Edit</button>
+        <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
 
         <form class="form-horizontal style-form">
             <div class="form-group">
@@ -58,7 +58,7 @@
         </form>
 
         {% if situational_video %}
-            <button type="button" class="btn btn-default" href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}">Listening Comprehension question</button>
+            <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
         {% endif %}
     </div>
 
@@ -74,9 +74,9 @@
                         <span style="font-size: 17px;">{{ subtopic.subtopic_name }}</span>
                     </td>
                     <td class="col-lg-3">
-                        <button type="button" class="btn btn-primary" href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name subtopic.subtopic_name%}">
+                        <a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name subtopic.subtopic_name%}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-pencil"></i>
-                        </button>
+                        </button></a>
                         <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
                     </td>
                 </tr>
@@ -86,9 +86,9 @@
             <div class="alert alert-warning">There are no Grammar Topics and Vocabulary at the moment.</div>
         {% endif %}
 
-        <button type="button" class="btn btn-primary" href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}">
+        <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">
             Add
-        </button>
+        </button></a>
     </div>
 
 {% endblock content %}
