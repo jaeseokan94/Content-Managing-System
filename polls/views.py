@@ -290,8 +290,12 @@ def language_topic_detail(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.get(topic_name=topic_name)
 
-    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
-
+    try:
+        languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    except LanguageTopic.DoesNotExist:
+        languagetopic = LanguageTopic(topic=topic, language=language, topic_name_in_language="topic_name_in_language")
+        languagetopic.save()
+        
     try:
         situational_video = SituationalVideo.objects.get(language_topic=languagetopic.id)
     except SituationalVideo.DoesNotExist:
