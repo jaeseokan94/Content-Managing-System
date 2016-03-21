@@ -14,7 +14,7 @@
         <form class="form-horizontal style-form">
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Topic name in {{ language.name }}</label>
-                <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
                 <div class="col-sm-5">
                     <input type="textlabel" class="form-control" placeholder="{{subtopic.subtopic_name}}">
                 </div>
@@ -25,8 +25,9 @@
     <!-- SITUATIONAL VIDEO -->
     <div class="showback">
         <h4><i class="fa fa-angle-right"></i> Situational video</h4>
-        <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
+        <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
 
+        {% if situational_video %}
         <form class="form-horizontal style-form">
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Description</label>
@@ -57,8 +58,9 @@
             </div>
         </form>
 
-        {% if situational_video %}
-            <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
+        <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
+        {% else %}
+            <div class="alert alert-warning">There is no situational video at the moment.</div>
         {% endif %}
     </div>
 
