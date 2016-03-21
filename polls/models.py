@@ -14,10 +14,6 @@ RESOURCES = (
     ('Months', 'Seasons and Months'),
     ('Time', 'Time'),
 )
-LEVEL = (
-    ('b', 'Beginner'),
-    ('i', 'Intermediate'),
-)
 
 CHOICES = [
     ("1", "1"),
