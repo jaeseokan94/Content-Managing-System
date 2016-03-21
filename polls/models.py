@@ -237,6 +237,8 @@ class Resource(models.Model):
             namespace = "polls:resources_days"
         elif self.name == "Months":
             namespace = "polls:resources_months"
+        elif self.name == "Time":
+            namespace = "polls:resources_time"
         return reverse(namespace, kwargs={"language_name": self.dialect_id.language_id.name, "dialect": self.dialect_id.name})
 
 

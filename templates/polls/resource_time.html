@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{language_name}}|Time{% endblock %}
+{% block title %}{{language_name}}|{{ resource.name }}{% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
             <div class="col-sm-5">
                 <input type="textlabel" class="form-control" placeholder="{{ resource.name_in_language }}">
             </div>
-            <a href="{% url 'polls:resources_edit' language_name dialect.name 'Months' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="{% url 'polls:resources_edit' language_name dialect.name 'Time' %}"><button type="button" class="btn btn-primary">Edit</button></a>
         </div>
     </form>
 </div>

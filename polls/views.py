@@ -1066,7 +1066,7 @@ def resources_time(request, language_name, dialect):
         'language_name': language_name,
         'dialect': dialect,
         'items': items,
-        'resource_name': resource_name,
+        'resource': resource,
     }
 
     return render(request, 'polls/resource_time.html', context)
