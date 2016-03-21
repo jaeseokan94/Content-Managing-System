@@ -26,7 +26,6 @@ class SituationalVideoForm(forms.ModelForm):
     class Meta:
         model = SituationalVideo
         fields = [
-            "language_topic",
             "situation_description",
             "situation_description_in_language",
             "video_with_transcript",

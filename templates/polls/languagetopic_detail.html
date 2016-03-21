@@ -57,19 +57,22 @@
             </div>
         </form>
 
-        <!-- Listening comprehension question --->
+        <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    </div>
+
+    <!-- Listening comprehension question --->
+    <div class="showback">
         <h4><i class="fa fa-angle-right"></i> Listening comprehension question</h4>
         <div class="form-group">
-            <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-default">Listening Comprehension question</button></a>
+            <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-warning">Listening Comprehension question</button></a>
         </div>
-        <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
-
-        {% else %}
-            <div class="alert alert-warning">There is no situational video at the moment.</div>
-
-            <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
-        {% endif %}
     </div>
+
+    {% else %}
+        <div class="alert alert-warning">There is no situational video at the moment.</div>
+
+        <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
+    {% endif %}
 
     <!-- GRAMMAR TOPICS AND VOCABULARY -->
     <div class="showback">
