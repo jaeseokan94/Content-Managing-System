@@ -165,7 +165,7 @@ def exercise_question_list(request, language, level, topic_name, subtopic_name, 
 
         return JsonResponse(to_json2, safe=False)
 
-def exercise_vocab_question_list(request, language, level, topic_name, subtopic_name, exercise_id):
+def exercise_vocab_question_list(request, language, level, topic_name, subtopic_name):
 
     if request.method == 'GET':
         language = Language.objects.get(name=language)
@@ -176,7 +176,7 @@ def exercise_vocab_question_list(request, language, level, topic_name, subtopic_
 
         language_subtopic = (LanguageSubtopic.objects.filter(language_topic=language_topic)).get(subtopic_name=subtopic_name)
 
-        exercise = Exercise.objects.filter(id=exercise_id).get(language_subtopic=language_subtopic.id)
+        exercise = Exercise.objects.get(language_subtopic=language_subtopic.id)
         exercise_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercise.id)
         serializer = ExerciseVocabularyQuestionSerializer(exercise_questions, many=True)
         return JSONResponse(serializer.data)
