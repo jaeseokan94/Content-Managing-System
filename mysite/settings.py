@@ -171,7 +171,8 @@ LOGIN_URL = '/accounts/login'
 
 LOGIN_EXEMPT_URLS = (
     r'^/admin/',
-    r'^/accounts',
+    r'^accounts',
     r'^$',
-    r'^polls/api/'
+    r'^polls/api/',
+    r'^media/',
 )
