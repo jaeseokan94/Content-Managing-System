@@ -124,7 +124,7 @@
     <div class="showback">
         <div class="alert alert-warning">There is no situational video at the moment.</div>
 
-        <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
+        <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">Create situational video</button></a>
         <br><br>
     </div>
 
@@ -164,7 +164,9 @@
         <h4><i class="fa fa-angle-right"></i> Vocabulary</h4>
 
         <!-- TODO check if Vocabulary -->
-        {% get_vocabulary language_subtopics as vocabulary %}
+        {% if language_subtopic %}
+            {% get_vocabulary language_subtopics as vocabulary %}
+        {% endif %}
         {% if vocabulary  %}
             <table class="table table-striped table-hover table-responsive table-condensed">
                 <tr>
@@ -181,6 +183,10 @@
             </table>
         {% else %}
             <div class="alert alert-warning">There is no Vocabulary at the moment.</div>
+
+            <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
+                Add vocabulary
+            </button></a>
         {% endif %}
     </div>
 
