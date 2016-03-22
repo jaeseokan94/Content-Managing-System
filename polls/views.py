@@ -469,7 +469,7 @@ def subtopic_create(request, language_name, level, topic_name):
         instance.language_topic = language_topic
         instance.save()
         messages.success(request, "Successfully created")
-        return HttpResponseRedirect(instance.get_absolute_url())
+        return HttpResponseRedirect(instance.get_absolute_url_create())
     else:
         messages.error(request, "Not successfully created")
     if request.method == "POST":

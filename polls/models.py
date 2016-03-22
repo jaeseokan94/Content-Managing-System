@@ -170,6 +170,10 @@ class LanguageSubtopic(models.Model):
     def get_absolute_url(self):
         return reverse("polls:subtopic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name, "subtopic_name": self.subtopic_name})
 
+    def get_absolute_url_create(self):
+        return reverse("polls:topic_detail", kwargs={"language_name": self.language_topic.language.name, "level": self.language_topic.topic.level, "topic_name": self.language_topic.topic.topic_name})
+
+
 class Exercise(models.Model):
     exercise_name = models.CharField(max_length=200, null=True)
     language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
