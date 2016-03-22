@@ -814,6 +814,12 @@ def letter_resource_update(request, language_name, dialect, resource_id):
 
     return render(request, 'polls/language_resource_form.html', context)
 
+def letter_resource_delete(request, language_name, dialect, resource_id):
+    instance = get_object_or_404(ResourceItem, id=resource_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return language_resources_alphabet(request, language_name, dialect)
+
 def letter_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
@@ -884,6 +890,7 @@ def number_resource_update_1_to_31(request, language_name, dialect, number_name)
 
     return render(request, 'polls/resource_numbers_form.html', context)
 
+
 def number_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
 
@@ -902,6 +909,12 @@ def number_resource_update(request, language_name, dialect, resource_id):
     }
 
     return render(request, 'polls/resource_numbers_form.html', context)
+
+def number_resource_delete(request, language_name, dialect, resource_id):
+    instance = get_object_or_404(ResourceItem, id=resource_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return language_resources_numbers(request, language_name, dialect)
 
 def number_resource_create(request, language_name, dialect):
     resource_name = "Numbers"
@@ -1035,6 +1048,12 @@ def holidays_resource_update(request, language_name, dialect, resource_id):
     }
 
     return render(request, 'polls/resource_holidays_form.html', context)
+
+def holidays_resource_delete(request, language_name, dialect, resource_id):
+    instance = get_object_or_404(ResourceItemPicture, id=resource_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return resources_holidays(request, language_name, dialect)
 
 def holidays_resource_create(request, language_name, dialect):
     resource_name = "Holidays"
@@ -1208,6 +1227,13 @@ def time_resource_create(request, language_name, dialect):
     }
     return render(request, 'polls/resource_time_form.html', context)
 
+
+def time_resource_delete(request, language_name, dialect, resource_id):
+    instance = get_object_or_404(ResourceItemPicture, id=resource_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return resources_time(request, language_name, dialect)
+
 def dashboard(request):
     language_list = Language.objects.all()
     levels = Level.objects.all()
@@ -1284,7 +1310,7 @@ def dialect_create(request, language_name):
     return render(request, 'polls/dialect_form.html', context)
 
 def dialect_update(request, language_name, dialect_id):
-    instance = Dialect.objects.get(id=dialect_id)
+    instance = Dialect.objects.get(name=language_name)
 
     form = DialectForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -1301,6 +1327,12 @@ def dialect_update(request, language_name, dialect_id):
     }
 
     return render(request, 'polls/dialect_form.html', context)
+
+def dialect_delete(request, language_name, dialect_id):
+    instance = get_object_or_404(Dialect, id=dialect_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return choose_dialect(request, language_name)
 
 
 def listening_comprehension_update(request, language_name, level, topic_name, sv_id):
