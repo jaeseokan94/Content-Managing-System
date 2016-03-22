@@ -24,11 +24,11 @@
                 {% for topic in topic_list %}
                     <tr>
                         <td class="col-lg-2">
-                            <span style="font-size: 17px;"> <a href="{% url 'polls:topic_detail' language_name level topic.topic_name %}">{{ topic.topic_name }}</a>
+                            <span style="font-size: 17px;">{{ topic.topic_name }}
                             </span>
                         </td>
                         <td class="col-lg-3">
-                            <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+                            <a href="{% url 'polls:topic_detail' language_name level topic.topic_name %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
                             {% if perms.polls.delete_language_topic %}
                                 <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
                             {% endif %}
