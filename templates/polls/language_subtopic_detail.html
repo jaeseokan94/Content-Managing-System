@@ -75,6 +75,17 @@
     </a>
 </div>
 
+<!-- DELETE THIS SUBTOPIC -->
+{% if perms.polls.delete_language_subtopic %}
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Delete this grammar topic or vocabulary</h4>
+
+    <div class="alert alert-danger"><b>Warning!</b> Deleting this grammar topic or vocabulary will delete all the assets in it.</div>
+
+    <a href="{% url 'polls:language_subtopic_delete' language.name topic.level.level topic.topic_name language_subtopic.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+</div>
+{% endif %}
+
 {% endblock content %}
 
 

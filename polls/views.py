@@ -499,6 +499,13 @@ def subtopic_create(request, language_name, level, topic_name):
     }
     return render(request, 'polls/language_subtopic_form.html', context)
 
+def language_subtopic_delete(request, language_name, level, topic_name, subtopic_id):
+    instance = get_object_or_404(LanguageSubtopic, id=subtopic_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+
+
+    return language_topic_detail(request, language_name, level, topic_name)
 
 def vocabulary_subtopic_create(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
