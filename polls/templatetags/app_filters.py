@@ -24,3 +24,7 @@ def get_1_to_31(list):
 @register.filter(name="filter_vocabulary")
 def filter_vocabulary(subtopics):
     return subtopics.exclude(subtopic_name="Vocabulary")
+
+@register.filter(name="filter_original_dialect")
+def filter_original_dialect(dialects, original):
+    return dialects.exclude(name=original.name)

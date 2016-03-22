@@ -18,6 +18,15 @@ def get_vocabulary(language_subtopics):
     return language_subtopics.get(subtopic_name="Vocabulary")
 
 @register.simple_tag
+def get_original_dialect(dialects, original):
+    try:
+        dialects.filter(language_id=original).get(name=original.name)
+    except Dialect.DoesNotExist:
+        return False
+    return dialects.filter(language_id=original).get(name=original.name)
+
+
+@register.simple_tag
 def has_vocabulary(language_subtopics):
     try:
         language_subtopics.get(subtopic_name="Vocabulary")

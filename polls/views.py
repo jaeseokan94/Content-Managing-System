@@ -764,6 +764,7 @@ def choose_dialect(request, language_name):
 
     context = {
         'language_name': language_name,
+        'language': language,
         'dialects': dialects,
     }
 
