@@ -30,7 +30,7 @@
 
     <!-- SITUATIONAL VIDEO -->
     <div class="showback">
-        <h4><i class="fa fa-angle-right"></i> Grammar video</h4>
+        <h4><i class="fa fa-angle-right"></i> Situational video</h4>
 
         {% if situational_video %}
             <form class="form-horizontal style-form">
@@ -139,7 +139,7 @@
 
         {% if language_subtopics|filter_vocabulary %}
             <table class="table table-striped table-hover table-responsive table-condensed">
-            {% for subtopic in language_subtopics %}
+            {% for subtopic in language_subtopics|filter_vocabulary %}
                 <tr>
                     <td class="col-lg-2">
                         <span style="font-size: 17px;">{{ subtopic.subtopic_name }}</span>
@@ -167,7 +167,7 @@
         <h4><i class="fa fa-angle-right"></i> Vocabulary</h4>
 
         <!-- TODO check if Vocabulary -->
-        {% if language_subtopic %}
+        {% if language_subtopics %}
             {% get_vocabulary language_subtopics as vocabulary %}
         {% endif %}
         {% if vocabulary  %}
