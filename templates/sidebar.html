@@ -1,5 +1,5 @@
-<!-- LANGUAGE -->
 {% if found_language %}
+    <!-- LANGUAGE -->
     <li class="sub-menu">
         <a href="javascript:;" >
             <i class="fa fa-desktop"></i>
@@ -9,10 +9,8 @@
             <li><a  href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a></li>
         </ul>
     </li>
-{% endif %}
 
-<!-- LEVEL -->
-{% if levelLangs %}
+    <!-- LEVEL -->
     <li class="sub-menu">
         <a href="javascript:;" >
             <i class="fa fa-desktop"></i>
@@ -27,14 +25,9 @@
                     <li><a  href="">No levels yet</a></li>
             {% endif %}
         </ul>
-        {% else %}
     </li>
-{% endif %}
 
-
-
-<!-- RESOURCES -->
-{% if found_language %}
+    <!-- RESOURCES -->
     <li class="sub-menu">
         <a href="" >
             <i class="fa fa-desktop"></i>
@@ -49,12 +42,16 @@
             {% endif %}
         </ul>
     </li>
-{% endif %}
 
-<!-- GLOSSARY -->
-<li class="sub-menu">
-    <a href="javascript:;" >
-        <i class="fa fa-desktop"></i>
-        <span>Glossary</span>
-    </a>
-</li>
+    <!-- GLOSSARY -->
+    <li class="sub-menu">
+        <a href="javascript:;" >
+            <i class="fa fa-desktop"></i>
+            <span>Glossary</span>
+        </a>
+        <ul class="sub">
+            <li><a  href="{% url 'polls:glossary_detail' language.name %}">Enter glossary</a></li>
+        </ul>
+    </li>
+
+{% endif %}

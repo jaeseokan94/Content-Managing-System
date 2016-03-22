@@ -1644,3 +1644,17 @@ def glossary_create(request, language_name):
         "form": form,
     }
     return render(request, 'polls/resource_time_form.html', context)
+
+def glossary_detail(request, language_name):
+    language = Language.objects.get(name=language_name)
+
+    try:
+        words = Glossary.objects.get(language_id=language.id)
+    except Glossary.DoesNotExist:
+        words = Glossary.objects.none()
+
+    context = {
+        "language": language,
+        "words": words,
+    }
+    return render(request, 'polls/glossary_detail.html', context)
