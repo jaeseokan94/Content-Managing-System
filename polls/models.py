@@ -131,14 +131,14 @@ class SituationalVideo(models.Model):
     situation_description_in_language = models.CharField(max_length=200, blank=True)
     video_with_transcript = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
     video_without_transcript =  models.FileField(null=True, blank=True, validators=[validate_movie_extension])
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField(max_length=200, default="")
     choice_1 = models.CharField(max_length=200, blank=True)
     choice_2 = models.CharField(max_length=200, blank=True)
     choice_3 = models.CharField(max_length=200, blank=True)
     choice_4 = models.CharField(max_length=200, blank=True)
     choice_5 = models.CharField(max_length=200, blank=True)
     choice_6 = models.CharField(max_length=200, blank=True)
-    correct_answers = models.CharField(max_length=200)
+    correct_answers = models.CharField(max_length=200, default="")
 
     def __str__(self):
         return self.situation_description
@@ -150,7 +150,7 @@ class SituationalVideo(models.Model):
 
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
-    subtopic_name = models.CharField(max_length=200, null=True, unique=True)
+    subtopic_name = models.CharField(max_length=200, null=True)
     subtopic_name_in_language = models.CharField(max_length=200, null=True)
     grammar_video_file = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
 

@@ -1453,6 +1453,14 @@ def level_api(request, language_name):
 @permission_required('polls.add_level_language', raise_exception=True)
 def level_language_create(request, language_name):
     language = Language.objects.get(name=language_name)
+    '''
+    level_language = LevelLanguage.objects.filter(language=language.id)
+
+    levels = Level.objects.all()
+    for level in levels:
+        if level.level
+        level= Level.objects.get(level=level)
+    '''
 
     form = LevelLanguageForm(request.POST or None)
 
@@ -1468,7 +1476,7 @@ def level_language_create(request, language_name):
     context = {
         "form": form,
     }
-    return render(request, 'polls/resource_time_form.html', context)
+    return render(request, 'polls/level_language_form.html', context)
 
 @permission_required('polls.add_level', raise_exception=True)
 def level_create(request):
