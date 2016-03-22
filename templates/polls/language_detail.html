@@ -44,7 +44,7 @@
 
     <div class="alert alert-danger"><b>Warning!</b> Deleting this language will delete all the assets in it.</div>
 
-    <a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
+    <a href="{% url 'polls:language_delete' language.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
 </div>
 
 {% endblock content %}
