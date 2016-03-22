@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 import os
+import uuid
 
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
@@ -49,6 +50,11 @@ def validate_picture_extension(value):
         valid_extensions = ['.jpeg', '.jpg', '.png']
         if not ext in valid_extensions:
             raise ValidationError(u'File not supported! Only .mp3 is allowed.')
+
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('uploads/logos', filename)
 
 class Language(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -291,5 +297,12 @@ class ResourceItemPicture(models.Model):
 
 class Glossary(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
-    word = models.CharField(max_length=50)
-    word_in_lang = models.CharField(max_length=50)
+    word = models.CharField(max_length=50, null=True, blank=True)
+    word_in_lang = models.CharField(max_length=50, null=True, blank=True)
+
+    def get_absolute_url(self):
+        namespace = ""
+        return reverse("polls:glossary_update", kwargs={"language_name": self.language_id.name})
+
+    def __str__(self):
+        return self.word

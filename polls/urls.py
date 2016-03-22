@@ -99,6 +99,9 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/add/$', views.time_resource_create, name="time_resource_create"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/(?P<resource_id>[0-9]+)/delete$', views.time_resource_delete, name="time_resource_delete"),
 
+    url(r'^(?P<language_name>[\w]+)/glossary/$', views.glossary_update, name="glossary_update"),
+    url(r'^(?P<language_name>[\w]+)/glossary/add/$', views.glossary_create, name="glossary_create"),
+
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.language_topic_list, name='topic_list'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.language_topic_create, name="topic_create"),

@@ -31,7 +31,8 @@ from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
-    LevelLanguageForm, LevelForm, VocabularyForm
+    LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm
+
 )
 
 
@@ -1601,6 +1602,39 @@ def level_update(request, level_id):
     else:
         #messages.error(request, "Not successfully created")
         pass
+
+def glossary_update(request, language_name):
+    language = Language.objects.get(name=language_name)
+    instance = Glossary.objects.get(language_id = language.id)
+
+    form = GlossaryForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+    context = {
+        "form": form,
+    }
+
+    return render(request, 'polls/glossary_form.html', context)
+
+
+def glossary_create(request, language_name):
+    language = Language.objects.get(name=language_name)
+    instance = Glossary.objects.get(language_id = language.id)
+
+    form = GlossaryForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False, instance=instance)
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url_create())
+    else:
+        messages.error(request, "Not successfully created")
 
     context = {
         "form": form,
