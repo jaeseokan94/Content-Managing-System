@@ -297,8 +297,7 @@ class Glossary(models.Model):
     word_in_lang = models.CharField(max_length=50, null=True, blank=True)
 
     def get_absolute_url(self):
-        namespace = ""
-        return reverse("polls:glossary_update", kwargs={"language_name": self.language_id.name})
+        return reverse("polls:glossary_detail", kwargs={"language_name": self.language_id.name})
 
     def __str__(self):
         return self.word

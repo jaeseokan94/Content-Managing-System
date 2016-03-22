@@ -1607,9 +1607,8 @@ def level_update(request, level_id):
         #messages.error(request, "Not successfully created")
         pass
 
-def glossary_update(request, language_name):
-    language = Language.objects.get(name=language_name)
-    instance = Glossary.objects.get(language_id = language.id)
+def glossary_update(request, language_name, glossary_id):
+    instance = Glossary.objects.get(id=glossary_id)
 
     form = GlossaryForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -1628,15 +1627,15 @@ def glossary_update(request, language_name):
 
 def glossary_create(request, language_name):
     language = Language.objects.get(name=language_name)
-    instance = Glossary.objects.get(language_id = language.id)
 
     form = GlossaryForm(request.POST or None)
 
     if form.is_valid():
-        instance = form.save(commit=False, instance=instance)
+        instance = form.save(commit=False)
+        instance.language_id = language
         instance.save()
         messages.success(request, "Successfully created")
-        return HttpResponseRedirect(instance.get_absolute_url_create())
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully created")
 
@@ -1649,7 +1648,7 @@ def glossary_detail(request, language_name):
     language = Language.objects.get(name=language_name)
 
     try:
-        words = Glossary.objects.get(language_id=language.id)
+        words = Glossary.objects.filter(language_id=language.id)
     except Glossary.DoesNotExist:
         words = Glossary.objects.none()
 

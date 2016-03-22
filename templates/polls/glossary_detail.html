@@ -18,10 +18,10 @@
             {% for word in words %}
                 <tr>
                     <td class="col-lg-1">
-                        <a href=""><span style="font-size: 17px;">{{ word.word }}</span></a>
+                        <span style="font-size: 17px;">{{ word.word }}</span>
                     </td>
                     <td class="col-lg-2">
-                        <a href=""><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <a href="{% url 'polls:glossary_update' language.name word.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
                         <a href=""><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                 </tr>
@@ -31,7 +31,7 @@
         <div class="alert alert-warning">There are no words at the moment.</div>
     {% endif %}
 
-    <a href=""><button class="btn btn-primary">Add word</button></a>
+    <a href="{% url 'polls:glossary_create' language.name %}"><button class="btn btn-primary">Add word</button></a>
 </div>
 
 {% endblock content %}
