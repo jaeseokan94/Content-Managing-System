@@ -303,5 +303,12 @@ class ResourceItemPicture(models.Model):
 
 class Glossary(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
-    word = models.CharField(max_length=50)
-    word_in_lang = models.CharField(max_length=50)
+    word = models.CharField(max_length=50, null=True, blank=True)
+    word_in_lang = models.CharField(max_length=50, null=True, blank=True)
+
+    def get_absolute_url(self):
+        namespace = ""
+        return reverse("polls:glossary_update", kwargs={"language_name": self.language_id.name})
+
+    def __str__(self):
+        return self.word
