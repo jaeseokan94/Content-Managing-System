@@ -39,6 +39,7 @@
 
 
 <!-- DELETE THIS LANGUAGE -->
+{% if perms.polls.delete_language %}
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Delete this language</h4>
 
@@ -46,5 +47,6 @@
 
     <a href="{% url 'polls:language_delete' language.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
 </div>
+{% endif %}
 
 {% endblock content %}
