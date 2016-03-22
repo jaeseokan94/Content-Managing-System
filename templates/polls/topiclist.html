@@ -4,6 +4,11 @@
 
 {% block content %}
 
+<div class="page-header">
+    <h1><a href="{% url 'polls:language_detail' language_name %}">{{ language_name }}</a>
+        - {{ level.level }}
+    </h1>
+</div>
 
 {% if topic_list %}
     <div class="showback">
