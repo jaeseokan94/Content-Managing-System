@@ -683,6 +683,12 @@ def exercise_question_create(request, language_name, level, topic_name, subtopic
     }
     return render(request, 'polls/exercise_question_form.html', context)
 
+def exercise_question_delete(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
+    instance = get_object_or_404(ExerciseQuestion, id=question_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id)
+
 def exercise_vocab_question_detail(request, language_name, level, topic_name, subtopic_name, exercise):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)

@@ -53,7 +53,7 @@
                     </td>
                     <td class="col-lg-2">
                         <a href="{% url 'polls:exercise_question_update' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id question.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                        <a href="{% url 'polls:exercise_question_delete' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id question.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                 </tr>
             {% endfor %}
