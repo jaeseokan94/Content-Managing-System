@@ -292,7 +292,7 @@ def language_update(request, language_id):
 
 @permission_required('polls.delete_language', raise_exception=True)
 def language_delete(request, language_id):
-    instance = get_object_or_404(Language, name=language_id)
+    instance = get_object_or_404(Language, id=language_id)
     instance.delete()
     messages.success(request, "Successfully deleted")
     return redirect("polls:language_list")
