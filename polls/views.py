@@ -270,6 +270,7 @@ def language_update(request, language_id):
 
     return render(request, 'polls/language_form.html', context)
 
+@permission_required('polls.delete_language', raise_exception=True)
 def language_delete(request, language_id):
     instance = get_object_or_404(Language, name=language_id)
     instance.delete()

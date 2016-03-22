@@ -40,4 +40,15 @@
 </div>
 
 
+<!-- DELETE THIS LEVEL -->
+{% if not request.user.is_authenticated %}
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Delete this level</h4>
+
+    <div class="alert alert-danger"><b>Warning!</b> Deleting this level will delete all the assets in it.</div>
+
+    <a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
+</div>
+{% endif %}
+
 {% endblock content %}
