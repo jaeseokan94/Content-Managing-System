@@ -7,7 +7,7 @@
 <div class="page-header">
     <h1>Topics for level: {{ level }}</h1>
     <!-- TODO implement button -->
-    <button type="button" class="btn btn-primary">Edit</button>
+    <a href="{% url 'polls:level_update' level.id %}"><button type="button" class="btn btn-primary">Edit</button>
 </div>
 
 <!-- TOPIC LIST -->
@@ -36,6 +36,8 @@
         <a href="{% url 'polls:topic_create' level %}"><button type="button" class="btn btn-success">Add topic</button></a>
     {% else %}
         <div class="alert alert-warning">There are no topics at the moment.</div>
+
+        <a href="{% url 'polls:topic_create' level %}"><button type="button" class="btn btn-success">Add topic</button></a>
     {% endif %}
 </div>
 

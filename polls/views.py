@@ -1486,3 +1486,22 @@ def level_create(request):
         "form": form,
     }
     return render(request, 'polls/resource_time_form.html', context)
+
+@permission_required('polls.edit_level', raise_exception=True)
+def level_update(request, level_id):
+    instance = Level.objects.get(id=level_id)
+
+    form = LevelForm(request.POST or None, instance=instance)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        #messages.error(request, "Not successfully created")
+        pass
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/resource_time_form.html', context)

@@ -51,14 +51,10 @@ def validate_picture_extension(value):
             raise ValidationError(u'File not supported! Only .mp3 is allowed.')
 
 class Language(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     name_in_language = models.CharField(max_length=200)
     class Meta:
         ordering = ('name',)
-
-    '''
-        language name must be unique for urls to work
-    '''
 
     def __str__(self):
         return self.name
@@ -72,11 +68,8 @@ class Language(models.Model):
 
 class Dialect(models.Model):
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     name_in_language = models.CharField(max_length=200)
-    '''
-        name must be unique for urls to work
-    '''
 
     def __str__(self):
         return self.name
@@ -85,17 +78,13 @@ class Dialect(models.Model):
         return reverse("polls:choose_dialect", kwargs={"language_name": self.language_id.name})
 
 class Level(models.Model):
-    level = models.CharField(max_length=200)
-
-    '''
-        level must be unique for urls to work
-    '''
+    level = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.level
 
     def get_absolute_url(self):
-        return reverse("polls:dashboard", kwargs={})
+        return reverse("polls:level_detail", kwargs={"level": self.level})
 
 class LevelLanguage(models.Model):
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
@@ -108,7 +97,7 @@ class LevelLanguage(models.Model):
         return reverse("polls:language_detail", kwargs={"language_name": self.language.name})
 
 class Topic(models.Model):
-    topic_name = models.CharField(max_length=200)
+    topic_name = models.CharField(max_length=200, unique=True)
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -116,9 +105,6 @@ class Topic(models.Model):
 
     def get_absolute_url(self):
         return reverse("polls:level_detail", kwargs={"level": self.level})
-
-
-
 
 class LanguageTopic(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
@@ -134,6 +120,7 @@ class LanguageTopic(models.Model):
 
     def get_absolute_url_create(self):
         return reverse("polls:topic_list", kwargs={"language_name": self.language.name, "level": self.topic.level})
+
 
 class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
@@ -160,7 +147,7 @@ class SituationalVideo(models.Model):
 
 class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
-    subtopic_name = models.CharField(max_length=200, null=True)
+    subtopic_name = models.CharField(max_length=200, null=True, unique=True)
     subtopic_name_in_language = models.CharField(max_length=200, null=True)
     grammar_video_file = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
 
