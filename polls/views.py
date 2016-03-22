@@ -50,6 +50,8 @@ def language_list(request):
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
 
+def homepage(request):
+    return render(request, 'polls/homepage.html', context={})
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
