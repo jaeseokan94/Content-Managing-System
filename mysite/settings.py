@@ -175,5 +175,5 @@ LOGIN_EXEMPT_URLS = (
     r'^$',
     r'^polls/api/',
     r'^media/',
-    r'^static/',
+    r'^/static/',
 )
