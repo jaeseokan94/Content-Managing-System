@@ -22,7 +22,7 @@
                     </td>
                     <td class="col-lg-2">
                         <a href="{% url 'polls:glossary_update' language.name word.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                        <a href=""><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
+                        <a href="{% url 'polls:glossary_delete' language.name word.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                 </tr>
             {% endfor %}

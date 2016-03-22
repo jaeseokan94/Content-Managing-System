@@ -100,6 +100,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/time/(?P<resource_id>[0-9]+)/delete$', views.time_resource_delete, name="time_resource_delete"),
 
     url(r'^(?P<language_name>[\w]+)/glossary/$', views.glossary_detail, name="glossary_detail"),
+    url(r'^(?P<language_name>[\w]+)/glossary/(?P<glossary_id>[0-9]+)/delete/$', views.glossary_delete, name="glossary_delete"),
     url(r'^(?P<language_name>[\w]+)/glossary/(?P<glossary_id>[0-9]+)/edit/$', views.glossary_update, name="glossary_update"),
     url(r'^(?P<language_name>[\w]+)/glossary/add/$', views.glossary_create, name="glossary_create"),
 

@@ -1607,6 +1607,8 @@ def level_update(request, level_id):
         #messages.error(request, "Not successfully created")
         pass
 
+
+
 def glossary_update(request, language_name, glossary_id):
     instance = Glossary.objects.get(id=glossary_id)
 
@@ -1657,3 +1659,9 @@ def glossary_detail(request, language_name):
         "words": words,
     }
     return render(request, 'polls/glossary_detail.html', context)
+
+def glossary_delete(request, language_name, glossary_id):
+    instance = get_object_or_404(Glossary, id=glossary_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return glossary_detail(request, language_name)
