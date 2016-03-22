@@ -56,6 +56,14 @@ class LanguageSubtopicForm(forms.ModelForm):
             "grammar_video_file",
         ]
 
+class VocabularyForm(forms.ModelForm):
+    class Meta:
+        model = LanguageSubtopic
+        fields = [
+            "subtopic_name_in_language",
+            "grammar_video_file",
+        ]
+
 class ExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise

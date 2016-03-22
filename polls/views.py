@@ -31,7 +31,7 @@ from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
-    LevelLanguageForm, LevelForm
+    LevelLanguageForm, LevelForm, VocabularyForm
 )
 
 
@@ -486,6 +486,31 @@ def subtopic_create(request, language_name, level, topic_name):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.language_topic = language_topic
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url_create())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/language_subtopic_form.html', context)
+
+
+def vocabulary_subtopic_create(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    form = VocabularyForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.language_topic = language_topic
+        instance.subtopic_name = "Vocabulary"
         instance.save()
         messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url_create())

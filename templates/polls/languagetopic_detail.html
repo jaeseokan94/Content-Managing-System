@@ -139,6 +139,11 @@
 
         {% if language_subtopics|filter_vocabulary %}
             <table class="table table-striped table-hover table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <td>Grammar topic name</td>
+                    </tr>
+                </thead>
             {% for subtopic in language_subtopics|filter_vocabulary %}
                 <tr>
                     <td class="col-lg-2">
@@ -158,9 +163,9 @@
         {% endif %}
 
         {% if has_three_subtopics %}
-        <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
-            Add grammar topic
-        </button></a>
+            <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
+                Add grammar topic
+            </button></a>
         {% endif %}
     </div>
 
@@ -169,10 +174,8 @@
         <h4><i class="fa fa-angle-right"></i> Vocabulary</h4>
 
         <!-- TODO check if Vocabulary -->
-        {% if has_vocabulary %}
-            {% get_vocabulary language_subtopics as vocabulary %}
-        {% endif %}
-        {% if vocabulary  %}
+        {% get_vocabulary language_subtopics as vocabulary %}
+        {% if vocabulary %}
             <table class="table table-striped table-hover table-responsive table-condensed">
                 <tr>
                     <td class="col-lg-2">
@@ -182,14 +185,13 @@
                         <a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name vocabulary.subtopic_name%}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-pencil"></i>
                         </button></a>
-                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
                     </td>
                 </tr>
             </table>
         {% else %}
             <div class="alert alert-warning">There is no Vocabulary at the moment.</div>
 
-            <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
+            <a href="{% url 'polls:vocabulary_subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
                 Add vocabulary
             </button></a>
         {% endif %}
