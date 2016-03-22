@@ -25,18 +25,16 @@
 <!-- LANGUAGE LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
+    Click on a level below to see topics.
 
-    <div class="col-sm-9">
-        <ul class="list-group">
-        {% for levelLang in levelLangs %}
-            <a class="list-group-item" href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a>
-        {% endfor %}
-        </ul>
-    </div>
+    <ul class="list-group">
+    {% for levelLang in levelLangs %}
+        <a class="list-group-item" href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a>
+    {% endfor %}
+    </ul>
 
-    <a href="{% url 'polls:level_language_create' language.name %}"><button type="button" class="btn btn-primary">Add</button></a>
+    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary">Add level</button></a>
 </div>
-
 
 <!-- DELETE THIS LANGUAGE -->
 {% if perms.polls.delete_language %}

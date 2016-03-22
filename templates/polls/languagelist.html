@@ -6,8 +6,13 @@
 {% block content %}
 
 <div class="jumbotron">
-  <h1>Languages</h1>
-  <p>Please choose your department.</p>
+    <h1>Languages</h1>
+
+    {% if user.is_authenticated %}
+        <p>Please choose your department.</p>
+    {% else %}
+        <p>Please login.</p>
+    {% endif %}
 </div>
 
     {% if language_list %}
