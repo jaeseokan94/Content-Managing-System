@@ -12,10 +12,17 @@
 
 {% if topic_list %}
     <div class="showback">
-        <table class="table table-striped table-hover table-responsive table-condensed">
-            <div>
-                <h2>Topics for {{ language_name }} {{ level }}</h2>
+        <h3>Topics for {{ language_name }} {{ level }}</h3>
 
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            <thead>
+                <tr>
+                    <td>
+                        Topic name
+                    </td>
+                </tr>
+            </thead>
+            <div>
                 {% for topic in topic_list %}
                     <tr>
                         <td class="col-lg-2">
@@ -24,7 +31,9 @@
                         </td>
                         <td class="col-lg-3">
                             <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                            {% if perms.polls.delete_language_topic %}
+                                <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
