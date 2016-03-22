@@ -13,7 +13,7 @@
     </h1>
 </div>
 
-<!-- SUBTOPIC NAME -->
+<!-- SUBTOPIC NAME AND GRAMMAR VIDEO -->
 <div class="showback">
     <form class="form-horizontal style-form">
         <div class="form-group">
@@ -28,14 +28,6 @@
                 <p class="form-control-static">{{ language_subtopic.subtopic_name_in_language }}</p>
             </div>
         </div>
-    </form>
-    <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
-</div>
-
-<!-- GRAMMAR VIDEOS -->
-<div class="showback">
-    <h4><i class="fa fa-angle-right"></i> Grammar Video</h4>
-    <form class="form-horizontal style-form">
         <div class="form-group">
             <label class="col-sm-2 col-sm-2 control-label">Grammar video file</label>
             <div class="col-sm-5">
@@ -43,8 +35,7 @@
             </div>
         </div>
     </form>
-
-    <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+    <a href="{% url 'polls:subtopic_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
 </div>
 
 <!-- EXERCISES -->
