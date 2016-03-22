@@ -27,9 +27,12 @@
         <p>No languages are available.</p>
     {% endif %}
 
+    {% if perms.polls.add_language %}
     <a href="{% url 'polls:language_create' %}"><button type="button" class="btn btn-primary">Add language</button></a>
+    {% endif %}
 </div>
 
+{% if perms.polls.add_level %}
 <!-- LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
@@ -43,4 +46,5 @@
 
     <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary">Add level</button></a>
 </div>
+{% endif %}
 {% endblock content %}
