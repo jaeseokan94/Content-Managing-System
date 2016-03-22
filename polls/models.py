@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 import os
-import uuid
+
 
 RESOURCES = (
     ('Alphabet', 'Alphabet'),
@@ -51,10 +51,6 @@ def validate_picture_extension(value):
         if not ext in valid_extensions:
             raise ValidationError(u'File not supported! Only .mp3 is allowed.')
 
-def get_file_path(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = "%s.%s" % (uuid.uuid4(), ext)
-    return os.path.join('uploads/logos', filename)
 
 class Language(models.Model):
     name = models.CharField(max_length=200, unique=True)
