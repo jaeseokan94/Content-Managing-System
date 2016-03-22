@@ -8,13 +8,16 @@
     <h1>{{ language.name }}</h1>
 </div>
 
+<!-- EDIT LANGUAGE NAME -->
 <div class="showback">
-    <label class="col-sm-2 col-sm-2 control-label">Name in language</label>
-
-    <div class="col-sm-7">
-          <p class="form-control-static">{{ language.name_in_language }}</p>
-    </div>
-
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Name in {{ language.name }}</label>
+            <div class="col-sm-5">
+                <p class="form-control-static">{{ language.name_in_language }}</p>
+            </div>
+        </div>
+    </form>
     <a href="{% url 'polls:language_update' language.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
 </div>
 
@@ -32,6 +35,16 @@
     </div>
 
     <a href="{% url 'polls:level_language_create' language.name %}"><button type="button" class="btn btn-primary">Add</button></a>
+</div>
+
+
+<!-- DELETE THIS LANGUAGE -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Delete this language</h4>
+
+    <div class="alert alert-danger"><b>Warning!</b> Deleting this language will delete all the assets in it.</div>
+
+    <a href="#"><button type="button" class="btn btn-danger">Delete</button></a>
 </div>
 
 {% endblock content %}
