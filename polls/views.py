@@ -581,9 +581,8 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name, ex
 
 def exercise_create(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    levelLang_name = LevelLanguage.objects.get(level=level_name.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
