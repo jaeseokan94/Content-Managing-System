@@ -7,7 +7,12 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>{{ language.name }} - {{ topic.level }} - {{ topic.topic_name }} - {{ language_subtopic.subtopic_name }} - {{ exercise.exercise_name }}</h1>
+    <h1><a href="{% url 'polls:language_detail' language.name %}">{{ language.name }}</a>
+        - <a href="{% url 'polls:topic_list' language.name topic.level.level %}">{{ topic.level }}</a>
+        - <a href="{% url 'polls:topic_detail' language.name topic.level.level topic.topic_name %}">{{ topic.topic_name }}</a>
+        - <a href="{% url 'polls:subtopic_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name %}">{{ language_subtopic.subtopic_name }}</a>
+        - {{ exercise.exercise_name }}
+    </h1>
 </div>
 
 
@@ -32,10 +37,15 @@
 
 <!-- EXERCISE QUESTIONS -->
 <div class="showback">
-    <h2 class="mb"><i class="fa fa-angle-right"></i>Exercise</h2>
+    <h3><i class="fa fa-angle-right"></i>Questions</h3>
 
     {% if questions %}
         <table class="table table-striped table-hover table-responsive table-condensed">
+            <thead>
+                <tr>
+                    <th>Question name</th>
+                </tr>
+            </thead>
             {% for question in questions %}
                 <tr>
                     <td class="col-lg-1">
