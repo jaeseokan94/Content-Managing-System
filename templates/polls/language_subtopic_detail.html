@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load app_filters %}
+{% load app_tags %}
 
 {% block title %}{{language_name}}|{{topic_name}}{% endblock %}
 
@@ -17,13 +18,13 @@
 <div class="showback">
     <form class="form-horizontal style-form">
         <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label"><b>Subtopic name</b></label>
+            <label class="col-sm-2 col-sm-2 control-label"><b>Grammar topic or vocabulary name</b></label>
             <div class="col-sm-5">
                 <p class="form-control-static">{{ language_subtopic.subtopic_name }}</p>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label"><b>Subtopic name in {{ language.name }}</b></label>
+            <label class="col-sm-2 col-sm-2 control-label"><b>Grammar topic or vocabulary name in {{ language.name }}</b></label>
             <div class="col-sm-5">
                 <p class="form-control-static">{{ language_subtopic.subtopic_name_in_language }}</p>
             </div>
@@ -35,7 +36,12 @@
             </div>
         </div>
     </form>
-    <a href="{% url 'polls:subtopic_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    {% is_vocabulary language_subtopic as bool_vocab %}
+    {% if bool_vocab %}
+        <a href="{% url 'polls:subtopic_vocabulary_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    {% else %}
+        <a href="{% url 'polls:subtopic_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    {% endif %}
 </div>
 
 <!-- EXERCISES -->
@@ -47,7 +53,7 @@
             {% for exercise in exercises %}
                 <tr>
                     <td class="col-lg-1">
-                        <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><span style="font-size: 17px;">{{ exercise.exercise_name }}</span></a>
+                        <span style="font-size: 17px;">{{ exercise.exercise_name }}</span>
                     </td>
                     <td class="col-lg-2">
                         <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
@@ -62,7 +68,7 @@
 
 
     <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">
-        <button type="button" class="btn btn-primary">New exercise</button>
+        <button type="button" class="btn btn-success">New exercise</button>
     </a>
 </div>
 

@@ -556,6 +556,31 @@ def subtopic_update(request, language_name, level, topic_name, subtopic_name):
 
     return render(request, 'polls/language_subtopic_form.html', context)
 
+def subtopic_vocabulary_update(request, language_name, level, topic_name, subtopic_name):
+    language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+
+    instance = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    form = VocabularyForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/subtopic_vocabulary_form.html', context)
+
 def exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id):
     language = Language.objects.get(name=language_name)
     level = Level.objects.get(level=level)

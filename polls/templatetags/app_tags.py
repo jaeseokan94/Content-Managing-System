@@ -15,7 +15,6 @@ def get_vocabulary(language_subtopics):
 
 @register.simple_tag
 def has_vocabulary(language_subtopics):
-    print("asdfasdfasdfasdfa" + language_subtopics)
     try:
         language_subtopics.get(subtopic_name="Vocabulary")
         print("asdfasdfasdfasdfa" + language_subtopics.get(subtopic_name="Vocabulary"))
@@ -23,6 +22,12 @@ def has_vocabulary(language_subtopics):
     except LanguageSubtopic.DoesNotExist:
         return False
     return True
+
+@register.simple_tag
+def is_vocabulary(language_subtopic):
+    if language_subtopic.subtopic_name == "Vocabulary":
+        return True
+    return False
 
 @register.simple_tag
 def has_three_subtopics(language_subtopics):
