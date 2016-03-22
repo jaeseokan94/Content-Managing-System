@@ -161,7 +161,7 @@
             <div class="alert alert-warning">There are no Grammar Topics at the moment.</div>
         {% endif %}
 
-        {% if has_three_subtopics %}
+        {% if not has_three_subtopics %}
             <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
                 Add grammar topic
             </button></a>

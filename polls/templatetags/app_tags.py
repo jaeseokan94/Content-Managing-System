@@ -11,6 +11,10 @@ def current_time(format_string):
 
 @register.simple_tag
 def get_vocabulary(language_subtopics):
+    try:
+        language_subtopics.get(subtopic_name="Vocabulary")
+    except LanguageSubtopic.DoesNotExist:
+        return False
     return language_subtopics.get(subtopic_name="Vocabulary")
 
 @register.simple_tag
@@ -38,7 +42,7 @@ def has_three_subtopics(language_subtopics):
         :return: True or False
     '''
 
-    if len(language_subtopics.exclude(subtopic_name="Vocabulary")) >= 3:
+    if len(language_subtopics.exclude(subtopic_name="Vocabulary")) > 2:
         return True
     return False
 

@@ -8,7 +8,31 @@
     <h1>{{ language_name }} dialects</h1>
 </div>
 
+<!-- ORIGINAL DIALECT -->
 <div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Official dialect</h4>
+    {% if dialects %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for dialect in dialects %}
+                <tr>
+                    <td class="col-lg-1">
+                        <a href="{% url 'polls:language_resources' language_name dialect.name %}"><span style="font-size: 17px;">{{ dialect.name }}</span></a>
+                    </td>
+                    <td class="col-lg-2">
+                        <a href="{% url 'polls:dialect_update' language_name dialect.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <a href="{% url 'polls:dialect_delete' language_name dialect.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="alert alert-warning">There are no dialects at the moment.</div>
+    {% endif %}
+</div>
+
+<!-- LIST OF DIALECTS -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Other dialects</h4>
     {% if dialects %}
         <table class="table table-striped table-hover table-responsive table-condensed">
             {% for dialect in dialects %}
@@ -28,7 +52,6 @@
     {% endif %}
 
     <a href="{% url 'polls:dialect_create' language_name %}"><button class="btn btn-primary">Add dialect</button></a>
-
 </div>
 
 {% endblock content %}

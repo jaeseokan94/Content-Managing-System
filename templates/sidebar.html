@@ -41,12 +41,11 @@
             <span>Resources by Dialect</span>
         </a>
         <ul class="sub">
+            <li><a  href="{% url 'polls:choose_dialect' language.name %}">Dialects list</a></li>
             {% if dialects %}
                 {% for dialect in dialects %}
                     <li><a  href="{% url 'polls:language_resources' language.name dialect.name %}">{{ dialect.name }}</a></li>
                 {% endfor %}
-            {% else %}
-                    <li><a  href="#">No dialects yet</a></li>
             {% endif %}
         </ul>
     </li>

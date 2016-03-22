@@ -262,6 +262,9 @@ def language_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        #Create new dialect
+        new_dialect = Dialect(language_id=instance, name=instance.name)
+        new_dialect.save()
         messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url_create())
     else:
