@@ -3,7 +3,7 @@ from django import forms
 from .models import (
     Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion,
     ExerciseVocabularyQuestion, ResourceItem, ResourceItemPicture, Topic, Dialect, Resource,
-    LevelLanguage, Level)
+    LevelLanguage, Level, Glossary)
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -158,4 +158,12 @@ class LevelForm(forms.ModelForm):
         model = Level
         fields = [
             "level",
+        ]
+
+class GlossaryForm(forms.ModelForm):
+    class Meta:
+        model = Glossary
+        fields = [
+            "word",
+            "word_in_lang"
         ]
