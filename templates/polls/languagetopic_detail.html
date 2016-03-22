@@ -15,12 +15,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Topic name in {{ language.name }}</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" placeholder="{{ topic.topic_name_in_language }}">
+                    <p class="form-control-static"> {{ languagetopic }}</p>
                 </div>
             </div>
         </form>
         <a href="{% url 'polls:topic_update' language.name topic.level.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
     </div>
+<br>
 
     <!-- SITUATIONAL VIDEO -->
     <div class="showback">
@@ -31,34 +32,33 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Description</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder={{situational_video.situation_description}}>
+                        <p class="form-control-static">{{situational_video.situation_description}}<p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Descriptions in {{ language.name }}</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder={{situational_video.situation_description_in_language}}>
+                        <p class="form-control-static">{{situational_video.situation_description_in_language}}</p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder={{situational_video.video_with_transcript}}>
+                        <p class="form-control-static">{{situational_video.video_with_transcript}}</p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder={{situational_video.video_without_transcript}}>
+                        <p class="form-control-static">placeholder={{situational_video.video_without_transcript}}</p>
                     </div>
                 </div>
             </form>
 
             <a href="{% url 'polls:situational_video_update' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Edit</button></a>
-    </div>
 
         <!-- LISTENING COMPREHENSION QUESTION --->
     <div class="showback">
@@ -66,12 +66,15 @@
         <div class="form-group">
             <a href="{% url 'polls:listening_comprehension_update' language.name topic.level.level topic.topic_name situational_video.id %}"><button type="button" class="btn btn-warning">Listening Comprehension question</button></a>
         </div>
-    </div>
+    </div><br>
 
         {% else %}
             <div class="alert alert-warning">There is no situational video at the moment.</div>
 
             <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-primary">Create situational video</button></a>
+            <br><br>
+            </div>
+
         {% endif %}
 
 

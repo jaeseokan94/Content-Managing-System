@@ -10,7 +10,6 @@
   <p>Please choose your department.</p>
 </div>
 
-<div class="showback">
     {% if language_list %}
         <ul class="list-group">
         {% for language in language_list %}
@@ -20,6 +19,5 @@
     {% else %}
         <div class="alert alert-warning">There are no languages available.</div>
     {% endif %}
-</div>
 
 {% endblock content %}
