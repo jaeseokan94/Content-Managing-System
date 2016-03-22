@@ -170,9 +170,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_URL = '/accounts/login'
 
 LOGIN_EXEMPT_URLS = (
-    r'^/admin/',
+    r'^admin/',
     r'^accounts',
     r'^$',
     r'^polls/api/',
     r'^media/',
+    r'^static/',
 )
