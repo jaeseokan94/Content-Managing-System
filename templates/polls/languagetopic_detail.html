@@ -157,9 +157,11 @@
             <div class="alert alert-warning">There are no Grammar Topics at the moment.</div>
         {% endif %}
 
+        {% if has_three_subtopics %}
         <a href="{% url 'polls:subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
             Add grammar topic
         </button></a>
+        {% endif %}
     </div>
 
     <!-- VOCABULARY -->
@@ -167,7 +169,7 @@
         <h4><i class="fa fa-angle-right"></i> Vocabulary</h4>
 
         <!-- TODO check if Vocabulary -->
-        {% if language_subtopics %}
+        {% if has_vocabulary %}
             {% get_vocabulary language_subtopics as vocabulary %}
         {% endif %}
         {% if vocabulary  %}

@@ -1,5 +1,5 @@
 from django import template
-from polls.models import LanguageTopic, Language, LevelLanguage, Dialect
+from polls.models import LanguageTopic, Language, LevelLanguage, Dialect, LanguageSubtopic
 import re
 
 register = template.Library()
@@ -13,6 +13,26 @@ def current_time(format_string):
 def get_vocabulary(language_subtopics):
     return language_subtopics.get(subtopic_name="Vocabulary")
 
+@register.simple_tag
+def has_vocabulary(language_subtopics):
+    try:
+        language_subtopics.get(subtopic_name="Vocabulary")
+    except LanguageSubtopic.DoesNotExist:
+        return false
+    return true
+
+@register.simple_tag
+def has_three_subtopics(language_subtopics):
+    '''
+        Checks if topic has more than three subtopics that are not Vocabulary
+        :param topic: Topic
+        :param language_subtopics: QuerySet of language_subtopics
+        :return: True or False
+    '''
+
+    if len(language_subtopics.exclude(subtopic_name="Vocabulary")) >= 3:
+        return True
+    return False
 
 @register.inclusion_tag('sidebar.html')
 def show_topics(url):
