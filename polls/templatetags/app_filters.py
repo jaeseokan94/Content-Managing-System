@@ -13,3 +13,14 @@ def get_word(list, word):
             return item.word_in_language
     return "None"
 
+#TODO this
+@register.filter(name="get_1_to_31")
+def get_1_to_31(list):
+    for item in list:
+        if item.word == word:
+            return item.word_in_language
+    return "None"
+
+@register.filter(name="filter_vocabulary")
+def filter_vocabulary(subtopics):
+    return subtopics.exclude(subtopic_name="Vocabulary")

@@ -50,6 +50,8 @@ def language_list(request):
     context = {'language_list': language_list,}
     return render(request, 'polls/languagelist.html', context)
 
+def homepage(request):
+    return render(request, 'polls/homepage.html', context={})
 
 @csrf_exempt
 def grammar_video_list(request, language, level, topic_name, subtopic_name):
@@ -288,6 +290,7 @@ def language_update(request, language_id):
 
     return render(request, 'polls/language_form.html', context)
 
+@permission_required('polls.delete_language', raise_exception=True)
 def language_delete(request, language_id):
     instance = get_object_or_404(Language, name=language_id)
     instance.delete()
@@ -336,7 +339,8 @@ def language_topic_detail(request, language_name, level, topic_name):
 
 def language_topic_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
 
     instance = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
@@ -394,19 +398,18 @@ def situational_video_detail(request, language_name, level, topic_name):
 
 def situational_video_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
 
     form = SituationalVideoForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
     context = {
@@ -417,16 +420,23 @@ def situational_video_update(request, language_name, level, topic_name):
     return render(request, 'polls/situational_video_form.html', context)
 
 def situational_video_create(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+
+    instance = SituationalVideo(language_topic=languagetopic)
+
     form = SituationalVideoForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.language_topic = languagetopic
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
     context = {
-        "instance": instance,
         "form": form,
     }
 
@@ -434,13 +444,16 @@ def situational_video_create(request, language_name, level, topic_name):
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    langLevel = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
-    exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+    exercises = []
+    try:
+        language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+        exercises = Exercise.objects.filter(language_subtopic=language_subtopic.id)
+    except LanguageSubtopic.DoesNotExist:
+        language_subtopic = []
 
     questions = []
     for exercise in exercises:
@@ -464,20 +477,18 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     return render(request, 'polls/language_subtopic_detail.html', context)
 
 def subtopic_create(request, language_name, level, topic_name):
-
     language = Language.objects.get(name=language_name)
-    level_name = Level.objects.get(level=level)
-    langLevel = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
-    topic = Topic.objects.filter(topic_name=topic_name).get(level=langLevel.id)
-    language_topic = LanguageTopic.objects.get(topic=topic.id)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
     form = LanguageSubtopicForm(request.POST or None)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.language_topic = language_topic
-            instance.save()
-            messages.success(request, "Successfully created")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.language_topic = language_topic
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url_create())
     else:
         messages.error(request, "Not successfully created")
     if request.method == "POST":
@@ -516,16 +527,21 @@ def subtopic_update(request, language_name, level, topic_name, subtopic_name):
 
 def exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id):
     language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
     language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
+    exercise = Exercise.objects.get(id=exercise_id)
+    questions = ExerciseQuestion.objects.filter(exercise_id=exercise.id)
 
     context = {
         'language': language,
         'topic': topic,
         'languagetopic': languagetopic,
         'language_subtopic': language_subtopic,
+        'exercise': exercise,
+        'questions': questions,
 
 
     }
@@ -780,6 +796,33 @@ def language_resources_numbers(request, language_name, dialect):
 
     return render(request, 'polls/resource_numbers.html', context)
 
+def number_resource_update_1_to_31(request, language_name, dialect, number_name):
+    resource_name = "Numbers"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
+
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=number_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=number_name)
+        instance.save()
+
+    form = NumberResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_numbers_form.html', context)
+
 def number_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
 
@@ -843,8 +886,16 @@ def resources_days(request, language_name, dialect):
 
     return render(request, 'polls/resource_days.html', context)
 
-def days_resource_update(request, language_name, dialect, resource_id):
-    instance = ResourceItem.objects.get(id=resource_id)
+def days_resource_update(request, language_name, dialect, day_name):
+    resource_name = "Days"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
+
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=day_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=day_name)
+        instance.save()
 
     form = NumberResourceForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -1051,7 +1102,7 @@ def resources_time(request, language_name, dialect):
         'language_name': language_name,
         'dialect': dialect,
         'items': items,
-        'resource_name': resource_name,
+        'resource': resource,
     }
 
     return render(request, 'polls/resource_time.html', context)

@@ -1,16 +1,67 @@
 {% extends "base.html" %}
+{% load app_filters %}
 
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block title %}{{language_name}}|Days of the Week{% endblock %}
 
 {% block content %}
 
-<h1>Days</h1>
-<a href="{% url 'polls:days_resource_create' language_name dialect %}">Add</a>
+<div class="page-header">
+    <h1>Days of the week</h1>
+</div>
 
-<ul>
-{% for item in items %}
-    <li><a href="{% url 'polls:days_resource_update' language_name dialect item.id %}">{{ item.word }}</a></li>
-{% endfor %}
-</ul>
+<!-- DAYS OF THE WEEK -->
+<div class="showback">
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Monday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Monday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Monday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Tuesday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Tuesday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Tuesday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Wednesday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Wednesday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Wednesday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Thursday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Thursday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Thursday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Friday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Friday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Friday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Saturday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Saturday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Saturday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Sunday</label>
+            <div class="col-sm-5">
+                <input type="textlabel" class="form-control" placeholder="{{ items|get_word:'Sunday'}}">
+            </div>
+            <a href="{% url 'polls:days_resource_update' language_name dialect.name 'Sunday' %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        </div>
+    </form>
+</div>
 
 {% endblock content %}

@@ -8,24 +8,43 @@
     <h1>{{ language.name }}</h1>
 </div>
 
+<!-- EDIT LANGUAGE NAME -->
 <div class="showback">
-    <label class="col-sm-2 col-sm-2 control-label">Name in language</label>
-    <div class="col-sm-10">
-        <input class="form-control" id="disabledInput" type="text" placeholder={{ language.name_in_language }} disabled="">
-    </div>
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Name in {{ language.name }}</label>
+            <div class="col-sm-5">
+                <p class="form-control-static">{{ language.name_in_language }}</p>
+            </div>
+        </div>
+    </form>
+    <a href="{% url 'polls:language_update' language.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
 </div>
 
 
 <!-- LANGUAGE LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_language_create' language.name %}">Add</button>
+    Click on a level below to see topics.
 
     <ul class="list-group">
     {% for levelLang in levelLangs %}
         <a class="list-group-item" href="{% url 'polls:topic_list' language_name levelLang.level %}">{{ levelLang.level }}</a>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary">Add level</button></a>
 </div>
+
+<!-- DELETE THIS LANGUAGE -->
+{% if perms.polls.delete_language %}
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Delete this language</h4>
+
+    <div class="alert alert-danger"><b>Warning!</b> Deleting this language will delete all the assets in it.</div>
+
+    <a href="{% url 'polls:language_delete' language.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+</div>
+{% endif %}
 
 {% endblock content %}

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}{{language_name}}|{{topic_name}}{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 
 <!-- JUMBOTRON -->
 <div class="jumbotron">
-  <h1>MLC Grammar App!</h1>
-  <p>Please choose a language.</p>
+  <h1>MLC Grammar App - CMS</h1>
+  <p>Welcome, {{ user.first_name }}.</p>
 </div>
 
 <div class="page-header">
@@ -17,8 +17,6 @@
 <!-- LANGUAGES -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Languages</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:language_create' %}">Add language</button>
-
     {% if language_list %}
         <ul class="list-group">
         {% for language in language_list %}
@@ -28,17 +26,25 @@
     {% else %}
         <p>No languages are available.</p>
     {% endif %}
+
+    {% if perms.polls.add_language %}
+    <a href="{% url 'polls:language_create' %}"><button type="button" class="btn btn-primary">Add language</button></a>
+    {% endif %}
 </div>
 
+{% if perms.polls.add_level %}
 <!-- LEVELS -->
 <div class="showback">
     <h4><i class="fa fa-angle-right"></i> Levels</h4>
-    <button type="button" class="btn btn-primary btn-xs" href="{% url 'polls:level_create' %}">Add</button>
+    Click on a level below to see topics.
 
     <ul class="list-group">
     {% for level in levels %}
         <a class="list-group-item" href="{% url 'polls:level_detail' level.level %}">{{ level.level }}</a>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'polls:level_create' %}"><button type="button" class="btn btn-primary">Add level</button></a>
 </div>
+{% endif %}
 {% endblock content %}

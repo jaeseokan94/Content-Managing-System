@@ -73,11 +73,12 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/alphabet/add/$', views.letter_resource_create, name="letter_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/$', views.language_resources_numbers, name="resources_numbers"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/1-31/(?P<number_name>[\w]+)/edit$', views.number_resource_update_1_to_31, name="number_resource_update_1_to_31"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/(?P<resource_id>[0-9]+)/edit$', views.number_resource_update, name="number_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/numbers/add/$', views.number_resource_create, name="number_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/$', views.resources_days, name="resources_days"),
-    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<resource_id>[0-9]+)/edit$', views.days_resource_update, name="days_resource_update"),
+    url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<day_name>[\w]+)/edit$', views.days_resource_update, name="days_resource_update"),
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
 
     url(r'^(?P<language_name>[\w]+)/resources/(?P<dialect>[\w\s]+)/holidays/$', views.resources_holidays, name="resources_holidays"),
@@ -96,6 +97,9 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-zA-Z0-9]+)/$', views.language_topic_list, name='topic_list'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[a-z]+)/newtopic/', views.language_topic_create, name="topic_create"),
 
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/newsituationalvideo/$', views.situational_video_create, name='situational_video_create'),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/edit$', views.situational_video_update, name='situational_video_update'),
+    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/$', views.situational_video_detail, name='situational_video_detail'),
 
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/newsubtopic/', views.subtopic_create, name="subtopic_create"),
@@ -104,10 +108,6 @@ urlpatterns = [
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/edit', views.language_topic_update, name='topic_update'),
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/$', views.language_topic_detail, name='topic_detail'),
-
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/newsituationalvideo/$', views.situational_video_create, name='situational_video_create'),
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/edit$', views.situational_video_update, name='situational_video_update'),
-    url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/situationalvideo/$', views.situational_video_detail, name='situational_video_detail'),
 
     url(r'^(?P<language_name>[\w]+)/(?P<level>[\w]+)/(?P<topic_name>[\w\s]+)/(?P<sv_id>[0-9]+)/listeningComprehension', views.listening_comprehension_update, name='listening_comprehension_update'),
 

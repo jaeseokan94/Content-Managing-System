@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'polls.login_required_middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -161,3 +162,15 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/' #url to redirect to after login
+
+#stop emailing for registration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#to require login for whole site
+LOGIN_URL = '/accounts/login'
+
+LOGIN_EXEMPT_URLS = (
+    r'^/accounts',
+    r'^$',
+    r'^polls/api/',
+)

@@ -9,6 +9,11 @@ register = template.Library()
 def current_time(format_string):
     return "Hi"
 
+@register.simple_tag
+def get_vocabulary(language_subtopics):
+    return language_subtopics.get(subtopic_name="Vocabulary")
+
+
 @register.inclusion_tag('sidebar.html')
 def show_topics(url):
     '''

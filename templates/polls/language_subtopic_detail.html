@@ -1,107 +1,76 @@
 {% extends "base.html" %}
 {% load app_filters %}
+
 {% block title %}{{language_name}}|{{topic_name}}{% endblock %}
-a href="{% url 'polls:subtopic_detail' language.name topic.level topic.topic_name subtopic.subtopic_name%}"
+
 {% block content %}
 
- <div class="form-panel">
-<ul class="breadcrumb">
-	<h2><li><a href="#">{{ language.name }} -</a></li></h2>
-	<h2><li><a href="#">{{ topic.level }} -</a></li></h2>
-	<h2><li><a href="#">{{ topic.topic_name }}</a></li></h2>
-</ul>
-                <h2 class="mb"><i class="fa fa-angle-right"></i> {{ language_subtopic.subtopic_name }} </h2>
-                      <form class="form-horizontal style-form" method="get">
+<div class="page-header">
+    <h1>{{ language.name }} - {{ topic.level }} - {{ topic.topic_name }} - {{ language_subtopic.subtopic_name }}</h1>
+</div>
 
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Subtopic name</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" placeholder=" {{ language_subtopic.subtopic_name }}">
-                                  <input type="text" class="form-control" placeholder=" {{ language_subtopic.subtopic_name_in_language }}">
-                              </div>
-                              <button type="button" class="btn btn-default"></h3><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a></button>
-                              </div>
+<!-- SUBTOPIC NAME -->
+<div class="showback">
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label"><b>Subtopic name</b></label>
+            <div class="col-sm-5">
+                <p class="form-control-static">{{ language_subtopic.subtopic_name }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label"><b>Subtopic name in {{ language.name }}</b></label>
+            <div class="col-sm-5">
+                <p class="form-control-static">{{ language_subtopic.subtopic_name_in_language }}</p>
+            </div>
+        </div>
+    </form>
+    <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+</div>
+
+<!-- GRAMMAR VIDEOS -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Grammar Video</h4>
+    <form class="form-horizontal style-form">
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Grammar video file</label>
+            <div class="col-sm-5">
+                <p class="form-control-static">{{language_subtopic.grammar_video_file}}</p>
+            </div>
+        </div>
+    </form>
+
+    <a href=""><button type="button" class="btn btn-primary">Edit</button></a>
+</div>
+
+<!-- EXERCISES -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Exercises</h4>
+
+    {% if exercises %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for exercise in exercises %}
+                <tr>
+                    <td class="col-lg-1">
+                        <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><span style="font-size: 17px;">{{ exercise.exercise_name }}</span></a>
+                    </td>
+                    <td class="col-lg-2">
+                        <a href="{% url 'polls:exercise_detail' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id  %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="alert alert-warning">There are no exercises at the moment.</div>
+    {% endif %}
 
 
-                          <h2 class="mb"><i class="fa fa-angle-right"></i>Grammar Videos</h2>
-                            <form class="form-horizontal style-form" method="get">
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Grammar descriptions</label>
-                                <div class="col-sm-5">
-                                    <input type="text" class="form-control" placeholder="{{situational_video.situation_description}}">
-                                </div><button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/edit">Edit</a></button>
-                                </div>
-
-
-                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Video with transcript</label>
-                                <div class="col-sm-5">
-                                  <input type="text" class="form-control" placeholder="{{situational_video.video_with_transcript}}">
-                              </div><button type="button" class="btn btn-default">Choose File</button></div>
-                          <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Video without transcript</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" placeholder="{{situational_video.video_without_transcript}}">
-                                    </div><button type="button" class="btn btn-default">Choose File</button>
-                          </div>
-                                </form>
-
-                          <div>
-                              <h1> Exercises &nbsp;&nbsp;<button type="button" class="btn btn-default"><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">New exercise</a> </button> <br>
-                              {% for exercise in exercises %}</h1>
-                              <div>
-                                  <h3>{{exercise.exercise_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-default">
-                                            <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit exercise</a>
-
-                                        <button type="button" class="btn btn-default">
-                                            <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
-                                        </button>
-
-                                      <table class="table table-striped table-hover table-responsive table-condensed">
-                                          <input type="text" class="form-control" placeholder=" {{ exercise.instructions }}">
-                                            <input type="text" class="form-control" placeholder="{{ exercise.instructions_in_language }}">
-                                            {% for question in questions|get_at_index:forloop.counter0 %}
-
-                                          <tr>
-                                            <td class="col-lg-2">
-                                              <span style="font-size: 17px;">
-                                                <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
-                                              </span>
-                                            </td>
-                                          </tr>
-                                            {% endfor %}
-                                            {% for vocab_question in vocab_questions %}
-                                          <tr>
-                                            <td class="col-lg-2">
-                                              <span style="font-size: 17px;">
-                                                  <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
-                                              </span>
-                                            </tr>
-                                            {% endfor %}
-                                            </table>
-                                            {% endfor %}
-                                            </form>
-                                                </div>
-                                                    </div>
-                                                        </div>
+    <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/newexercise/$">
+        <button type="button" class="btn btn-primary">New exercise</button>
+    </a>
+</div>
 
 {% endblock content %}
-{% for exercise in exercises %}
-<h4>{{exercise.exercise_name}}</h4>
-    <a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/edit">Edit</a>
-        <p>instructions:  {{ exercise.instructions }}</p>
-        <p>instructions in language:  {{ exercise.instructions_in_language }}</p>
 
-<p>Questions</p>
-<a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/newquestion">New question</a>
-<ol>
-    {% for question in questions|get_at_index:forloop.counter0 %}
-    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{exercise.id}}/{{question.id}}/edit">{{question.question_text}}</a></li>
-    {% endfor %}
-    {% for vocab_question in vocab_questions %}
-    <li><a href="/polls/{{language.name}}/{{topic.level}}/{{topic.topic_name}}/{{language_subtopic.subtopic_name}}/{{vocab_question.id}}/vocab/edit">{{vocab_question.question_text}}</a></li>
-    {% endfor %}
-</ol>
-{% endfor %}
 
