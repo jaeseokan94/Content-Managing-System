@@ -70,8 +70,6 @@ class ExerciseForm(forms.ModelForm):
         model = Exercise
         fields = [
             "exercise_name",
-            "instructions",
-            "instructions_in_language",
         ]
 
 class ExerciseQuestionForm(forms.ModelForm):

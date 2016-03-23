@@ -1630,7 +1630,7 @@ def level_create(request):
     context = {
         "form": form,
     }
-    return render(request, 'polls/resource_time_form.html', context)
+    return render(request, 'polls/level_language_form.html', context)
 
 @permission_required('polls.edit_level', raise_exception=True)
 def level_update(request, level_id):
@@ -1689,7 +1689,7 @@ def glossary_create(request, language_name):
     context = {
         "form": form,
     }
-    return render(request, 'polls/resource_time_form.html', context)
+    return render(request, 'polls/glossary_form.html', context)
 
 def glossary_detail(request, language_name):
     language = Language.objects.get(name=language_name)

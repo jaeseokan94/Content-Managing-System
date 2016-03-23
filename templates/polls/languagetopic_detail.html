@@ -125,7 +125,7 @@
 
         {% else %}
     <div class="showback">
-        <div class="alert alert-warning">There is no situational video at the moment.</div>
+        <div class="alert alert-warning">Please upload situational video</div>
 
         <a href="{% url 'polls:situational_video_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">Create situational video</button></a>
         <br><br>
@@ -158,7 +158,7 @@
             {% endfor %}
             </table>
         {% else %}
-            <div class="alert alert-warning">There are no Grammar Topics at the moment.</div>
+            <div class="alert alert-warning">Please add subsections</div>
         {% endif %}
 
         {% if not has_three_subtopics %}
@@ -188,7 +188,7 @@
                 </tr>
             </table>
         {% else %}
-            <div class="alert alert-warning">There is no Vocabulary at the moment.</div>
+            <div class="alert alert-warning">Please add subtopic for vocabulary.</div>
 
             <a href="{% url 'polls:vocabulary_subtopic_create' language.name topic.level topic.topic_name %}"><button type="button" class="btn btn-success">
                 Add vocabulary

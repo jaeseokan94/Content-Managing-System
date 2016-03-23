@@ -60,7 +60,7 @@
         </table>
 
     {% else %}
-        <div class="alert alert-warning">There are no questions at the moment.</div>
+        <div class="alert alert-warning">Please add questions for exercise.</div>
     {% endif %}
     <a href="{% url 'polls:exercise_question_create' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id %}">
         <button class="btn btn-success">Add question</button>

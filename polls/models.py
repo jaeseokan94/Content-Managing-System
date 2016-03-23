@@ -28,7 +28,6 @@ CHOICES = [
 QUESTION_TYPE = [
     ("ty", "Typing"),
     ("tf", "True or False"),
-    ("dd", "Drag and Drop"),
     ("mc", "Multiple Choice"),
 ]
 
@@ -169,8 +168,8 @@ class LanguageSubtopic(models.Model):
 class Exercise(models.Model):
     exercise_name = models.CharField(max_length=200, null=True)
     language_subtopic = models.ForeignKey(LanguageSubtopic, on_delete=models.CASCADE, null=True)
-    instructions = models.CharField(max_length=500, null=True)
-    instructions_in_language = models.CharField(max_length=500, null=True)
+    instructions = models.CharField(max_length=500, null=True, default="")
+    instructions_in_language = models.CharField(max_length=500, null=True, default="")
 
     def __str__(self):
         return self.language_subtopic.subtopic_name + "|" + self.instructions
