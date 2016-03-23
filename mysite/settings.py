@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-#import dj_database_url
+import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,9 +27,6 @@ SECRET_KEY = 'o5bt&l$iyeuj02xh3#x!bkhe05*hzj)n#mz3^q%9n2yhz0+y=&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-ALLOWED_HOSTS = [".herokuapp.com"]
-
 
 # Application definition
 
@@ -139,6 +136,18 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+# Update database configuration with $DATABASE_URL.
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/ 
 
@@ -175,7 +184,7 @@ LOGIN_EXEMPT_URLS = (
     r'^$',
     r'^polls/api/',
     r'^media/',
-    r'^static/'
+    r'^static/',
 )
 
 # Simplified static file serving.
