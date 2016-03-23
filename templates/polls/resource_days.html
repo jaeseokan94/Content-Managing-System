@@ -7,7 +7,10 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>{{ language_name }} - {{ dialect }} - Days of the week</h1>
+    <h1><a href="{% url 'polls:choose_dialect' language_name %}">{{ language_name }}</a>
+        <a href="{% url 'polls:language_resources' language_name dialect %}"> - {{ dialect }}</a>
+         - Days of the week
+    </h1>
 </div>
 
 <!-- DAYS OF THE WEEK -->
@@ -19,12 +22,7 @@
                 <div class="col-sm-5">
                     <p class="form-control-static">{{ items|get_word:day }}</p>
                 </div>
-                {% is_main_dialect language_name dialect as bool_main %}
-                {% if bool_main %}
-                    <a href="{% url 'polls:days_resource_update' language_name dialect.name day %}"><button type="button" class="btn btn-primary">Edit</button></a>
-                {% else %}
-                    <a href="{% url 'polls:oth_dia_days_resource_update' language_name dialect.name day %}"><button type="button" class="btn btn-primary">Edit</button></a>
-                {% endif %}
+                <a href="{% url 'polls:days_resource_update' language_name dialect.name day %}"><button type="button" class="btn btn-primary">Edit</button></a>
             </div>
         {% endfor %}
     </form>
