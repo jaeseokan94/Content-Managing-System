@@ -274,6 +274,7 @@ class ResourceItem(models.Model):
 
 class ResourceDialectItem(models.Model):
     resource_item = models.ForeignKey(ResourceItem, on_delete=models.CASCADE)
+    dialect = models.ForeignKey(Dialect, on_delete=models.CASCADE, null=True)
     audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
 
     def __str__(self):

@@ -3,7 +3,8 @@ from django import forms
 from .models import (
     Language, LanguageTopic, SituationalVideo, LanguageSubtopic, Exercise, ExerciseQuestion,
     ExerciseVocabularyQuestion, ResourceItem, ResourceItemPicture, Topic, Dialect, Resource,
-    LevelLanguage, Level, Glossary)
+    LevelLanguage, Level, Glossary, ResourceDialectItem
+)
 
 class LanguageForm(forms.ModelForm):
     class Meta:
@@ -111,9 +112,9 @@ class LetterResourceForm(forms.ModelForm):
             "audio_url",
         ]
 
-class LetterResourceDialectForm(forms.ModelForm):
+class ResourceDialectItemForm(forms.ModelForm):
     class Meta:
-        model = ResourceItem
+        model = ResourceDialectItem
         fields = [
             "audio_url",
         ]

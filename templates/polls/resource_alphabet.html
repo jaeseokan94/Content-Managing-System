@@ -6,58 +6,35 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>{{ language_name }} - {{ dialect }} - Alphabet</h1>
+    <h1><a href="{% url 'polls:language_detail' language_name %}">{{ language_name }}</a>
+        <a href="{% url 'polls:language_resources' language_name dialect %}"> - {{ dialect }}</a>
+         - Alphabet
+    </h1>
 </div>
 
-<!-- List of letters for main dialect -->
-{% is_main_dialect language_name dialect as bool_main %}
-{% if bool_main %}
-    <div class="showback">
-        <h4><i class="fa fa-angle-right"></i> Main dialect</h4>
-        {% if items_main %}
-            <table class="table table-striped table-hover table-responsive table-condensed">
-                {% for item in items_main %}
-                    <tr>
-                        <td class="col-lg-1">
-                            <a href="{% url 'polls:letter_resource_update' language_name dialect item.id %}"><span style="font-size: 17px;">{{ item.word }}</span></a>
-                        </td>
-                        <td class="col-lg-2">
-                            <a href="{% url 'polls:letter_resource_update' language_name dialect item.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                            <a href="{% url 'polls:letter_resource_delete' language_name dialect item.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+<!-- List of letters for dialect -->
+<div class="showback">
+    <h4><i class="fa fa-angle-right"></i> Main dialect</h4>
+    {% if items %}
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            {% for item in items %}
+                <tr>
+                    <td class="col-lg-1">
+                        <a href="{% url 'polls:letter_resource_update' language_name dialect item.id %}"><span style="font-size: 17px;">{{ item.word }}</span></a>
+                    </td>
+                    <td class="col-lg-2">
+                        <a href="{% url 'polls:letter_resource_update' language_name dialect item.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <a href="{% url 'polls:letter_resource_delete' language_name dialect item.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
 
-        {% else %}
-            <div class="alert alert-warning">There are no letters at the moment.</div>
-        {% endif %}
-        <a href="{% url 'polls:letter_resource_create' language_name dialect %}"><button class="btn btn-primary">Add letter</button></a>
-    </div>
+    {% else %}
+        <div class="alert alert-warning">There are no letters at the moment.</div>
+    {% endif %}
+    <a href="{% url 'polls:letter_resource_create' language_name dialect %}"><button class="btn btn-primary">Add letter</button></a>
+</div>
 
-{% else %}
-
-    <!-- List of letters for other dialects -->
-    <div class="showback">
-        {% if items_main %}
-            <table class="table table-striped table-hover table-responsive table-condensed">
-                {% for item in items_main %}
-                    <tr>
-                        <td class="col-lg-1">
-                            <a href="{% url 'polls:oth_dia_letter_resource_update' language_name dialect item.id %}"><span style="font-size: 17px;">{{ item.word }}</span></a>
-                        </td>
-                        <td class="col-lg-2">
-                            <a href="{% url 'polls:oth_dia_letter_resource_update' language_name dialect item.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-
-        {% else %}
-            <div class="alert alert-warning">There are no letters at the moment.</div>
-        {% endif %}
-    </div>
-
-{% endif %}
 
 {% endblock content %}

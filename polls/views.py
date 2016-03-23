@@ -25,13 +25,13 @@ from django.contrib.auth.decorators import permission_required
 
 from .models import (
     Language, Topic, LanguageTopic, LanguageSubtopic, ExerciseQuestion, Exercise, ExerciseVocabularyQuestion,
-    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Glossary
+    Dialect, Resource, ResourceItem, ResourceItemPicture, LevelLanguage, Level, Glossary, ResourceDialectItem
 )
 from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
-    LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm, LetterResourceDialectForm
+    LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm, ResourceDialectItemForm,
 
 )
 
@@ -825,33 +825,6 @@ def letter_resource_update(request, language_name, dialect, resource_id):
 
     return render(request, 'polls/language_resource_form.html', context)
 
-def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia_id):
-    """
-    Letters for other dialects
-    :param request:
-    :param language_name:
-    :param dialect:
-    :param resource_id:
-    :return:
-    """
-    instance = ResourceItem.objects.get(id=resource_dia_id)
-
-    form = LetterResourceDialectForm(request.POST or None, instance=instance)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        messages.success(request, "Saved")
-        return HttpResponseRedirect(instance.get_absolute_url())
-    else:
-        messages.error(request, "Not successfully saved")
-
-    context = {
-        "instance": instance,
-        "form": form,
-    }
-
-    return render(request, 'polls/language_resource_form.html', context)
-
 def letter_resource_delete(request, language_name, dialect, resource_id):
     instance = get_object_or_404(ResourceItem, id=resource_id)
     instance.delete()
@@ -1002,33 +975,6 @@ def resources_days(request, language_name, dialect):
     return render(request, 'polls/resource_days.html', context)
 
 def days_resource_update(request, language_name, dialect, day_name):
-    resource_name = "Days"
-    dialect = Dialect.objects.get(name=dialect)
-    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
-
-    try:
-        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=day_name)
-    except ResourceItem.DoesNotExist:
-        instance = ResourceItem(resource_id=resource, word=day_name)
-        instance.save()
-
-    form = NumberResourceForm(request.POST or None, instance=instance)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        messages.success(request, "Saved")
-        return HttpResponseRedirect(instance.get_absolute_url())
-    else:
-        messages.error(request, "Not successfully saved")
-
-    context = {
-        "instance": instance,
-        "form": form,
-    }
-
-    return render(request, 'polls/resource_days_form.html', context)
-
-def oth_dia_days_resource_update(request, language_name, dialect, day_name):
     resource_name = "Days"
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
