@@ -1316,12 +1316,13 @@ def topic_update(request, level, topic_id):
 
 @permission_required('polls.add_topic', raise_exception=True)
 def topic_create(request, level):
+    lvl = Level.objects.get(level=level)
+
     form = TopicForm(request.POST or None)
-    level = Level.objects.get(level=level)
 
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.level = level
+        instance.level = lvl
         instance.save()
         messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url())
