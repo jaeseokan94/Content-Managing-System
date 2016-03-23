@@ -790,7 +790,7 @@ def language_resources_alphabet(request, language_name, dialect):
         resource.save()
 
     main_dialect = Dialect.objects.get(name=language_name)
-    main_resource = Resource.objects.get(dialect_id=main_dialect.id)
+    main_resource = Resource.objects.filter(dialect_id=main_dialect.id).get(name=resource_name)
 
     items_main = ResourceItem.objects.filter(resource_id=main_resource.id)
     items = ResourceItem.objects.filter(resource_id=resource.id)
@@ -811,10 +811,10 @@ def letter_resource_update(request, language_name, dialect, resource_id):
 
     form = LetterResourceForm(request.POST or None, instance=instance)
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.save()
-            messages.success(request, "Saved")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully saved")
 
@@ -989,16 +989,46 @@ def resources_days(request, language_name, dialect):
 
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
+    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     context = {
         'language_name': language_name,
         'dialect': dialect,
         'items': items,
+        'days_of_the_week': days_of_the_week,
         'resource_name': resource_name,
     }
 
     return render(request, 'polls/resource_days.html', context)
 
 def days_resource_update(request, language_name, dialect, day_name):
+    resource_name = "Days"
+    dialect = Dialect.objects.get(name=dialect)
+    resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)
+
+    try:
+        instance = ResourceItem.objects.filter(resource_id=resource.id).get(word=day_name)
+    except ResourceItem.DoesNotExist:
+        instance = ResourceItem(resource_id=resource, word=day_name)
+        instance.save()
+
+    form = NumberResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/resource_days_form.html', context)
+
+def oth_dia_days_resource_update(request, language_name, dialect, day_name):
     resource_name = "Days"
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(name=resource_name).get(dialect_id=dialect.id)

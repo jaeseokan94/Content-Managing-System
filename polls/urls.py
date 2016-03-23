@@ -83,6 +83,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w\s]+)/resources/(?P<dialect>[\w\s]+)/numbers/(?P<resource_id>[0-9]+)/delete$', views.number_resource_delete, name="number_resource_delete"),
 
     url(r'^(?P<language_name>[\w\s]+)/resources/(?P<dialect>[\w\s]+)/days/$', views.resources_days, name="resources_days"),
+    url(r'^(?P<language_name>[\w\s]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<day_name>[\w\s]+)/edit$', views.oth_dia_days_resource_update, name="oth_dia_days_resource_update"),
     url(r'^(?P<language_name>[\w\s]+)/resources/(?P<dialect>[\w\s]+)/days/(?P<day_name>[\w\s]+)/edit$', views.days_resource_update, name="days_resource_update"),
     url(r'^(?P<language_name>[\w\s]+)/resources/(?P<dialect>[\w\s]+)/days/add/$', views.days_resource_create, name="days_resource_create"),
 
