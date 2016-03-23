@@ -789,12 +789,18 @@ def language_resources_alphabet(request, language_name, dialect):
         resource = Resource(dialect_id= dialect, name=resource_name, name_in_language=resource_name, instructions="inst", instructions_in_language="inst")
         resource.save()
 
+    main_dialect = Dialect.objects.get(name=language_name)
+    main_resource = Resource.objects.get(dialect_id=main_dialect.id)
+
+    items_main = ResourceItem.objects.filter(resource_id=main_resource.id)
     items = ResourceItem.objects.filter(resource_id=resource.id)
+
 
     context = {
         'language_name': language_name,
         'dialect': dialect,
         'items': items,
+        'items_main': items_main,
         'resource_name': resource_name,
     }
 
@@ -819,6 +825,33 @@ def letter_resource_update(request, language_name, dialect, resource_id):
 
     return render(request, 'polls/language_resource_form.html', context)
 
+def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia_id):
+    """
+    Letters for other dialects
+    :param request:
+    :param language_name:
+    :param dialect:
+    :param resource_id:
+    :return:
+    """
+    instance = ResourceItem.objects.get(id=resource_dia_id)
+
+    form = LetterResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/language_resource_form.html', context)
+
 def letter_resource_delete(request, language_name, dialect, resource_id):
     instance = get_object_or_404(ResourceItem, id=resource_id)
     instance.delete()
@@ -832,11 +865,11 @@ def letter_resource_create(request, language_name, dialect):
     form = LetterResourceForm(request.POST or None)
 
     if form.is_valid():
-            instance = form.save(commit=False)
-            instance.resource_id = resource
-            instance.save()
-            messages.success(request, "Successfully created")
-            return HttpResponseRedirect(instance.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.resource_id = resource
+        instance.save()
+        messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.error(request, "Not successfully created")
     if request.method == "POST":

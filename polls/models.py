@@ -272,6 +272,30 @@ class ResourceItem(models.Model):
             namespace = "polls:resources_months"
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
+class ResourceItemDialect(models.Model):
+    resource_item = models.ForeignKey(ResourceItem, on_delete=models.CASCADE)
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
+
+    '''
+        Months resource: word only accepts {Spring,Summer,Autumn,Winter,January,}
+    '''
+
+    def __str__(self):
+        return self.word
+
+    def get_absolute_url(self):
+        namespace = ""
+        if self.resource_id.name == "Alphabet":
+            namespace = "polls:resources_alphabet"
+        elif self.resource_id.name == "Numbers":
+            namespace = "polls:resources_numbers"
+        elif self.resource_id.name == "Days":
+            namespace = "polls:resources_days"
+        elif self.resource_id.name == "Months":
+            namespace = "polls:resources_months"
+        return reverse(namespace, kwargs={"language_name": self.resource_item.resource_id.dialect_id.language_id.name, "dialect": self.resource_item.resource_id.dialect_id.name})
+
+
 class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)
