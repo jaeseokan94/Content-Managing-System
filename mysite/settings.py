@@ -190,10 +190,12 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 #for S3 file storage
 #https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/
 
+'''
 AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'March 2017',
     'Cache-Control': 'max-age=94608000',
 }
+'''
 
 AWS_STORAGE_BUCKET_NAME = 'langitupcms'
 AWS_ACCESS_KEY_ID = 'AKIAJV2IJCXMZS4DJYKA'
