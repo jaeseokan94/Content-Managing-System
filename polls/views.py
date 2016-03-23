@@ -341,6 +341,8 @@ def language_topic_detail(request, language_name, level, topic_name):
 
     return render(request, 'polls/languagetopic_detail.html', context)
 
+
+
 def language_topic_update(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
     level = Level.objects.get(level=level)
@@ -523,6 +525,10 @@ def vocabulary_subtopic_create(request, language_name, level, topic_name):
         instance.language_topic = language_topic
         instance.subtopic_name = "Vocabulary"
         instance.save()
+
+        exercise = Exercise(exercise_name="Vocabulary", language_subtopic=instance.id)
+        exercise.save()
+
         messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url_create())
     else:

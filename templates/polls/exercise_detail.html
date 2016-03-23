@@ -16,24 +16,6 @@
 </div>
 
 
-<!-- EXERCISE NAME -->
-<div class="showback">
-    <form class="form-horizontal style-form">
-        <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Instructions</label>
-            <div class="col-sm-5">
-                <p class="form-control-static">{{ exercise.instructions }}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 col-sm-2 control-label">Instructions in {{ language.name }}</label>
-            <div class="col-sm-5">
-                <p class="form-control-static">{{ exercise.instructions_in_language }}</p>
-            </div>
-        </div>
-    </form>
-    <a href="{% url 'polls:exercise_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
-</div>
 
 <!-- EXERCISE QUESTIONS -->
 <div class="showback">
