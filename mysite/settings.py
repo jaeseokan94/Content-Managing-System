@@ -83,9 +83,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Make Django work with Heroku's postgres database
 
-#DATABASES = {}
-#DATABASES['default'] =  dj_database_url.config()
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -139,6 +136,7 @@ USE_TZ = True
 
 # Update database configuration with $DATABASE_URL.
 DATABASES['default'] =  dj_database_url.config()
+
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
