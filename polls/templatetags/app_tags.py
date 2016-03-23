@@ -43,6 +43,13 @@ def is_vocabulary(language_subtopic):
     return False
 
 @register.simple_tag
+def is_main_dialect(language_name, dialect):
+    if language_name == dialect.name:
+        return True
+    return False
+
+
+@register.simple_tag
 def has_three_subtopics(language_subtopics):
     '''
         Checks if topic has more than three subtopics that are not Vocabulary

@@ -18,7 +18,9 @@
             </div>
         </div>
     </form>
-    <a href="{% url 'polls:language_update' language.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    {% if perms.polls.add_language %}
+        <a href="{% url 'polls:language_update' language.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
+    {% endif %}
 </div>
 
 
