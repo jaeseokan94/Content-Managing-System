@@ -27,20 +27,10 @@ class SituationalVideoForm(forms.ModelForm):
     class Meta:
         model = SituationalVideo
         fields = [
-            "language_topic",
             "situation_description",
             "situation_description_in_language",
             "video_with_transcript",
             "video_without_transcript",
-            "question_text",
-            "choice_1",
-            "choice_2",
-            "choice_3",
-            "choice_4",
-            "choice_5",
-            "choice_6",
-            "correct_answers",
-
         ]
 
 class ListeningComprehensionForm(forms.ModelForm):
