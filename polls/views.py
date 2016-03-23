@@ -1317,6 +1317,7 @@ def topic_update(request, level, topic_id):
 @permission_required('polls.add_topic', raise_exception=True)
 def topic_create(request, level):
     form = TopicForm(request.POST or None)
+    level = Level.objects.get(level=level)
 
     if form.is_valid():
         instance = form.save(commit=False)
