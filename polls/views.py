@@ -78,7 +78,7 @@ def subtopic_list(request, language, level, topic_name):
         language = Language.objects.get(name=language)
         level_name = Level.objects.get(level=level)
         levelLang_name = LevelLanguage.objects.filter(level=level_name.id).get(language=language.id)
-        topic_list= Topic.objects.filter(topic_name=topic_name).get(level=levelLang_name.id)
+        topic_list= Topic.objects.get(topic_name=topic_name)
         language_topic= LanguageTopic.objects.filter(language=language.id).get(topic=topic_list.id)
         topic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
         serializer = GrammarVideoSerializer(topic, many=True)
