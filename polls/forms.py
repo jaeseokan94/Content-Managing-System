@@ -111,6 +111,13 @@ class LetterResourceForm(forms.ModelForm):
             "audio_url",
         ]
 
+class LetterResourceDialectForm(forms.ModelForm):
+    class Meta:
+        model = ResourceItem
+        fields = [
+            "audio_url",
+        ]
+
 class NumberResourceForm(forms.ModelForm):
     class Meta:
         model = ResourceItem

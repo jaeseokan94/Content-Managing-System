@@ -31,7 +31,7 @@ from .forms import (
     LanguageForm, LanguageTopicForm, SituationalVideoForm, LanguageSubtopicForm, ExerciseForm,
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
-    LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm
+    LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm, LetterResourceDialectForm
 
 )
 
@@ -836,7 +836,7 @@ def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia
     """
     instance = ResourceItem.objects.get(id=resource_dia_id)
 
-    form = LetterResourceForm(request.POST or None, instance=instance)
+    form = LetterResourceDialectForm(request.POST or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
