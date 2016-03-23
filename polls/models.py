@@ -154,7 +154,7 @@ class LanguageSubtopic(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     subtopic_name = models.CharField(max_length=200, null=True)
     subtopic_name_in_language = models.CharField(max_length=200, null=True)
-    grammar_video_file = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
+    grammar_video_file = models.FileField(null=True, blank=True, validators=[validate_movie_extension], upload_to="grammar video")
 
     def __str__(self):
         return self.language_topic. topic_name_in_language + "|" + self.subtopic_name
