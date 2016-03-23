@@ -526,7 +526,7 @@ def vocabulary_subtopic_create(request, language_name, level, topic_name):
         instance.subtopic_name = "Vocabulary"
         instance.save()
 
-        exercise = Exercise(exercise_name="Vocabulary", language_subtopic=instance.id)
+        exercise = Exercise(exercise_name="Vocabulary", language_subtopic=instance)
         exercise.save()
 
         messages.success(request, "Successfully created")
