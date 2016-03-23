@@ -312,13 +312,3 @@ class ResourceItemPicture(models.Model):
         return reverse(namespace, kwargs={"language_name": self.resource_id.dialect_id.language_id.name, "dialect": self.resource_id.dialect_id.name})
 
 
-class Glossary(models.Model):
-    language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
-    word = models.CharField(max_length=50, null=True, blank=True)
-    word_in_lang = models.CharField(max_length=50, null=True, blank=True)
-
-    def get_absolute_url(self):
-        return reverse("polls:glossary_detail", kwargs={"language_name": self.language_id.name})
-
-    def __str__(self):
-        return self.word
