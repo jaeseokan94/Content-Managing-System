@@ -792,6 +792,7 @@ def language_resources_alphabet(request, language_name, dialect):
     main_dialect = Dialect.objects.get(name=language_name)
     main_resource = Resource.objects.filter(dialect_id=main_dialect.id).get(name=resource_name)
 
+
     items_main = ResourceItem.objects.filter(resource_id=main_resource.id)
     items = ResourceItem.objects.filter(resource_id=resource.id)
 
@@ -808,6 +809,33 @@ def language_resources_alphabet(request, language_name, dialect):
 
 def letter_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
+
+    form = LetterResourceForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/language_resource_form.html', context)
+
+def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia_id):
+    """
+    Letters for other dialects
+    :param request:
+    :param language_name:
+    :param dialect:
+    :param resource_id:
+    :return:
+    """
+    instance = ResourceItem.objects.get(id=resource_dia_id)
 
     form = LetterResourceForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -1616,6 +1644,12 @@ def level_update(request, level_id):
         #messages.error(request, "Not successfully created")
         pass
 
+@permission_required('polls.delete_level', raise_exception=True)
+def level_delete(request, level_id):
+    instance = get_object_or_404(Level, id=level_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return dashboard(request)
 
 
 def glossary_update(request, language_name, glossary_id):

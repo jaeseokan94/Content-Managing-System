@@ -187,3 +187,4 @@ LOGIN_EXEMPT_URLS = (
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+

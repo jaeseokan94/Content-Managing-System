@@ -257,6 +257,10 @@ ul.top-menu > li > .logout {
     height:17px;
     width:17px;
     display:inline-block;
+<<<<<<< HEAD
+=======
+    background: url("../img/nav-expand.png") no-repeat top;
+>>>>>>> origin/features
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -265,6 +269,10 @@ ul.top-menu > li > .logout {
     top:15px;
 }
 .active .dcjq-icon {
+<<<<<<< HEAD
+=======
+    background: url("../img/nav-expand.png") no-repeat bottom;
+>>>>>>> origin/features
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -693,6 +701,10 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .log-arrow-up {
+<<<<<<< HEAD
+=======
+    background: url("../img/arrow-up.png") no-repeat;
+>>>>>>> origin/features
     width: 20px;
     height: 11px;
     position: absolute;
