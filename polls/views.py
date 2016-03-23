@@ -84,6 +84,7 @@ def subtopic_list(request, language, level, topic_name):
         serializer = GrammarVideoSerializer(topic, many=True)
         return JSONResponse(serializer.data)
 
+
 @csrf_exempt
 def topic_list(request, level):
 
