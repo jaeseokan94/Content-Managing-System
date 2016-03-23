@@ -26,7 +26,9 @@
                     </td>
                     <td>
                         <a href="{% url 'polls:topic_update' level topic.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                        {% if perms.polls.delete_topic %}
+                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
