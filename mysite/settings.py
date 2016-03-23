@@ -173,11 +173,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #to require login for whole site
 LOGIN_URL = '/accounts/login'
 
-LOGIN_EXEMPT_URL',
+LOGIN_EXEMPT_URLS = (
+    r'^admin/',
+    r'^accounts',
+    r'^$',
+    r'^polls/api/',
     r'^media/',
     r'^static/',
 )
-
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
