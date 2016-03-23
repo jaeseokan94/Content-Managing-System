@@ -131,8 +131,8 @@ class SituationalVideo(models.Model):
     language_topic = models.ForeignKey(LanguageTopic, on_delete=models.CASCADE, null=True)
     situation_description = models.CharField(max_length=200)
     situation_description_in_language = models.CharField(max_length=200, blank=True)
-    video_with_transcript = models.FileField(null=True, blank=True, validators=[validate_movie_extension])
-    video_without_transcript =  models.FileField(null=True, blank=True, validators=[validate_movie_extension])
+    video_with_transcript = models.FileField(null=True, blank=True, validators=[validate_movie_extension], upload_to="topic/video_with_transcript")
+    video_without_transcript =  models.FileField(null=True, blank=True, validators=[validate_movie_extension], upload_to="topic/video_without_transcript)")
     question_text = models.CharField(max_length=200, blank=True)
     choice_1 = models.CharField(max_length=200, blank=True)
     choice_2 = models.CharField(max_length=200, blank=True)
@@ -205,12 +205,12 @@ class ExerciseQuestion(models.Model):
 class ExerciseVocabularyQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
-    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
-    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
-    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
-    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
-    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
-    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="")
+    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
     correct_answer = models.CharField(max_length=1, choices=CHOICES, default=CHOICES[0])
 
     def __str__(self):
@@ -251,7 +251,7 @@ class ResourceItem(models.Model):
     word = models.CharField(max_length=200)
     word_in_language = models.CharField(max_length=200, blank=True, default="")
     pronounciation_guide_or_date = models.CharField(max_length=200, blank=True)
-    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension], upload_to="audio resources")
 
     '''
         Months resource: word only accepts {Spring,Summer,Autumn,Winter,January,}
@@ -275,7 +275,7 @@ class ResourceItem(models.Model):
 class ResourceDialectItem(models.Model):
     resource_item = models.ForeignKey(ResourceItem, on_delete=models.CASCADE)
     dialect = models.ForeignKey(Dialect, on_delete=models.CASCADE, null=True)
-    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension], upload_to="audio resources")
 
     def __str__(self):
         return self.resource_id.word
@@ -297,8 +297,8 @@ class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)
     phrase_in_language = models.CharField(max_length=200)
-    picture_url = models.FileField(null=True, blank=True, validators=[validate_picture_extension])
-    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension])
+    picture_url = models.FileField(null=True, blank=True, validators=[validate_picture_extension], upload_to="picture resources")
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension], upload_to="audio resources")
 
     def __str__(self):
         return self.phrase
