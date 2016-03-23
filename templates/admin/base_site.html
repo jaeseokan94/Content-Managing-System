@@ -1,10 +1,15 @@
 {% extends "admin/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Lang it up{% endblock %}
+{% block title %}Grammar App - Admin{% endblock %}
+
+{% block extrahead %}
+<!-- ICON -->
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+{% endblock %}
 
 {% block branding %}
-<img src="{% static 'admin/Kings1.jpg' %}" height="30px"/><br>
+<img src="{% static 'images/logo.png' %}" height="30px"/><br>
 <h1 id="site-name"><a href="{% url 'admin:index' %}">Lang it up</a></h1>
 {% endblock %}
 
