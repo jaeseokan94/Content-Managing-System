@@ -1571,13 +1571,15 @@ def resource_api(request, language_name, dialect, resource_name):
         dialect = Dialect.objects.get(name=dialect)
         resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
         resource_items = ResourceItem.objects.filter(resource_id=resource.id)
+        resource_items_pictures = ResourceItemPicture.objects.filter(resource_id=resource.id)
+
 
         if resource_name=="Alphabet" or resource_name=="Months":
             serializer = ResourceItemSerializer(resource_items, many=True)
         elif resource_name=="Numbers" or resource_name=="Days":
             serializer = ResourceItemNumbersSerializer(resource_items, many=True)
         elif resource_name=="Holidays" or resource_name=="Time":
-            serializer = ResourceItemPictureSerializer(resource_items, many=True)
+            serializer = ResourceItemPictureSerializer(resource_items_pictures, many=True)
 
     return JSONResponse(serializer.data)
 
