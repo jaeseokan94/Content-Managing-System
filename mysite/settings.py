@@ -138,7 +138,7 @@ USE_TZ = True
 
 
 # Update database configuration with $DATABASE_URL.
-#DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
