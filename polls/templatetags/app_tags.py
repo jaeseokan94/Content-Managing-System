@@ -73,6 +73,8 @@ def show_topics(url):
 
     lang_id = -1
 
+    language = Language.objects.none()
+
     for language in languages:
         if language.name in url:
             lang_id = language.id
