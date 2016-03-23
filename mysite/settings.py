@@ -200,6 +200,5 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
 AWS_ACCESS_KEY_ID = 'AKIAJV2IJCXMZS4DJYKA'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'langitupcms'
-AWS_CALLING_FORMAT = 'media'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
