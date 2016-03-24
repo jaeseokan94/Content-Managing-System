@@ -1864,8 +1864,12 @@ def level_update(request, level_id):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
-        #messages.error(request, "Not successfully created")
-        pass
+        context = {
+            "level_id" : level_id,
+            "form" : form,
+        }
+        return render(request, 'polls/level_language_form.html', context)
+
 
 @permission_required('polls.delete_level', raise_exception=True)
 def level_delete(request, level_id):

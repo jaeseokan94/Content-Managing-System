@@ -28,8 +28,11 @@
                         <a href="{% url 'polls:topic_update' level topic.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
                     </td>
                 </tr>
+
             {% endfor %}
         </table>
+                        <a href="{% url 'polls:topic_create' level %}"><button type="button" class="btn btn-success">Add topic</button></a>
+
     {% else %}
         <div class="alert alert-warning">There are no topics at the moment.</div>
 
