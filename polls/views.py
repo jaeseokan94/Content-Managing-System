@@ -1770,7 +1770,10 @@ def listening_comprehension(request, language_name, level, topic_name):
         "correct_answers": sit_vid.correct_answers,
     }
 
-    return JsonResponse(to_json)
+    json_array = []
+    json_array.append(to_json)
+
+    return JsonResponse(json_array, safe=False)
 
 def resource_api(request, language_name, dialect, resource_name):
     if request.method == 'GET':
