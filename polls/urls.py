@@ -128,7 +128,6 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<sv_id>[0-9]+)/listeningComprehension', views.listening_comprehension_update, name='listening_comprehension_update'),
 
 
-
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/$', views.exercise_detail, name='exercise_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/edit/$', views.exercise_update, name='exercise_update'),
 

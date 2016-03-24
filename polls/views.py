@@ -627,6 +627,27 @@ def exercise_detail(request, language_name, level, topic_name, subtopic_name, ex
 
     return render(request, 'polls/exercise_detail.html', context)
 
+def vocab_exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    language = Language.objects.get(name=language_name)
+    level = Level.objects.get(level=level)
+    topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
+    languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
+    language_subtopic = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
+
+    exercise = Exercise.objects.get(id=exercise_id)
+    questions = ExerciseVocabularyQuestion.objects.filter(exercise_id=exercise.id)
+
+    context = {
+        'language': language,
+        'topic': topic,
+        'languagetopic': languagetopic,
+        'language_subtopic': language_subtopic,
+        'exercise': exercise,
+        'questions': questions,
+    }
+
+    return render(request, 'polls/vocab_exercise_detail.html', context)
+
 def exercise_create(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
     level = Level.objects.get(level=level)
