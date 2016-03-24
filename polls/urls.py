@@ -128,7 +128,6 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<sv_id>[0-9]+)/listeningComprehension', views.listening_comprehension_update, name='listening_comprehension_update'),
 
 
-    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/$', views.vocab_exercise_detail, name='vocab_exercise_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/$', views.exercise_detail, name='exercise_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/edit/$', views.exercise_update, name='exercise_update'),
 
@@ -144,7 +143,7 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/$', views.exercise_vocab_question_detail, name='exercise_vocab_question_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/vocab/new/$', views.exercise_vocab_question_create, name='exercise_vocab_question_create'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/edit/$', views.exercise_vocab_question_update, name='exercise_vocab_question_update'),
-    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/edit/$', views.exercise_vocab_question_delete, name='exercise_vocab_question_delete'),
+    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/delete/$', views.exercise_vocab_question_delete, name='exercise_vocab_question_delete'),
 
 
 
