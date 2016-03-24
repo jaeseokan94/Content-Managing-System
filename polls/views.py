@@ -685,6 +685,12 @@ def exercise_update(request, language_name, level, topic_name, subtopic_name, ex
 
     return render(request, 'polls/exercise_form.html', context)
 
+def exercise_delete(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    instance = get_object_or_404(Exercise, id=exercise_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return subtopic_detail(request, language_name, level, topic_name, subtopic_name)
+
 
 def exercise_question_detail(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
     language = Language.objects.get(name=language_name)

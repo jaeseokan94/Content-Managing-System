@@ -131,6 +131,8 @@ urlpatterns = [
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/vocab/$', views.vocab_exercise_detail, name='vocab_exercise_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/$', views.exercise_detail, name='exercise_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/edit/$', views.exercise_update, name='exercise_update'),
+    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/delete/$', views.exercise_delete, name='exercise_delete'),
+
 
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/(?P<question_id>[0-9]+)/$', views.exercise_question_detail, name='exercise_question_detail'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/(?P<question_id>[0-9]+)/edit/$', views.exercise_question_update, name='exercise_question_update'),
