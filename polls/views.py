@@ -474,13 +474,7 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     except LanguageSubtopic.DoesNotExist:
         language_subtopic = []
 
-    questions = []
-    for exercise in exercises:
-        questions.append(ExerciseQuestion.objects.filter(exercise=exercise.id))
 
-    vocab_questions = []
-    if len(exercises)>1:
-        vocab_questions = ExerciseVocabularyQuestion.objects.filter(exercise=exercises[0].id)
 
     context = {
         'language': language,
@@ -488,11 +482,10 @@ def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
         'languagetopic': languagetopic,
         'language_subtopic': language_subtopic,
         'exercises': exercises,
-        'questions': questions,
-        'vocab_questions': vocab_questions,
-
     }
 
+    if language_subtopic.subtopic_name == "Vocabulary":
+        return render(request, 'polls/language_subtopic_vocabulary_detail.html', context)
     return render(request, 'polls/language_subtopic_detail.html', context)
 
 def subtopic_create(request, language_name, level, topic_name):
