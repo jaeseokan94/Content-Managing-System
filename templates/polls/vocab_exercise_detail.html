@@ -45,8 +45,8 @@
         <div class="alert alert-warning">Please add questions for exercise.</div>
     {% endif %}
 
-    <a href="">
-        <button class="btn btn-success">Add Multiple choice question</button>
+    <a href="{% url 'polls:exercise_vocab_question_create' language.name topic.level.level topic.topic_name langauge_subtopic.subtopic_name %}">
+        <button class="btn btn-success">Add vocabulary question</button>
     </a>
 
 </div>
