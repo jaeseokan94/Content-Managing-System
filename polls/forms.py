@@ -37,7 +37,6 @@ class ListeningComprehensionForm(forms.ModelForm):
     class Meta:
         model = SituationalVideo
         fields = [
-            "question_text",
             "choice_1",
             "choice_2",
             "choice_3",
