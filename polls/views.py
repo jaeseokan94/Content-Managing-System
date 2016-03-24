@@ -854,9 +854,12 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
 
     return render(request, 'polls/exercise_vocab_question_form.html', context)
 
-#TODO : THIS NEED TO BE IMPLEMENTED CORRECTLY
 def exercise_vocab_question_create(request, language_name, level, topic_name, subtopic_name):
-    exercise = Exercise.objects.get(id=subtopic_name.id)
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
+    language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
+    subtopic = LanguageSubtopic.objects.filter(language_topic=language_topic.id)
+    exercise = Exercise.objects.get(id=subtopic.id)
 
     form = ExerciseVocabularyQuestionForm(request.POST or None)
     if form.is_valid():
