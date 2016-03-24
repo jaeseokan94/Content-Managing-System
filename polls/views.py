@@ -1715,6 +1715,7 @@ def subtopic_list_temp(request, language_name, level, topic_name):
 
     return JsonResponse(to_json, safe=False)
 
+@csrf_exempt
 def listening_comprehension(request, language_name, level, topic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.get(topic_name=topic_name)
