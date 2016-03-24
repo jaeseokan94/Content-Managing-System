@@ -1791,7 +1791,7 @@ def resource_api(request, language_name, dialect, resource_name):
         elif resource_name=="Holidays" or resource_name=="Time":
             serializer = ResourceItemPictureSerializer(resource_items_pictures, many=True)
         elif  resource_name=="Months":
-            resource_api_months(request, language_name, dialect, resource_name)
+            return resource_api_months(request, language_name, dialect, resource_name)
 
     return JSONResponse(serializer.data)
 
