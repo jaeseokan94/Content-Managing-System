@@ -76,7 +76,6 @@ class ExerciseQuestionForm(forms.ModelForm):
     class Meta:
         model = ExerciseQuestion
         fields = [
-            "question_type",
             "question_text",
             "choice_1",
             "choice_2",
@@ -102,21 +101,11 @@ class ExerciseQuestionMultipleChoiceForm(forms.ModelForm):
             "correct_answer",
         ]
 
-class ExerciseQuestionTrueFalseForm(forms.ModelForm):
+
+class ExerciseQuestionTypeTruefalseForm(forms.ModelForm):
     class Meta:
         model = ExerciseQuestion
         fields = [
-            "question_type",
-            "question_text",
-            "choice_1",
-            "choice_2",
-            "correct_answer",
-        ]
-class ExerciseQuestionTypeForm(forms.ModelForm):
-    class Meta:
-        model = ExerciseQuestion
-        fields = [
-            "question_type",
             "question_text",
             "correct_answer",
         ]

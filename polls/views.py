@@ -32,7 +32,7 @@ from .forms import (
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
     LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm, ResourceDialectItemForm,
-ExerciseQuestionMultipleChoiceForm, ExerciseQuestionTrueFalseForm, ExerciseQuestionTypeForm
+ExerciseQuestionMultipleChoiceForm, ExerciseQuestionTypeTruefalseForm
 
 )
 
@@ -731,12 +731,14 @@ def exercise_question_update(request, language_name, level, topic_name, subtopic
     return render(request, 'polls/exercise_question_form.html', context)
 
 def exercise_question_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    # Question type multiple choice question
     exercise = Exercise.objects.get(id=exercise_id)
 
     form = ExerciseQuestionForm(request.POST or None)
     if form.is_valid():
             instance = form.save(commit=False)
             instance.exercise = exercise
+            instance.question_type = "mc"
             instance.save()
             messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -750,33 +752,17 @@ def exercise_question_create(request, language_name, level, topic_name, subtopic
     }
     return render(request, 'polls/exercise_question_form.html', context)
 
-def exercise_question_multiple_choice_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
-    exercise = Exercise.objects.get(id=exercise_id)
 
-    form = ExerciseQuestionMultipleChoiceForm(request.POST or None)
-    if form.is_valid():
-            instance = form.save(commit=False)
-            instance.exercise = exercise
-            instance.save()
-            messages.success(request, "Successfully created")
-            return HttpResponseRedirect(instance.get_absolute_url())
-    else:
-        messages.error(request, "Not successfully created")
-    if request.method == "POST":
-        print(request.POST)
-
-    context = {
-        "form": form,
-    }
-    return render(request, 'polls/exercise_question_form.html', context)
 
 def exercise_question_type_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    # Question typeing
     exercise = Exercise.objects.get(id=exercise_id)
 
-    form = ExerciseQuestionTypeForm(request.POST or None)
+    form = ExerciseQuestionTypeTruefalseForm(request.POST or None)
     if form.is_valid():
             instance = form.save(commit=False)
             instance.exercise = exercise
+            instance.question_type = "ty"
             instance.save()
             messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -788,15 +774,35 @@ def exercise_question_type_create(request, language_name, level, topic_name, sub
     context = {
         "form": form,
     }
-    return render(request, 'polls/exercise_question_form.html', context)
+    return render(request, 'polls/exercise_type_question_form.html', context)
+
+def exercise_question_type_update(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
+    instance = ExerciseQuestion.objects.get(id=question_id)
+
+    form = ExerciseQuestionTypeTruefalseForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/exercise_type_questionform.html', context)
 
 def exercise_question_truefalse_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
     exercise = Exercise.objects.get(id=exercise_id)
 
-    form = ExerciseQuestionTrueFalseForm(request.POST or None)
+    form = ExerciseQuestionTypeTruefalseForm(request.POST or None)
     if form.is_valid():
             instance = form.save(commit=False)
             instance.exercise = exercise
+            instance.question_type = "tf"
             instance.save()
             messages.success(request, "Successfully created")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -808,7 +814,26 @@ def exercise_question_truefalse_create(request, language_name, level, topic_name
     context = {
         "form": form,
     }
-    return render(request, 'polls/exercise_question_form.html', context)
+    return render(request, 'polls/exercise_truefalse_question_form.html', context)
+
+def exercise_question_truefalse_update(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
+    instance = ExerciseQuestion.objects.get(id=question_id)
+
+    form = ExerciseQuestionTypeTruefalseForm(request.POST or None, instance=instance)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            messages.success(request, "Saved")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully saved")
+
+    context = {
+        "instance": instance,
+        "form": form,
+    }
+
+    return render(request, 'polls/exercise_truefalse_question_form.html', context)
 
 
 def exercise_question_delete(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):

@@ -48,6 +48,12 @@
     <a href="{% url 'polls:exercise_question_create' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id %}">
         <button class="btn btn-success">Add Multiple choice question</button>
     </a>
+     <a href="{% url 'polls:exercise_question_type_create' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id %}">
+        <button class="btn btn-success">Add typing question</button>
+          <a href="{% url 'polls:exercise_question_truefalse_create' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name exercise.id %}">
+        <button class="btn btn-success">Add true or false question</button>
+    </a>
+    </a>
 
 <!--
     <a href= url 'polls:exercise_question_multiple_choice_create' language.name topic.level topic.topic_name language_subtopic.subtopic_name exercise.id ">
