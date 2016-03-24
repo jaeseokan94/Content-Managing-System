@@ -6,8 +6,6 @@ from .models import (
     LevelLanguage, Level, Glossary, ResourceDialectItem
 )
 
-from django.db.models import FileField
-
 class LanguageForm(forms.ModelForm):
     class Meta:
         model = Language
@@ -34,8 +32,6 @@ class SituationalVideoForm(forms.ModelForm):
             "video_with_transcript",
             "video_without_transcript",
         ]
-
-
 
 class ListeningComprehensionForm(forms.ModelForm):
     class Meta:

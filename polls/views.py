@@ -444,8 +444,8 @@ def situational_video_create(request, language_name, level, topic_name):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.language_topic = languagetopic
-        instance.video_with_transcript = request.FILES['video_with_transcript']
-        instance.video_without_transcript = request.FILES['video_without_transcript']
+        instance.video_with_transcript = request.FILES.get('video_with_transcript')
+        instance.video_without_transcript = request.FILES.get('video_without_transcript')
         instance.save()
 
         messages.success(request, "Saved")
