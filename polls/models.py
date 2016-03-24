@@ -29,7 +29,6 @@ QUESTION_TYPE = [
     ("ty", "Typing"),
     ("tf", "True or False"),
     ("mc", "Multiple Choice"),
-    ("lc", "Listening Comprehension")
 ]
 
 
