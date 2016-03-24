@@ -34,8 +34,8 @@
                         <span style="font-size: 17px;">{{ question.question_text }}</span>
                     </td>
                     <td class="col-lg-2">
-                        <a href=""><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                        <a href=""><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
+                        <a href="{% url 'polls:exercise_vocab_question_update' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name question.id %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+                        <a href="{% url 'polls:exercise_vocab_question_delete' language.name topic.level.level topic.topic_name language_subtopic.subtopic_name question.id %}"><button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                 </tr>
             {% endfor %}
