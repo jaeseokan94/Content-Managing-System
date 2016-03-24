@@ -32,6 +32,7 @@ from .forms import (
     ExerciseQuestionForm, ExerciseVocabularyQuestionForm, LetterResourceForm, NumberResourceForm,
     HolidaysResourceForm, TopicForm, DialectForm, ListeningComprehensionForm, ResourceForm,
     LevelLanguageForm, LevelForm, VocabularyForm, GlossaryForm, ResourceDialectItemForm,
+ExerciseQuestionMultipleChoiceForm, ExerciseQuestionTrueFalseForm, ExerciseQuestionTypeForm
 
 )
 
@@ -433,11 +434,15 @@ def situational_video_create(request, language_name, level, topic_name):
 
     instance = SituationalVideo(language_topic=languagetopic)
 
-    form = SituationalVideoForm(request.POST or None, instance=instance)
+    form = SituationalVideoForm(request.POST or None,request.FILES, instance=instance)
     if form.is_valid():
+        file = SituationalVideo(video_with_transcript = request.FILES['file'])
         instance = form.save(commit=False)
         instance.language_topic = languagetopic
+        file.save()
         instance.save()
+
+
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
@@ -447,6 +452,8 @@ def situational_video_create(request, language_name, level, topic_name):
     }
 
     return render(request, 'polls/situational_video_form.html', context)
+
+
 
 def subtopic_detail(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
@@ -718,11 +725,74 @@ def exercise_question_create(request, language_name, level, topic_name, subtopic
     }
     return render(request, 'polls/exercise_question_form.html', context)
 
+def exercise_question_multiple_choice_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    exercise = Exercise.objects.get(id=exercise_id)
+
+    form = ExerciseQuestionMultipleChoiceForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.exercise = exercise
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/exercise_question_form.html', context)
+
+def exercise_question_type_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    exercise = Exercise.objects.get(id=exercise_id)
+
+    form = ExerciseQuestionTypeForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.exercise = exercise
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/exercise_question_form.html', context)
+
+def exercise_question_truefalse_create(request, language_name, level, topic_name, subtopic_name, exercise_id):
+    exercise = Exercise.objects.get(id=exercise_id)
+
+    form = ExerciseQuestionTrueFalseForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.exercise = exercise
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
+    return render(request, 'polls/exercise_question_form.html', context)
+
+
 def exercise_question_delete(request, language_name, level, topic_name, subtopic_name, exercise_id, question_id):
     instance = get_object_or_404(ExerciseQuestion, id=question_id)
     instance.delete()
     messages.success(request, "Successfully deleted")
     return exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id)
+
+
 
 def exercise_vocab_question_detail(request, language_name, level, topic_name, subtopic_name, exercise):
     language = Language.objects.get(name=language_name)
@@ -762,6 +832,27 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
         "form": form,
     }
 
+    return render(request, 'polls/exercise_vocab_question_form.html', context)
+
+#TODO : THIS NEED TO BE IMPLEMENTED CORRECTLY
+def exercise_vocab_question_create(request, language_name, level, topic_name, subtopic_name):
+    exercise = Exercise.objects.get(id=subtopic_name.id)
+
+    form = ExerciseVocabularyQuestionForm(request.POST or None)
+    if form.is_valid():
+            instance = form.save(commit=False)
+            instance.exercise = exercise
+            instance.save()
+            messages.success(request, "Successfully created")
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, "Not successfully created")
+    if request.method == "POST":
+        print(request.POST)
+
+    context = {
+        "form": form,
+    }
     return render(request, 'polls/exercise_vocab_question_form.html', context)
 
 def choose_dialect(request, language_name):

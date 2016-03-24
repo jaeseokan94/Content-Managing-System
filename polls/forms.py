@@ -87,6 +87,41 @@ class ExerciseQuestionForm(forms.ModelForm):
             "correct_answer",
         ]
 
+class ExerciseQuestionMultipleChoiceForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestion
+        fields = [
+            "question_type",
+            "question_text",
+            "choice_1",
+            "choice_2",
+            "choice_3",
+            "choice_4",
+            "choice_5",
+            "choice_6",
+            "correct_answer",
+        ]
+
+class ExerciseQuestionTrueFalseForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestion
+        fields = [
+            "question_type",
+            "question_text",
+            "choice_1",
+            "choice_2",
+            "correct_answer",
+        ]
+class ExerciseQuestionTypeForm(forms.ModelForm):
+    class Meta:
+        model = ExerciseQuestion
+        fields = [
+            "question_type",
+            "question_text",
+            "correct_answer",
+        ]
+
+
 class ExerciseVocabularyQuestionForm(forms.ModelForm):
     class Meta:
         model = ExerciseVocabularyQuestion
