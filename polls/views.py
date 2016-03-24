@@ -420,7 +420,7 @@ def situational_video_update(request, language_name, level, topic_name):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.video_with_transcript = request.FILES['video_with_transcript']
-        instance.video_with_transcript = request.FILES['video_without_transcript']
+        instance.video_without_transcript = request.FILES['video_without_transcript']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
