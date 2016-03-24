@@ -1776,6 +1776,13 @@ def level_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+
+        #make 9 topics
+        for i in range(9):
+            topic_name = "Topic " + i
+            topic = Topic(topic_name=topic_name, level=instance)
+            topic.save()
+
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
         #messages.error(request, "Not successfully created")
