@@ -29,6 +29,7 @@ QUESTION_TYPE = [
     ("ty", "Typing"),
     ("tf", "True or False"),
     ("mc", "Multiple Choice"),
+    ("lc", "Listening Comprehension")
 ]
 
 
@@ -48,7 +49,7 @@ def validate_picture_extension(value):
         ext = os.path.splitext(value.name)[1]
         valid_extensions = ['.jpeg', '.jpg', '.png']
         if not ext in valid_extensions:
-            raise ValidationError(u'File not supported! Only .mp3 is allowed.')
+            raise ValidationError(u'File not supported! Only .jpeg, .jpg, .png is allowed.')
 
 
 class Language(models.Model):
@@ -189,6 +190,8 @@ class ExerciseQuestion(models.Model):
     choice_5 = models.CharField(max_length=200, blank=True)
     choice_6 = models.CharField(max_length=200, blank=True)
     correct_answer = models.CharField(max_length=200)
+    audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension], upload_to="audio resources")
+
 
     def __str__(self):
         return self.exercise.language_subtopic.subtopic_name + "|" + self.question_text
