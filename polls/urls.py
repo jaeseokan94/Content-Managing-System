@@ -142,7 +142,7 @@ urlpatterns = [
 
 
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/$', views.exercise_vocab_question_detail, name='exercise_vocab_question_detail'),
-    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/new/$', views.exercise_vocab_question_create, name='exercise_vocab_question_create'),
+    url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/vocab/new/$', views.exercise_vocab_question_create, name='exercise_vocab_question_create'),
     url(r'^(?P<language_name>[\w\s]+)/(?P<level>[\w\s]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<vocab_question_id>[0-9]+)/vocab/edit/$', views.exercise_vocab_question_update, name='exercise_vocab_question_update'),
 
 
