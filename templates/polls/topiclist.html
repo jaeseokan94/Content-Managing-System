@@ -29,9 +29,6 @@
                         </td>
                         <td class="col-lg-3">
                             <a href="{% url 'polls:topic_detail' language_name level topic.topic_name %}"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                            {% if perms.polls.delete_language_topic or perms.polls.delete_topic %}
-                                <button type="button" class="btn btn-danger"><i class="fa fa-trash-o "></i></button>
-                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
