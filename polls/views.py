@@ -439,14 +439,11 @@ def situational_video_create(request, language_name, level, topic_name):
 
     instance = SituationalVideo(language_topic=languagetopic)
 
-    form = SituationalVideoForm(request.POST or None,request.FILES, instance=instance)
+    form = SituationalVideoForm(request.POST or None, instance=instance)
     if form.is_valid():
-        file = SituationalVideo(video_with_transcript = request.FILES['file'])
         instance = form.save(commit=False)
         instance.language_topic = languagetopic
-        file.save()
         instance.save()
-
 
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
