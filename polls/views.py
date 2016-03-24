@@ -1827,7 +1827,7 @@ def resource_api_months(request, language_name, dialect, resource_name):
             elif item.word == "January":
                 january = item
             elif item.word == "February":
-                march = item
+                february = item
             elif item.word == "Spring":
                 spring = item
             elif item.word == "Summer":
@@ -1844,6 +1844,24 @@ def resource_api_months(request, language_name, dialect, resource_name):
                 'March': march.word_in_language,
                 'April': april.word_in_language,
                 'May': may.word_in_language,
+            },
+            {
+                'Summer': summer.word_in_language,
+                'June': june.word_in_language,
+                'July': july.word_in_language,
+                'August': august.word_in_language,
+            },
+            {
+                'Autumn': autumn.word_in_language,
+                'September': september.word_in_language,
+                'October': october.word_in_language,
+                'November': november.word_in_language,
+            },
+            {
+                'Winter': winter.word_in_language,
+                'December': december.word_in_language,
+                'January': january.word_in_language,
+                'February': february.word_in_language,
             }
         ]
 
