@@ -1779,7 +1779,7 @@ def level_create(request):
 
         #make 9 topics
         for i in range(9):
-            topic_name = "Topic " + i
+            topic_name = "Topic " + str(i)
             topic = Topic(topic_name=topic_name, level=instance)
             topic.save()
 
