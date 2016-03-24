@@ -985,7 +985,7 @@ def letter_resource_update(request, language_name, dialect, resource_id):
     form = LetterResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.audio_url = request.FILES.get['audio_url']
+        instance.audio_url = request.FILES.get('audio_url')
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1013,7 +1013,7 @@ def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia
     form = LetterResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.audio_url = request.FILES.get['audio_url']
+        instance.audio_url = request.FILES.get('audio_url')
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1357,7 +1357,7 @@ def months_resource_update(request, language_name, dialect, season_or_month_name
     form = NumberResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.audio_url = request.FILES.get['audio_url']
+        instance.audio_url = request.FILES.get('audio_url')
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
