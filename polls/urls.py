@@ -26,18 +26,19 @@ urlpatterns = [
 
 
     #For API
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/situationalVideo/$', views.situational_video_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exercisesList/$', views.exercise_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/exerciseQuestions/$', views.exercise_question_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/vocabExercisesQuestions/$', views.exercise_vocab_question_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list),
-    url(r'^api/languageList/$', views.language_list_show),
-    url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api),
-    url(r'^api/(?P<level>[a-zA-Z]+)/topicList/$', views.topic_list),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/dialectList/$', views.dialect_list),
-    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api),
-    url(r'^api/(?P<language>[a-zA-Z0-9]+)/glossaryList/$', views.glossary_api),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/situationalVideo/$', views.situational_video_list, name="api_get_situational_video"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list, name="api_get_grammar_video"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exercisesList/$', views.exercise_list, name="api_get_exercises_list"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/(?P<exercise_id>[0-9]+)/exerciseQuestions/$', views.exercise_question_list, name="api_get_questions"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/vocabExercisesQuestions/$', views.exercise_vocab_question_list, name="api_get_vocab_questions"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list, name="api_get_subtopic_list"),
+    url(r'^api/languageList/$', views.language_list_show, name="api_get_language_list"),
+    url(r'^api/(?P<language_name>[a-zA-Z]+)/levelList/$', views.level_api, name="api_get_level_list"),
+    url(r'^api/(?P<level>[a-zA-Z]+)/topicList/$', views.topic_list, name="api_get_topic_list"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/dialectList/$', views.dialect_list, name="api_get_dialect_list"),
+    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api, name="api_get_resource"),
+    url(r'^api/(?P<language>[a-zA-Z0-9]+)/glossaryList/$', views.glossary_api, name="api_get_glossary"),
+    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension_temp, name="api_get_listening_comp"),
 
 
 
