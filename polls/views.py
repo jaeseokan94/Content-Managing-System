@@ -416,9 +416,11 @@ def situational_video_update(request, language_name, level, topic_name):
 
     instance = SituationalVideo.objects.get(language_topic=languagetopic.id)
 
-    form = SituationalVideoForm(request.POST or None, instance=instance)
+    form = SituationalVideoForm(request.POST or None, request.FILES , instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.video_with_transcript = request.FILES['video_with_transcript']
+        instance.video_with_transcript = request.FILES['video_without_transcript']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -437,12 +439,13 @@ def situational_video_create(request, language_name, level, topic_name):
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level.id)
     languagetopic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    instance = SituationalVideo(language_topic=languagetopic)
 
-    form = SituationalVideoForm(request.POST or None, instance=instance)
+    form = SituationalVideoForm(request.POST or None, request.FILES)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.language_topic = languagetopic
+        instance.video_with_transcript = request.FILES['video_with_transcript']
+        instance.video_without_transcript = request.FILES['video_without_transcript']
         instance.save()
 
         messages.success(request, "Saved")
@@ -490,9 +493,10 @@ def subtopic_create(request, language_name, level, topic_name):
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    form = LanguageSubtopicForm(request.POST or None)
+    form = LanguageSubtopicForm(request.POST or None, request.FILES)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.grammar_video_file = request.FILES['grammar_video_file']
         instance.language_topic = language_topic
         instance.save()
         messages.success(request, "Successfully created")
@@ -521,10 +525,11 @@ def vocabulary_subtopic_create(request, language_name, level, topic_name):
     topic = Topic.objects.filter(topic_name=topic_name).get(level=level)
     language_topic = LanguageTopic.objects.filter(topic=topic.id).get(language=language.id)
 
-    form = VocabularyForm(request.POST or None)
+    form = VocabularyForm(request.POST or None, request.FILES)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.language_topic = language_topic
+        instance.grammar_video_file = request.FILES['grammar_video_file']
         instance.subtopic_name = "Vocabulary"
         instance.save()
 
@@ -552,9 +557,10 @@ def subtopic_update(request, language_name, level, topic_name, subtopic_name):
 
     instance = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
-    form = LanguageSubtopicForm(request.POST or None, instance=instance)
+    form = LanguageSubtopicForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.grammar_video_file = request.FILES['grammar_video_file']
             instance.save()
             messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -577,9 +583,10 @@ def subtopic_vocabulary_update(request, language_name, level, topic_name, subtop
 
     instance = LanguageSubtopic.objects.filter(language_topic=languagetopic.id).get(subtopic_name=subtopic_name)
 
-    form = VocabularyForm(request.POST or None, instance=instance)
+    form = VocabularyForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.grammar_video_file = request.FILES['grammar_video_file']
             instance.save()
             messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -865,9 +872,15 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
 
     instance = ExerciseVocabularyQuestion.objects.get(id=vocab_question_id)
 
-    form = ExerciseVocabularyQuestionForm(request.POST or None, instance=instance)
+    form = ExerciseVocabularyQuestionForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.choice_1 = request.FILES.get('choice_1')
+            instance.choice_2 = request.FILES.get('choice_2')
+            instance.choice_3 = request.FILES.get('choice_3')
+            instance.choice_4 = request.FILES.get('choice_4')
+            instance.choice_5 = request.FILES.get('choice_5')
+            instance.choice_6 = request.FILES.get('choice_6')
             instance.save()
             messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -894,9 +907,15 @@ def exercise_vocab_question_create(request, language_name, level, topic_name, su
     subtopic = LanguageSubtopic.objects.filter(language_topic=language_topic.id).get(subtopic_name=subtopic_name)
     exercise = Exercise.objects.get(language_subtopic=subtopic.id)
 
-    form = ExerciseVocabularyQuestionForm(request.POST or None)
+    form = ExerciseVocabularyQuestionForm(request.POST or None, request.FILES)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.choice_1 = request.FILES.get('choice_1')
+            instance.choice_2 = request.FILES.get('choice_2')
+            instance.choice_3 = request.FILES.get('choice_3')
+            instance.choice_4 = request.FILES.get('choice_4')
+            instance.choice_5 = request.FILES.get('choice_5')
+            instance.choice_6 = request.FILES.get('choice_6')
             instance.exercise = exercise
             instance.save()
             messages.success(request, "Successfully created")
@@ -963,9 +982,10 @@ def language_resources_alphabet(request, language_name, dialect):
 def letter_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
 
-    form = LetterResourceForm(request.POST or None, instance=instance)
+    form = LetterResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -990,9 +1010,10 @@ def oth_dia_letter_resource_update(request, language_name, dialect, resource_dia
     """
     instance = ResourceItem.objects.get(id=resource_dia_id)
 
-    form = LetterResourceForm(request.POST or None, instance=instance)
+    form = LetterResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1016,10 +1037,11 @@ def letter_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name="Alphabet")
 
-    form = LetterResourceForm(request.POST or None)
+    form = LetterResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.resource_id = resource
         instance.save()
         messages.success(request, "Successfully created")
@@ -1066,9 +1088,10 @@ def number_resource_update_1_to_31(request, language_name, dialect, number_name)
         instance = ResourceItem(resource_id=resource, word=number_name)
         instance.save()
 
-    form = NumberResourceForm(request.POST or None, instance=instance)
+    form = NumberResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.audio_url = request.FILES['audio_url']
             instance.save()
             messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -1086,9 +1109,10 @@ def number_resource_update_1_to_31(request, language_name, dialect, number_name)
 def number_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItem.objects.get(id=resource_id)
 
-    form = NumberResourceForm(request.POST or None, instance=instance)
+    form = NumberResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.audio_url = request.FILES['audio_url']
             instance.save()
             messages.success(request, "Saved")
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -1113,10 +1137,11 @@ def number_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
 
-    form = NumberResourceForm(request.POST or None)
+    form = NumberResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
             instance = form.save(commit=False)
+            instance.audio_url = request.FILES['audio_url']
             instance.resource_id = resource
             instance.save()
             messages.success(request, "Successfully created")
@@ -1166,9 +1191,10 @@ def days_resource_update(request, language_name, dialect, day_name):
         instance = ResourceItem(resource_id=resource, word=day_name)
         instance.save()
 
-    form = NumberResourceForm(request.POST or None, instance=instance)
+    form = NumberResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1187,10 +1213,11 @@ def days_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
 
-    form = NumberResourceForm(request.POST or None)
+    form = NumberResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.resource_id = resource
         instance.save()
         messages.success(request, "Successfully created")
@@ -1228,9 +1255,11 @@ def resources_holidays(request, language_name, dialect):
 def holidays_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItemPicture.objects.get(id=resource_id)
 
-    form = HolidaysResourceForm(request.POST or None, instance=instance)
+    form = HolidaysResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
+        instance.picture_url = request.FILES['picture_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1255,10 +1284,12 @@ def holidays_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
 
-    form = HolidaysResourceForm(request.POST or None)
+    form = HolidaysResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES.get('audio_url')
+        instance.picture_url = request.FILES.get('picture_url')
         instance.resource_id = resource
         instance.save()
         messages.success(request, "Successfully created")
@@ -1323,9 +1354,10 @@ def months_resource_update(request, language_name, dialect, season_or_month_name
         instance = ResourceItem(resource_id=resource, word=season_or_month_name)
         instance.save()
 
-    form = NumberResourceForm(request.POST or None, instance=instance)
+    form = NumberResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1344,10 +1376,11 @@ def months_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
 
-    form = NumberResourceForm(request.POST or None)
+    form = NumberResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
         instance.resource_id = resource
         instance.save()
         messages.success(request, "Successfully created")
@@ -1385,9 +1418,11 @@ def resources_time(request, language_name, dialect):
 def time_resource_update(request, language_name, dialect, resource_id):
     instance = ResourceItemPicture.objects.get(id=resource_id)
 
-    form = HolidaysResourceForm(request.POST or None, instance=instance)
+    form = HolidaysResourceForm(request.POST or None, request.FILES, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
+        instance.picture_url = request.FILES['picture_url']
         instance.save()
         messages.success(request, "Saved")
         return HttpResponseRedirect(instance.get_absolute_url())
@@ -1406,10 +1441,12 @@ def time_resource_create(request, language_name, dialect):
     dialect = Dialect.objects.get(name=dialect)
     resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
 
-    form = HolidaysResourceForm(request.POST or None)
+    form = HolidaysResourceForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.audio_url = request.FILES['audio_url']
+        instance.picture_url = request.FILES['picture_url']
         instance.resource_id = resource
         instance.save()
         messages.success(request, "Successfully created")
