@@ -854,6 +854,12 @@ def exercise_vocab_question_update(request, language_name, level, topic_name, su
 
     return render(request, 'polls/exercise_vocab_question_form.html', context)
 
+def exercise_vocab_question_delete(request, language_name, level, topic_name, subtopic_name, vocab_question_id):
+    instance = get_object_or_404(ExerciseVocabularyQuestion, id=vocab_question_id)
+    instance.delete()
+    messages.success(request, "Successfully deleted")
+    return exercise_detail(request, language_name, level, topic_name, subtopic_name, exercise_id)
+
 def exercise_vocab_question_create(request, language_name, level, topic_name, subtopic_name):
     language = Language.objects.get(name=language_name)
     topic = Topic.objects.get(topic_name=topic_name)
