@@ -1475,6 +1475,23 @@ def dialect_create(request, language_name):
         instance = form.save(commit=False)
         instance.language_id = language
         instance.save()
+
+        #creating all resources ie Alphabet...Time
+        alphabet = Resource(dialect_id=instance, name="Alphabet")
+        numbers = Resource(dialect_id=instance, name="Numbers")
+        days = Resource(dialect_id=instance, name="Days")
+        holidays = Resource(dialect_id=instance, name="Holidays")
+        seasons_and_months = Resource(dialect_id=instance, name="Months")
+        time = Resource(dialect_id=instance, name="Time")
+
+        #saving all resources
+        alphabet.save()
+        numbers.save()
+        days.save()
+        holidays.save()
+        seasons_and_months.save()
+        time.save()
+
         messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
