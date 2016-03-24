@@ -1775,6 +1775,7 @@ def listening_comprehension(request, language_name, level, topic_name):
 
     return JsonResponse(json_array, safe=False)
 
+@csrf_exempt
 def resource_api(request, language_name, dialect, resource_name):
     if request.method == 'GET':
         dialect = Dialect.objects.get(name=dialect)
@@ -1783,14 +1784,70 @@ def resource_api(request, language_name, dialect, resource_name):
         resource_items_pictures = ResourceItemPicture.objects.filter(resource_id=resource.id)
 
 
-        if resource_name=="Alphabet" or resource_name=="Months":
+        if resource_name=="Alphabet":
             serializer = ResourceItemSerializer(resource_items, many=True)
         elif resource_name=="Numbers" or resource_name=="Days":
             serializer = ResourceItemNumbersSerializer(resource_items, many=True)
         elif resource_name=="Holidays" or resource_name=="Time":
             serializer = ResourceItemPictureSerializer(resource_items_pictures, many=True)
+        elif  resource_name=="Months":
+            resource_api_months(request, language_name, dialect, resource_name)
 
     return JSONResponse(serializer.data)
+
+@csrf_exempt
+def resource_api_months(request, language_name, dialect, resource_name):
+    if request.method == 'GET':
+        dialect = Dialect.objects.get(name=dialect)
+        resource = Resource.objects.filter(dialect_id=dialect.id).get(name=resource_name)
+        resource_items = ResourceItem.objects.filter(resource_id=resource.id)
+
+        #get months
+        for item in resource_items:
+            if item.word == "March":
+                march = item
+            elif item.word == "April":
+                april = item
+            elif item.word == "May":
+                may = item
+            elif item.word == "June":
+                june = item
+            elif item.word == "July":
+                july = item
+            elif item.word == "August":
+                august = item
+            elif item.word == "September":
+                september = item
+            elif item.word == "October":
+                october = item
+            elif item.word == "November":
+                november = item
+            elif item.word == "December":
+                december = item
+            elif item.word == "January":
+                january = item
+            elif item.word == "February":
+                march = item
+            elif item.word == "Spring":
+                spring = item
+            elif item.word == "Summer":
+                summer = item
+            elif item.word == "Autumn":
+                autumn = item
+            elif item.word == "Winter":
+                winter = item
+
+
+        to_json = [
+            {
+                'Spring': spring.word_in_language,
+                'March': march.word_in_language,
+                'April': april.word_in_language,
+                'May': may.word_in_language,
+            }
+        ]
+
+    return JsonResponse(to_json, safe=False)
 
 def level_api(request, language_name):
     if request.method == 'GET':
