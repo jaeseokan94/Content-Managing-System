@@ -206,12 +206,12 @@ class ExerciseQuestion(models.Model):
 class ExerciseVocabularyQuestion(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
-    choice_1 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
-    choice_2 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
-    choice_3 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
-    choice_4 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
-    choice_5 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
-    choice_6 = models.FileField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_1 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_2 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_3 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_4 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_5 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
+    choice_6 = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], default="", upload_to="vocabulary/pictures")
     correct_answer = models.CharField(max_length=1, choices=CHOICES, default=CHOICES[0])
 
     def __str__(self):
@@ -303,7 +303,7 @@ class ResourceItemPicture(models.Model):
     resource_id = models.ForeignKey(Resource, on_delete=models.CASCADE)
     phrase = models.CharField(max_length=200)
     phrase_in_language = models.CharField(max_length=200)
-    picture_url = models.FileField(null=True, blank=True, validators=[validate_picture_extension], upload_to="picture resources")
+    picture_url = models.ImageField(null=True, blank=True, validators=[validate_picture_extension], upload_to="picture resources")
     audio_url = models.FileField(null=True, blank=True, validators=[validate_audio_extension], upload_to="audio resources")
 
     def __str__(self):
