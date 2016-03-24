@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/grammarVideo/$', views.grammar_video_list_temp),
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/(?P<subtopic_name>[\w\s]+)/exerciseQuestion/$', views.exercise_question_list_temp),
     url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/subtopicList/$', views.subtopic_list_temp),
-    url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension_temp),
+    url(r'^temp/api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension),
 
 
     #For API
@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/dialectList/$', views.dialect_list, name="api_get_dialect_list"),
     url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<dialect>[a-zA-Z0-9]+)/(?P<resource_name>[a-zA-Z0-9]+)/$', views.resource_api, name="api_get_resource"),
     url(r'^api/(?P<language>[a-zA-Z0-9]+)/glossaryList/$', views.glossary_api, name="api_get_glossary"),
-    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension_temp, name="api_get_listening_comp"),
+    url(r'^api/(?P<language_name>[a-zA-Z0-9]+)/(?P<level>[a-zA-Z0-9]+)/(?P<topic_name>[\w\s]+)/listeningComprehension/$', views.listening_comprehension, name="api_get_listening_comp"),
 
 
 

@@ -1648,17 +1648,21 @@ def subtopic_list_temp(request, language_name, level, topic_name):
 
     return JsonResponse(to_json, safe=False)
 
-def listening_comprehension_temp(request, language_name, level, topic_name):
+def listening_comprehension(request, language_name, level, topic_name):
+    language = Language.objects.get(name=language_name)
+    topic = Topic.objects.get(topic_name=topic_name)
+    language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
+    sit_vid = SituationalVideo.objects.get(language_topic=language_topic.id)
+
     to_json = {
-        "exercise": "1",
-        "audio_url": "media/listening_comprehension/U01-E05.mp3",
-        "choice_1": "Marta llega a Madrid en tren",
-        "choice_2": "Peter es amigo de Julia",
-        "choice_3": "Julia presenta a Julia y Peter",
-        "choice_4": "Julia pregunta dónde está su amigo",
-        "choice_5": "Todos están en la estación de tren",
-        "choice_6": "Peter esta en España",
-        "correct_answers": "2,3,4,5,6",
+        "audio_url": sit_vid.video_with_transcript,
+        "choice_1": sit_vid.choice_1,
+        "choice_2": sit_vid.choice_2,
+        "choice_3": sit_vid.choice_3,
+        "choice_4": sit_vid.choice_4,
+        "choice_5": sit_vid.choice_5,
+        "choice_6": sit_vid.choice_6,
+        "correct_answers": sit_vid.correct_answers,
     }
 
     return JsonResponse(to_json)
