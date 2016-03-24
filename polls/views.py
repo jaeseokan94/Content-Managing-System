@@ -1655,7 +1655,7 @@ def listening_comprehension(request, language_name, level, topic_name):
     sit_vid = SituationalVideo.objects.get(language_topic=language_topic.id)
 
     to_json = {
-        "audio_url": sit_vid.video_with_transcript,
+        "audio_url": sit_vid.video_with_transcript.url,
         "choice_1": sit_vid.choice_1,
         "choice_2": sit_vid.choice_2,
         "choice_3": sit_vid.choice_3,
