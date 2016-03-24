@@ -24,7 +24,7 @@ from polls import views
 urlpatterns = [
     url(r'^$', views.dashboard, name='homepage'),
     url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
 ]
