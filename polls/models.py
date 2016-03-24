@@ -289,13 +289,13 @@ class ResourceDialectItem(models.Model):
 
     def get_absolute_url(self):
         namespace = ""
-        if self.resource_id.name == "Alphabet":
+        if self.resource_item.resource_id.name == "Alphabet":
             namespace = "polls:resources_alphabet"
-        elif self.resource_id.name == "Numbers":
+        elif self.resource_item.resource_id.name == "Numbers":
             namespace = "polls:resources_numbers"
-        elif self.resource_id.name == "Days":
+        elif self.resource_item.resource_id.name == "Days":
             namespace = "polls:resources_days"
-        elif self.resource_id.name == "Months":
+        elif self.resource_item.resource_id.name == "Months":
             namespace = "polls:resources_months"
         return reverse(namespace, kwargs={"language_name": self.resource_item.resource_id.dialect_id.language_id.name, "dialect": self.resource_item.resource_id.dialect_id.name})
 
