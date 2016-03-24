@@ -68,7 +68,6 @@ def grammar_video_list(request, language, level, topic_name, subtopic_name):
         subtopic = LanguageSubtopic.objects.filter(subtopic_name=subtopic_name)
         serializer = GrammarVideoSerializer(subtopic, many=True)
         return JSONResponse(serializer.data)
-'''http://127.0.0.1:8000/polls/German/beginner/Bathroom/subtopic-test/grammarVideo/'''
 
 @csrf_exempt
 def language_list_show(request):
@@ -871,7 +870,7 @@ def exercise_vocab_question_create(request, language_name, level, topic_name, su
     topic = Topic.objects.get(topic_name=topic_name)
     language_topic = LanguageTopic.objects.filter(language=language.id).get(topic=topic.id)
     subtopic = LanguageSubtopic.objects.filter(language_topic=language_topic.id).get(subtopic_name=subtopic_name)
-    exercise = Exercise.objects.get(id=subtopic.id)
+    exercise = Exercise.objects.get(language_subtopic=subtopic.id)
 
     form = ExerciseVocabularyQuestionForm(request.POST or None)
     if form.is_valid():
