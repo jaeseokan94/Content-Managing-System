@@ -1,5 +1,11 @@
 # Content Managing System for Android app
 cms - paragon , Django + Android project
+
+
+
+
+
+
 Git merge (Branch into master) http://stackoverflow.com/questions/5601931/best-and-safest-way-to-merge-a-git-branch-into-master
 
     git checkout master
