@@ -1,7 +1,11 @@
 # Content Managing System for Android app
 cms - paragon , Django + Android project
 
-This is a content managing system programmed by Python on Django framework. 
+This is a content managing system programmed by Python on Django framework. If you want to see the Android app that this content managing system is managing, please click this link. https://github.com/jaeseokan94/GrammarApp 
+
+Access is not allowed to public, if you would like to have a look on the content managing system, contact us please. (Jae Seok, Jat, Kun Park, Shubham) 
+
+This CMS is hosted on Heroku. 
 
 
 
