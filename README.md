@@ -1,7 +1,7 @@
 # Content Managing System for Android app
 cms - paragon , Django + Android project
 
-
+This is a content managing system programmed by Python on Django framework. 
 
 
 
