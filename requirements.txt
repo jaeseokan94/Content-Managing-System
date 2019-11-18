@@ -2,7 +2,7 @@ django-registration-redux==1.4
 dj-database-url==0.4.0
 Django==1.9.2
 djangorestframework==3.3.2
-gunicorn==19.4.5
+gunicorn==19.5.0
 Markdown==2.6.5
 whitenoise==2.0.6
 psycopg2==2.6.1
